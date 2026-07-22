@@ -21,7 +21,7 @@ jobs:
       # Use rust-toolchain.toml which is nightly-2025-09-15 (per AGENTS.md "unstable features...")
       - uses: dtolnay/rust-toolchain@e081816240890017053eacbb1bdf337761dc5582 # 1.95.0
         with:
-          toolchain: nightly-2025-09-15
+          toolchain: nightly-2025-09-18
           components: rustfmt
 
       - name: cargo fmt --all
