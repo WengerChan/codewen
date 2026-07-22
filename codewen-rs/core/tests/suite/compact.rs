@@ -430,7 +430,7 @@ fn assert_pre_sampling_switch_compaction_requests(
     );
 }
 
-async fn assert_compaction_uses_turn_lifecycle_id(codewen: &std::sync::Arc<codewen_core::CodewenThread>) {
+async fn assert_compaction_uses_turn_lifecycle_id(codewen: &std::sync::Arc<codewen_core::CodewenThread>) {
     let mut turn_started_id = None;
     let mut turn_completed_id = None;
     let mut compact_started_id = None;

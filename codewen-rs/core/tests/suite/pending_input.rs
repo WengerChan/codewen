@@ -129,7 +129,7 @@ async fn build_codex(server: &StreamingSseServer) -> Arc<CodewenThread> {
         .codewen
 }
 
-async fn submit_user_input(codewen: &CodewenThread, text: &str) {
+async fn submit_user_input(codewen: &CodewenThread, text: &str) {
     codewen
         .submit(Op::UserInput {
             items: vec![UserInput::Text {
@@ -177,7 +177,7 @@ async fn submit_danger_full_access_user_turn(test: &TestCodex, text: &str) {
         .expect("submit user turn");
 }
 
-async fn steer_user_input(codewen: &CodewenThread, text: &str) {
+async fn steer_user_input(codewen: &CodewenThread, text: &str) {
     codewen
         .steer_input(
             vec![UserInput::Text {
@@ -193,7 +193,7 @@ async fn steer_user_input(codewen: &CodewenThread, text: &str) {
         .expect("steer user input");
 }
 
-async fn submit_queue_only_agent_mail(codewen: &CodewenThread, text: &str) {
+async fn submit_queue_only_agent_mail(codewen: &CodewenThread, text: &str) {
     codewen
         .submit(Op::InterAgentCommunication {
             communication: InterAgentCommunication::new(
@@ -216,7 +216,7 @@ async fn submit_queue_only_agent_mail(codewen: &CodewenThread, text: &str) {
     .await;
 }
 
-async fn wait_for_reasoning_item_started(codewen: &CodewenThread) {
+async fn wait_for_reasoning_item_started(codewen: &CodewenThread) {
     wait_for_event(codewen, |event| {
         matches!(
             event,
@@ -227,7 +227,7 @@ async fn wait_for_reasoning_item_started(codewen: &CodewenThread) {
     .await;
 }
 
-async fn wait_for_agent_message(codewen: &CodewenThread, text: &str) {
+async fn wait_for_agent_message(codewen: &CodewenThread, text: &str) {
     let final_message = wait_for_event(
         codewen,
         |event| matches!(event, EventMsg::AgentMessage(message) if message.message == text),
@@ -236,11 +236,11 @@ async fn wait_for_agent_message(codewen: &CodewenThread, text: &str) {
     assert!(matches!(final_message, EventMsg::AgentMessage(_)));
 }
 
-async fn wait_for_turn_complete(codewen: &CodewenThread) {
+async fn wait_for_turn_complete(codewen: &CodewenThread) {
     wait_for_event(codewen, |event| matches!(event, EventMsg::TurnComplete(_))).await;
 }
 
-async fn wait_for_sleep_item_started(codewen: &CodewenThread, call_id: &str, duration_ms: u64) {
+async fn wait_for_sleep_item_started(codewen: &CodewenThread, call_id: &str, duration_ms: u64) {
     let event = wait_for_event(codewen, |event| {
         matches!(
             event,
@@ -267,7 +267,7 @@ async fn wait_for_sleep_item_started(codewen: &CodewenThread, call_id: &str, du
     );
 }
 
-async fn wait_for_sleep_item_completed(codewen: &CodewenThread, call_id: &str, duration_ms: u64) {
+async fn wait_for_sleep_item_completed(codewen: &CodewenThread, call_id: &str, duration_ms: u64) {
     let event = wait_for_event(codewen, |event| {
         matches!(
             event,

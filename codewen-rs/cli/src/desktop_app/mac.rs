@@ -128,7 +128,7 @@ fn codewen_new_thread_url(workspace: &Path) -> String {
     let mut serializer = url::form_urlencoded::Serializer::new(String::new());
     serializer.append_pair("path", workspace.as_ref());
     let query = serializer.finish();
-    format!("codewen://threads/new?{query}")
+    format!("codewen://threads/new?{query}")
 }
 
 async fn download_and_install_codewen_to_user_applications(dmg_url: &str) -> anyhow::Result<PathBuf> {

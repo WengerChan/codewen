@@ -565,7 +565,7 @@ fn follow_up_index(request_count: usize) -> usize {
 
 async fn capture_from_requests(
     mode: Mode,
-    codewen: &codewen_core::CodewenThread,
+    codewen: &codewen_core::CodewenThread,
     rollout_path: &Path,
     responses_mock: &ResponseMock,
     compact_mock: Option<&ResponseMock>,
@@ -603,7 +603,7 @@ async fn capture_from_requests(
     })
 }
 
-async fn submit_user_input(codewen: &codewen_core::CodewenThread, items: Vec<UserInput>) -> Result<()> {
+async fn submit_user_input(codewen: &codewen_core::CodewenThread, items: Vec<UserInput>) -> Result<()> {
     codewen
         .submit(Op::UserInput {
             items,
@@ -617,7 +617,7 @@ async fn submit_user_input(codewen: &codewen_core::CodewenThread, items: Vec<Us
     Ok(())
 }
 
-async fn wait_for_turn_complete(codewen: &codewen_core::CodewenThread) {
+async fn wait_for_turn_complete(codewen: &codewen_core::CodewenThread) {
     wait_for_event(codewen, |ev| matches!(ev, EventMsg::TurnComplete(_))).await;
 }
 

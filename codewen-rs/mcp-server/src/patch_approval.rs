@@ -47,7 +47,7 @@ pub(crate) async fn handle_patch_approval_request(
     grant_root: Option<PathBuf>,
     changes: HashMap<PathBuf, FileChange>,
     outgoing: Arc<OutgoingMessageSender>,
-    codewen: Arc<CodewenThread>,
+    codewen: Arc<CodewenThread>,
     request_id: RequestId,
     tool_call_id: String,
     event_id: String,
@@ -103,7 +103,7 @@ pub(crate) async fn handle_patch_approval_request(
 pub(crate) async fn on_patch_approval_response(
     approval_id: String,
     receiver: tokio::sync::oneshot::Receiver<serde_json::Value>,
-    codewen: Arc<CodewenThread>,
+    codewen: Arc<CodewenThread>,
 ) {
     let response = receiver.await;
     let value = match response {

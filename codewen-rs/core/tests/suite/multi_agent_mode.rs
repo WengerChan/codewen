@@ -68,7 +68,7 @@ fn count_containing(texts: &[&str], target: &str) -> usize {
 }
 
 async fn submit_turn(
-    codewen: &codewen_core::CodewenThread,
+    codewen: &codewen_core::CodewenThread,
     prompt: &str,
     effort: Option<ReasoningEffort>,
 ) -> Result<()> {

@@ -722,7 +722,7 @@ impl TestCodexBuilder {
             home,
             cwd,
             config,
-            codewen: new_conversation.thread,
+            codewen: new_conversation.thread,
             session_configured: new_conversation.session_configured,
             thread_manager,
             _test_env: test_env,
@@ -811,7 +811,7 @@ fn ensure_test_model_catalog(config: &mut Config) -> Result<()> {
 pub struct TestCodex {
     pub home: Arc<TempDir>,
     pub cwd: Arc<TempDir>,
-    pub codewen: Arc<CodewenThread>,
+    pub codewen: Arc<CodewenThread>,
     pub session_configured: SessionConfiguredEvent,
     pub config: Config,
     pub thread_manager: Arc<ThreadManager>,

@@ -260,7 +260,7 @@ pub fn find_codewen_linux_sandbox_exe() -> Result<PathBuf, CargoBinError> {
 }
 
 pub async fn wait_for_event<F>(
-    codewen: &CodewenThread,
+    codewen: &CodewenThread,
     predicate: F,
 ) -> codewen_protocol::protocol::EventMsg
 where
@@ -271,7 +271,7 @@ where
 }
 
 /// Waits for a configured MCP server to finish startup and requires it to be ready.
-pub async fn wait_for_mcp_server(codewen: &CodewenThread, server_name: &str) -> anyhow::Result<()> {
+pub async fn wait_for_mcp_server(codewen: &CodewenThread, server_name: &str) -> anyhow::Result<()> {
     use codewen_protocol::protocol::EventMsg;
 
     // Wait for the startup summary regardless of outcome, then interpret the
@@ -304,7 +304,7 @@ pub async fn wait_for_mcp_server(codewen: &CodewenThread, server_name: &str) ->
 }
 
 pub async fn submit_thread_settings(
-    codewen: &CodewenThread,
+    codewen: &CodewenThread,
     thread_settings: codewen_protocol::protocol::ThreadSettingsOverrides,
 ) -> anyhow::Result<()> {
     use codewen_protocol::protocol::EventMsg;
@@ -328,7 +328,7 @@ pub async fn submit_thread_settings(
     }
 }
 
-pub async fn wait_for_event_match<T, F>(codewen: &CodewenThread, matcher: F) -> T
+pub async fn wait_for_event_match<T, F>(codewen: &CodewenThread, matcher: F) -> T
 where
     F: Fn(&codewen_protocol::protocol::EventMsg) -> Option<T>,
 {
@@ -337,7 +337,7 @@ where
 }
 
 pub async fn wait_for_event_with_timeout<F>(
-    codewen: &CodewenThread,
+    codewen: &CodewenThread,
     mut predicate: F,
     wait_time: tokio::time::Duration,
 ) -> codewen_protocol::protocol::EventMsg

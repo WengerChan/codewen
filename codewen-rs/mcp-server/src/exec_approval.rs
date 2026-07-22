@@ -52,7 +52,7 @@ pub(crate) async fn handle_exec_approval_request(
     command: Vec<String>,
     cwd: PathBuf,
     outgoing: Arc<crate::outgoing_message::OutgoingMessageSender>,
-    codewen: Arc<CodewenThread>,
+    codewen: Arc<CodewenThread>,
     request_id: RequestId,
     tool_call_id: String,
     event_id: String,
@@ -113,7 +113,7 @@ async fn on_exec_approval_response(
     approval_id: String,
     event_id: String,
     receiver: tokio::sync::oneshot::Receiver<serde_json::Value>,
-    codewen: Arc<CodewenThread>,
+    codewen: Arc<CodewenThread>,
 ) {
     let response = receiver.await;
     let value = match response {

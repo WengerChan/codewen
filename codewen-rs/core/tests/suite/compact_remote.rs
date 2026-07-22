@@ -236,7 +236,7 @@ async fn start_remote_realtime_server() -> responses::WebSocketTestServer {
     .await
 }
 
-async fn start_realtime_conversation(codewen: &codewen_core::CodewenThread) -> Result<()> {
+async fn start_realtime_conversation(codewen: &codewen_core::CodewenThread) -> Result<()> {
     codewen
         .submit(Op::RealtimeConversationStart(ConversationStartParams {
             client_managed_handoffs: false,
@@ -280,7 +280,7 @@ async fn start_realtime_conversation(codewen: &codewen_core::CodewenThread) -> 
     Ok(())
 }
 
-async fn close_realtime_conversation(codewen: &codewen_core::CodewenThread) -> Result<()> {
+async fn close_realtime_conversation(codewen: &codewen_core::CodewenThread) -> Result<()> {
     codewen.submit(Op::RealtimeConversationClose).await?;
     wait_for_event_match(codewen, |msg| match msg {
         EventMsg::RealtimeConversationClosed(closed) => Some(closed.clone()),
@@ -333,7 +333,7 @@ fn assert_request_contains_realtime_end(request: &responses::ResponsesRequest) {
     );
 }
 
-async fn wait_for_turn_complete(codewen: &codewen_core::CodewenThread) {
+async fn wait_for_turn_complete(codewen: &codewen_core::CodewenThread) {
     wait_for_event_with_timeout(
         codewen,
         |ev| matches!(ev, EventMsg::TurnComplete(_)),

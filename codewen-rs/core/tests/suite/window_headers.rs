@@ -99,7 +99,7 @@ async fn window_id_advances_after_compact_persists_on_resume_and_resets_on_fork(
     Ok(())
 }
 
-async fn submit_user_turn(codewen: &Arc<CodewenThread>, text: &str) -> Result<()> {
+async fn submit_user_turn(codewen: &Arc<CodewenThread>, text: &str) -> Result<()> {
     codewen
         .submit(Op::UserInput {
             items: vec![UserInput::Text {
@@ -116,7 +116,7 @@ async fn submit_user_turn(codewen: &Arc<CodewenThread>, text: &str) -> Result<(
     Ok(())
 }
 
-async fn submit_compact_turn(codewen: &Arc<CodewenThread>) -> Result<()> {
+async fn submit_compact_turn(codewen: &Arc<CodewenThread>) -> Result<()> {
     codewen.submit(Op::Compact).await?;
     let warning_event = wait_for_event(codewen, |event| matches!(event, EventMsg::Warning(_))).await;
     let EventMsg::Warning(WarningEvent { message }) = warning_event else {
@@ -127,7 +127,7 @@ async fn submit_compact_turn(codewen: &Arc<CodewenThread>) -> Result<()> {
     Ok(())
 }
 
-async fn shutdown_thread(codewen: &Arc<CodewenThread>) -> Result<()> {
+async fn shutdown_thread(codewen: &Arc<CodewenThread>) -> Result<()> {
     codewen.submit(Op::Shutdown).await?;
     wait_for_event(codewen, |event| matches!(event, EventMsg::ShutdownComplete)).await;
     Ok(())
