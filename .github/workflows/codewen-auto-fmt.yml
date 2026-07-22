@@ -18,8 +18,10 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
+      # Use rust-toolchain.toml which is nightly-2025-09-15 (per AGENTS.md "unstable features...")
       - uses: dtolnay/rust-toolchain@e081816240890017053eacbb1bdf337761dc5582 # 1.95.0
         with:
+          toolchain: nightly-2025-09-15
           components: rustfmt
 
       - name: cargo fmt --all
