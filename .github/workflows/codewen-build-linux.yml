@@ -1,0 +1,56 @@
+name: codewen-build-linux
+
+on:
+  push:
+    branches:
+      - "codewen-rename-full-ci"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - uses: dtolnay/rust-toolchain@e081816240890017053eacbb1bdf337761dc5582 # 1.95.0
+        with:
+          components: rustfmt, clippy
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            codewen-rs/target
+          key: cargo-${{ runner.os }}-${{ hashFiles('codewen-rs/Cargo.lock') }}
+          restore-keys: cargo-${{ runner.os }}-
+
+      - name: cargo fmt --check
+        working-directory: codewen-rs
+        run: cargo fmt --all -- --check
+
+      - name: cargo check
+        working-directory: codewen-rs
+        run: cargo check --workspace --all-targets
+
+      - name: cargo build (release, linux x86_64)
+        working-directory: codewen-rs
+        run: cargo build --release --target x86_64-unknown-linux-gnu -p codewen-cli -p codewen-app-server -p codewen-code-mode-host -p codewen-responses-api-proxy
+
+      - name: Upload binaries
+        uses: actions/upload-artifact@v4
+        with:
+          name: codewen-linux-x64
+          path: |
+            codewen-rs/target/x86_64-unknown-linux-gnu/release/codewen
+            codewen-rs/target/x86_64-unknown-linux-gnu/release/codewen-app-server
+            codewen-rs/target/x86_64-unknown-linux-gnu/release/codewen-code-mode-host
+            codewen-rs/target/x86_64-unknown-linux-gnu/release/codewen-responses-api-proxy
+          if-no-files-found: error
