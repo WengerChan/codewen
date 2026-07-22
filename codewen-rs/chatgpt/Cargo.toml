@@ -1,0 +1,30 @@
+[package]
+name = "codewen-chatgpt"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+anyhow = { workspace = true }
+clap = { workspace = true, features = ["derive"] }
+codewen-connectors = { workspace = true }
+codewen-core = { workspace = true }
+codewen-git-utils = { workspace = true }
+codewen-login = { workspace = true }
+codewen-model-provider = { workspace = true }
+codewen-plugin = { workspace = true }
+codewen-utils-cli = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
+tokio = { workspace = true, features = ["full"] }
+
+[dev-dependencies]
+codewen-utils-cargo-bin = { workspace = true }
+pretty_assertions = { workspace = true }
+serde_json = { workspace = true }
+tempfile = { workspace = true }
+
+[lib]
+doctest = false

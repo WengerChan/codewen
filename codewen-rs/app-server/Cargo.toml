@@ -1,0 +1,141 @@
+[package]
+name = "codewen-app-server"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "codewen-app-server"
+path = "src/main.rs"
+
+[[bin]]
+name = "codewen-app-server-test-notify-capture"
+path = "src/bin/notify_capture.rs"
+
+[[bin]]
+name = "exec-server"
+path = "src/bin/exec_server.rs"
+
+[lib]
+name = "codewen_app_server"
+path = "src/lib.rs"
+doctest = false
+
+[lints]
+workspace = true
+
+[dependencies]
+anyhow = { workspace = true }
+base64 = { workspace = true }
+axum = { workspace = true, default-features = false, features = [
+    "http1",
+    "json",
+    "tokio",
+    "ws",
+] }
+codewen-analytics = { workspace = true }
+codewen-agent-extension = { workspace = true }
+codewen-arg0 = { workspace = true }
+codewen-cloud-config = { workspace = true }
+codewen-config = { workspace = true }
+codewen-connectors = { workspace = true }
+codewen-core = { workspace = true }
+codewen-core-plugins = { workspace = true }
+codewen-home = { workspace = true }
+codewen-exec-server = { workspace = true }
+codewen-extension-api = { workspace = true }
+codewen-external-agent-migration = { workspace = true }
+codewen-features = { workspace = true }
+codewen-goal-extension = { workspace = true }
+codewen-guardian = { workspace = true }
+codewen-git-utils = { workspace = true }
+codewen-file-watcher = { workspace = true }
+codewen-hooks = { workspace = true }
+codewen-http-client = { workspace = true }
+codewen-otel = { workspace = true }
+codewen-plugin = { workspace = true }
+codewen-shell-command = { workspace = true }
+codewen-skills = { workspace = true }
+codewen-skills-extension = { workspace = true }
+codewen-utils-cli = { workspace = true }
+codewen-utils-pty = { workspace = true }
+codewen-backend-client = { workspace = true }
+codewen-file-search = { workspace = true }
+codewen-chatgpt = { workspace = true }
+codewen-login = { workspace = true }
+codewen-image-generation-extension = { workspace = true }
+codewen-memories-extension = { workspace = true }
+codewen-web-search-extension = { workspace = true }
+codewen-memories-write = { workspace = true }
+codewen-mcp = { workspace = true }
+codewen-mcp-extension = { workspace = true }
+codewen-model-provider = { workspace = true }
+codewen-models-manager = { workspace = true }
+codewen-protocol = { workspace = true }
+codewen-app-server-protocol = { workspace = true }
+codewen-app-server-transport = { workspace = true }
+codewen-feedback = { workspace = true }
+codewen-rmcp-client = { workspace = true }
+codewen-rollout = { workspace = true }
+codewen-sandboxing = { workspace = true }
+codewen-state = { workspace = true }
+codewen-thread-store = { workspace = true }
+codewen-tools = { workspace = true }
+codewen-utils-absolute-path = { workspace = true }
+codewen-utils-json-to-toml = { workspace = true }
+codewen-utils-path-uri = { workspace = true }
+chrono = { workspace = true }
+clap = { workspace = true, features = ["derive"] }
+futures = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true }
+tempfile = { workspace = true }
+thiserror = { workspace = true }
+time = { workspace = true }
+toml = { workspace = true }
+toml_edit = { workspace = true }
+tokio = { workspace = true, features = [
+    "io-std",
+    "macros",
+    "process",
+    "rt-multi-thread",
+    "signal",
+] }
+tokio-util = { workspace = true }
+tracing = { workspace = true, features = ["log"] }
+tracing-subscriber = { workspace = true, features = ["env-filter", "fmt", "json"] }
+uuid = { workspace = true, features = ["serde", "v7"] }
+
+[target.'cfg(windows)'.dependencies]
+codewen-windows-sandbox = { workspace = true }
+
+[dev-dependencies]
+app_test_support = { workspace = true }
+axum = { workspace = true, default-features = false, features = [
+    "http1",
+    "json",
+    "tokio",
+] }
+base64 = { workspace = true }
+codewen-model-provider-info = { workspace = true }
+codewen-utils-cargo-bin = { workspace = true }
+core_test_support = { workspace = true }
+flate2 = { workspace = true }
+hmac = { workspace = true }
+opentelemetry = { workspace = true }
+opentelemetry_sdk = { workspace = true }
+pretty_assertions = { workspace = true }
+reqwest = { workspace = true, features = ["rustls-tls"] }
+rmcp = { workspace = true, default-features = false, features = [
+    "elicitation",
+    "server",
+    "transport-streamable-http-server",
+] }
+serial_test = { workspace = true }
+sha2 = { workspace = true }
+shlex = { workspace = true }
+tar = { workspace = true }
+tokio-tungstenite = { workspace = true }
+tracing-opentelemetry = { workspace = true }
+url = { workspace = true }
+wiremock = { workspace = true }

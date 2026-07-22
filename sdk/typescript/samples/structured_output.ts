@@ -1,12 +1,12 @@
 #!/usr/bin/env -S NODE_NO_WARNINGS=1 pnpm ts-node-esm --files
 
-import { Codex } from "@openai/codex-sdk";
+import { Codex } from "@yourname/codewen-sdk";
 
-import { codexPathOverride } from "./helpers.ts";
+import { codewenPathOverride } from "./helpers.ts";
 
-const codex = new Codex({ codexPathOverride: codexPathOverride() });
+const codewen = new Codewen({ codewenPathOverride: codewenPathOverride() });
 
-const thread = codex.startThread();
+const thread = codewen.startThread();
 
 const schema = {
   type: "object",

@@ -1,0 +1,19 @@
+[package]
+edition.workspace = true
+license.workspace = true
+name = "codewen-guardian"
+version.workspace = true
+
+[lib]
+name = "codewen_guardian"
+path = "src/lib.rs"
+test = false
+doctest = false
+
+[lints]
+workspace = true
+
+[dependencies]
+codewen-core = { workspace = true }
+codewen-extension-api = { workspace = true }
+codewen-protocol = { workspace = true }

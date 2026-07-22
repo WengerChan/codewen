@@ -1,0 +1,38 @@
+[package]
+edition.workspace = true
+license.workspace = true
+name = "codewen-thread-store"
+version.workspace = true
+
+[lib]
+name = "codewen_thread_store"
+path = "src/lib.rs"
+doctest = false
+
+[lints]
+workspace = true
+
+[dependencies]
+chrono = { workspace = true, features = ["serde"] }
+codewen-app-server-protocol = { workspace = true }
+codewen-git-utils = { workspace = true }
+codewen-install-context = { workspace = true }
+codewen-otel = { workspace = true }
+codewen-protocol = { workspace = true }
+codewen-rollout = { workspace = true }
+codewen-state = { workspace = true }
+codewen-utils-path = { workspace = true }
+futures = { workspace = true }
+pulldown-cmark = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true }
+sqlx = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true }
+tracing = { workspace = true }
+
+[dev-dependencies]
+pretty_assertions = { workspace = true }
+tempfile = { workspace = true }
+tokio = { workspace = true, features = ["macros", "rt-multi-thread"] }
+uuid = { workspace = true }

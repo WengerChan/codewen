@@ -30,9 +30,9 @@ importers:
         specifier: ^3.5.3
         version: 3.5.3
 
-  codex-cli: {}
+  codewen-cli: {}
 
-  codex-rs/responses-api-proxy/npm: {}
+  codewen-rs/responses-api-proxy/npm: {}
 
   sdk/typescript:
     devDependencies:

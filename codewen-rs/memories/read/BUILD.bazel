@@ -1,0 +1,6 @@
+load("//:defs.bzl", "codewen_rust_crate")
+
+codewen_rust_crate(
+    name = "read",
+    crate_name = "codewen_memories_read",
+)

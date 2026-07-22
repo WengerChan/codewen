@@ -16,7 +16,7 @@ class RunBazelWithBuildBuddyTest(unittest.TestCase):
         self,
         temp_dir: str,
         *,
-        repository: str = "openai/codex",
+        repository: str = "yourname/codewen",
         fork: bool = False,
         event_name: str = "pull_request",
     ) -> dict[str, str]:
@@ -36,20 +36,20 @@ class RunBazelWithBuildBuddyTest(unittest.TestCase):
     def test_keyless_invocation_drops_remote_ci_configuration(self) -> None:
         self.assertIsNone(
             run_bazel_with_buildbuddy.remote_config(
-                ["build", "--config=ci-linux", "//codex-rs/cli:codex"],
+                ["build", "--config=ci-linux", "//codewen-rs/cli:codewen"],
                 {},
             )
         )
         self.assertEqual(
             run_bazel_with_buildbuddy.bazel_args_with_remote_config(
-                ["build", "--config=ci-linux", "--", "//codex-rs/cli:codex"],
+                ["build", "--config=ci-linux", "--", "//codewen-rs/cli:codewen"],
                 {},
             ),
-            ["build", "--", "//codex-rs/cli:codex"],
+            ["build", "--", "//codewen-rs/cli:codewen"],
         )
 
     def test_program_arguments_after_separator_do_not_select_or_lose_rbe(self) -> None:
-        args = ["run", "//codex-rs/cli:codex", "--", "--config=remote"]
+        args = ["run", "//codewen-rs/cli:codewen", "--", "--config=remote"]
 
         self.assertEqual(
             run_bazel_with_buildbuddy.bazel_args_with_remote_config(args, {}),
@@ -68,7 +68,7 @@ class RunBazelWithBuildBuddyTest(unittest.TestCase):
 
             self.assertEqual(
                 run_bazel_with_buildbuddy.bazel_args_with_remote_config(
-                    ["build", "--config=ci-linux", "--", "//codex-rs/cli:codex"],
+                    ["build", "--config=ci-linux", "--", "//codewen-rs/cli:codewen"],
                     env,
                 ),
                 [
@@ -77,7 +77,7 @@ class RunBazelWithBuildBuddyTest(unittest.TestCase):
                     "--remote_header=x-buildbuddy-api-key=token",
                     "--config=ci-linux",
                     "--",
-                    "//codex-rs/cli:codex",
+                    "//codewen-rs/cli:codewen",
                 ],
             )
 
@@ -86,7 +86,7 @@ class RunBazelWithBuildBuddyTest(unittest.TestCase):
 
         self.assertEqual(
             run_bazel_with_buildbuddy.bazel_args_with_remote_config(
-                ["build", "--config=ci-windows-cross", "//codex-rs/cli:codex"],
+                ["build", "--config=ci-windows-cross", "//codewen-rs/cli:codewen"],
                 env,
             ),
             [
@@ -94,12 +94,12 @@ class RunBazelWithBuildBuddyTest(unittest.TestCase):
                 "--config=buildbuddy-generic-rbe",
                 "--remote_header=x-buildbuddy-api-key=fork-token",
                 "--config=ci-windows-cross",
-                "//codex-rs/cli:codex",
+                "//codewen-rs/cli:codewen",
             ],
         )
 
     def test_query_remote_configuration_is_inserted_before_expression(self) -> None:
-        expression = 'kind("rust_library rule", //codex-rs/...)'
+        expression = 'kind("rust_library rule", //codewen-rs/...)'
         env = {"BUILDBUDDY_API_KEY": "fork-token"}
 
         for command in ("query", "cquery", "aquery"):
@@ -146,7 +146,7 @@ class RunBazelWithBuildBuddyTest(unittest.TestCase):
 
     def test_run_in_fork_repository_cannot_select_openai_host(self) -> None:
         with TemporaryDirectory() as temp_dir:
-            env = self.github_env(temp_dir, repository="contributor/codex")
+            env = self.github_env(temp_dir, repository="contributor/codewen")
 
             self.assertEqual(
                 run_bazel_with_buildbuddy.remote_config(
@@ -161,7 +161,7 @@ class RunBazelWithBuildBuddyTest(unittest.TestCase):
                 "BUILDBUDDY_API_KEY": "token",
                 "GITHUB_ACTIONS": "true",
                 "GITHUB_EVENT_NAME": "pull_request",
-                "GITHUB_REPOSITORY": "openai/codex",
+                "GITHUB_REPOSITORY": "yourname/codewen",
             }
             if event_path is not None:
                 env["GITHUB_EVENT_PATH"] = event_path
@@ -189,20 +189,20 @@ class RunBazelWithBuildBuddyTest(unittest.TestCase):
         }
 
         self.assertEqual(
-            run_bazel_with_buildbuddy.bazel_command("build", "//codex-rs/...", env=env),
+            run_bazel_with_buildbuddy.bazel_command("build", "//codewen-rs/...", env=env),
             [
                 "bazel",
                 "--output_user_root=/tmp/bazel-output",
                 "--noexperimental_remote_repo_contents_cache",
                 "build",
-                "//codex-rs/...",
+                "//codewen-rs/...",
             ],
         )
         self.assertEqual(
             run_bazel_with_buildbuddy.bazel_command(
                 "--experimental_remote_repo_contents_cache",
                 "build",
-                "//codex-rs/...",
+                "//codewen-rs/...",
                 env=env,
             ),
             [
@@ -210,7 +210,7 @@ class RunBazelWithBuildBuddyTest(unittest.TestCase):
                 "--output_user_root=/tmp/bazel-output",
                 "--experimental_remote_repo_contents_cache",
                 "build",
-                "//codex-rs/...",
+                "//codewen-rs/...",
             ],
         )
 
@@ -224,14 +224,14 @@ class RunBazelWithBuildBuddyTest(unittest.TestCase):
             run_bazel_with_buildbuddy.bazel_command(
                 "build",
                 "--config=local",
-                "//codex-rs/...",
+                "//codewen-rs/...",
                 env=env,
             ),
             [
                 "bazel",
                 "build",
                 "--config=local",
-                "//codex-rs/...",
+                "//codewen-rs/...",
                 "--repo_contents_cache=/tmp/bazel-repo-contents",
                 "--repository_cache=/tmp/bazel-repository",
             ],
@@ -241,7 +241,7 @@ class RunBazelWithBuildBuddyTest(unittest.TestCase):
         self.assertEqual(
             run_bazel_with_buildbuddy.bazel_command(
                 "build",
-                "//codex-rs/...",
+                "//codewen-rs/...",
                 "--",
                 "--program-arg",
                 env={"BAZEL_REPOSITORY_CACHE": "/tmp/bazel-repository"},
@@ -249,7 +249,7 @@ class RunBazelWithBuildBuddyTest(unittest.TestCase):
             [
                 "bazel",
                 "build",
-                "//codex-rs/...",
+                "//codewen-rs/...",
                 "--repository_cache=/tmp/bazel-repository",
                 "--",
                 "--program-arg",

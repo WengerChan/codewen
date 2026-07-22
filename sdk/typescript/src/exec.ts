@@ -42,15 +42,15 @@ export type CodexExecArgs = {
 
 const INTERNAL_ORIGINATOR_ENV = "CODEX_INTERNAL_ORIGINATOR_OVERRIDE";
 const TYPESCRIPT_SDK_ORIGINATOR = "codex_sdk_ts";
-const CODEX_NPM_NAME = "@openai/codex";
+const CODEWEN_NPM_NAME = "@yourname/codewen";
 
 const PLATFORM_PACKAGE_BY_TARGET: Record<string, string> = {
-  "x86_64-unknown-linux-musl": "@openai/codex-linux-x64",
-  "aarch64-unknown-linux-musl": "@openai/codex-linux-arm64",
-  "x86_64-apple-darwin": "@openai/codex-darwin-x64",
-  "aarch64-apple-darwin": "@openai/codex-darwin-arm64",
-  "x86_64-pc-windows-msvc": "@openai/codex-win32-x64",
-  "aarch64-pc-windows-msvc": "@openai/codex-win32-arm64",
+  "x86_64-unknown-linux-musl": "@yourname/codewen-linux-x64",
+  "aarch64-unknown-linux-musl": "@yourname/codewen-linux-arm64",
+  "x86_64-apple-darwin": "@yourname/codewen-darwin-x64",
+  "aarch64-apple-darwin": "@yourname/codewen-darwin-arm64",
+  "x86_64-pc-windows-msvc": "@yourname/codewen-win32-x64",
+  "aarch64-pc-windows-msvc": "@yourname/codewen-win32-arm64",
 };
 
 const moduleRequire = createRequire(import.meta.url);
@@ -388,21 +388,21 @@ function findCodexPath(): CodexPathResolution {
 
   let vendorRoot: string;
   try {
-    const codexPackageJsonPath = moduleRequire.resolve(`${CODEX_NPM_NAME}/package.json`);
+    const codexPackageJsonPath = moduleRequire.resolve(`${CODEWEN_NPM_NAME}/package.json`);
     const codexRequire = createRequire(codexPackageJsonPath);
     const platformPackageJsonPath = codexRequire.resolve(`${platformPackage}/package.json`);
     vendorRoot = path.join(path.dirname(platformPackageJsonPath), "vendor");
   } catch {
     throw new Error(
-      `Unable to locate Codex CLI binaries. Ensure ${CODEX_NPM_NAME} is installed with optional dependencies.`,
+      `Unable to locate Codex CLI binaries. Ensure ${CODEWEN_NPM_NAME} is installed with optional dependencies.`,
     );
   }
 
-  const codexBinaryName = process.platform === "win32" ? "codex.exe" : "codex";
-  const nativePackage = resolveNativePackage(vendorRoot, targetTriple, codexBinaryName);
+  const codewenBinaryName = process.platform === "win32" ? "codewen.exe" : "codewen";
+  const nativePackage = resolveNativePackage(vendorRoot, targetTriple, codewenBinaryName);
   if (!nativePackage) {
     throw new Error(
-      `Unable to locate Codex CLI binaries for ${targetTriple}. Ensure ${CODEX_NPM_NAME} is installed with optional dependencies.`,
+      `Unable to locate Codex CLI binaries for ${targetTriple}. Ensure ${CODEWEN_NPM_NAME} is installed with optional dependencies.`,
     );
   }
 
@@ -412,18 +412,18 @@ function findCodexPath(): CodexPathResolution {
 export function resolveNativePackage(
   vendorRoot: string,
   targetTriple: string,
-  codexBinaryName: string,
+  codewenBinaryName: string,
 ): CodexPathResolution | null {
   const packageRoot = path.join(vendorRoot, targetTriple);
-  const packageBinaryPath = path.join(packageRoot, "bin", codexBinaryName);
-  if (isFile(packageBinaryPath) && isFile(path.join(packageRoot, "codex-package.json"))) {
+  const packageBinaryPath = path.join(packageRoot, "bin", codewenBinaryName);
+  if (isFile(packageBinaryPath) && isFile(path.join(packageRoot, "codewen-package.json"))) {
     return {
       executablePath: packageBinaryPath,
-      pathDirs: existingDirs(path.join(packageRoot, "codex-path")),
+      pathDirs: existingDirs(path.join(packageRoot, "codewen-path")),
     };
   }
 
-  const legacyBinaryPath = path.join(packageRoot, "codex", codexBinaryName);
+  const legacyBinaryPath = path.join(packageRoot, "codewen", codewenBinaryName);
   if (isFile(legacyBinaryPath)) {
     return {
       executablePath: legacyBinaryPath,

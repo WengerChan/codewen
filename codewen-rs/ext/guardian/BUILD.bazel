@@ -1,0 +1,6 @@
+load("//:defs.bzl", "codewen_rust_crate")
+
+codewen_rust_crate(
+    name = "guardian",
+    crate_name = "codewen_guardian",
+)

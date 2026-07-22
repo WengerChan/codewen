@@ -1,0 +1,30 @@
+load("//:defs.bzl", "MACOS_WEBRTC_RUSTC_LINK_FLAGS", "codewen_rust_crate")
+
+codewen_rust_crate(
+    name = "tui",
+    compile_data = glob(
+        include = ["**"],
+        allow_empty = True,
+        exclude = [
+            "**/* *",
+            "BUILD.bazel",
+            "Cargo.toml",
+        ],
+    ) + [
+        "//codewen-rs/collaboration-mode-templates:templates/default.md",
+        "//codewen-rs/collaboration-mode-templates:templates/plan.md",
+    ],
+    crate_name = "codewen_tui",
+    extra_binaries = [
+        "//codewen-rs/cli:codewen",
+    ],
+    integration_compile_data_extra = ["src/test_backend.rs"],
+    rustc_flags_extra = MACOS_WEBRTC_RUSTC_LINK_FLAGS,
+    test_data_extra = glob([
+        "src/**/*.rs",
+        "src/**/snapshots/**",
+    ]),
+    test_shard_counts = {
+        "tui-unit-tests": 8,
+    },
+)

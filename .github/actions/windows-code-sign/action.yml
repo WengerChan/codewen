@@ -6,7 +6,7 @@ inputs:
     required: true
   binaries:
     description: Space-delimited binary basenames to sign.
-    default: "codex codex-responses-api-proxy codex-windows-sandbox-setup codex-command-runner"
+    default: "codewen codewen-responses-api-proxy codewen-windows-sandbox-setup codewen-command-runner"
   client-id:
     description: Azure Trusted Signing client ID.
     required: true

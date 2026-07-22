@@ -1,0 +1,32 @@
+[package]
+edition.workspace = true
+license.workspace = true
+name = "codewen-web-search-extension"
+version.workspace = true
+
+[lib]
+name = "codewen_web_search_extension"
+path = "src/lib.rs"
+doctest = false
+
+[lints]
+workspace = true
+
+[dependencies]
+codewen-api = { workspace = true }
+codewen-core = { workspace = true }
+codewen-extension-api = { workspace = true }
+codewen-extension-items = { workspace = true }
+codewen-login = { workspace = true }
+codewen-model-provider = { workspace = true }
+codewen-model-provider-info = { workspace = true }
+codewen-otel = { workspace = true }
+codewen-protocol = { workspace = true }
+codewen-tools = { workspace = true }
+http = { workspace = true }
+schemars = { workspace = true }
+serde_json = { workspace = true }
+url = { workspace = true }
+
+[dev-dependencies]
+pretty_assertions = { workspace = true }

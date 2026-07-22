@@ -1,0 +1,48 @@
+[package]
+edition.workspace = true
+license.workspace = true
+name = "codewen-mcp"
+version.workspace = true
+
+[lib]
+name = "codewen_mcp"
+path = "src/lib.rs"
+doctest = false
+
+[lints]
+workspace = true
+
+[dependencies]
+anyhow = { workspace = true }
+arc-swap = { workspace = true }
+async-channel = { workspace = true }
+codewen-async-utils = { workspace = true }
+codewen-api = { workspace = true }
+codewen-config = { workspace = true }
+codewen-connectors = { workspace = true }
+codewen-exec-server = { workspace = true }
+codewen-login = { workspace = true }
+codewen-model-provider = { workspace = true }
+codewen-otel = { workspace = true }
+codewen-protocol = { workspace = true }
+codewen-rmcp-client = { workspace = true }
+codewen-utils-path-uri = { workspace = true }
+codewen-utils-plugins = { workspace = true }
+futures = { workspace = true }
+lru = { workspace = true }
+regex-lite = { workspace = true }
+rmcp = { workspace = true, default-features = false, features = ["base64", "macros", "schemars", "server"] }
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true }
+sha1 = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true, features = ["io-util", "macros", "rt-multi-thread"] }
+tokio-util = { workspace = true, features = ["rt"] }
+tracing = { workspace = true }
+url = { workspace = true }
+
+[dev-dependencies]
+codewen-plugin = { workspace = true }
+pretty_assertions = { workspace = true }
+rmcp = { workspace = true, default-features = false, features = ["base64", "macros", "schemars", "server"] }
+tempfile = { workspace = true }

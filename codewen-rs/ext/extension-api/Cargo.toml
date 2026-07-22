@@ -1,0 +1,27 @@
+[package]
+edition.workspace = true
+license.workspace = true
+name = "codewen-extension-api"
+version.workspace = true
+
+[lib]
+name = "codewen_extension_api"
+path = "src/lib.rs"
+test = false
+doctest = false
+
+[lints]
+workspace = true
+
+[dependencies]
+codewen-config = { workspace = true }
+codewen-context-fragments = { workspace = true }
+codewen-exec-server-protocol = { workspace = true }
+codewen-protocol = { workspace = true }
+codewen-tools = { workspace = true }
+codewen-utils-absolute-path = { workspace = true }
+serde_json = { workspace = true }
+
+[dev-dependencies]
+pretty_assertions = { workspace = true }
+tokio = { workspace = true, features = ["macros", "rt-multi-thread"] }

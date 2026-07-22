@@ -1,0 +1,18 @@
+[package]
+edition.workspace = true
+license.workspace = true
+name = "codewen-context-fragments"
+version.workspace = true
+
+[lib]
+name = "codewen_context_fragments"
+path = "src/lib.rs"
+test = false
+doctest = false
+
+[lints]
+workspace = true
+
+[dependencies]
+codewen-protocol = { workspace = true }
+codewen-utils-string = { workspace = true }

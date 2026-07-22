@@ -9,23 +9,23 @@ from _bootstrap import ensure_local_sdk_src, runtime_config
 
 ensure_local_sdk_src()
 
-from openai_codex import Codex
+from openai_codex import Codewen
 
-with Codex(config=runtime_config()) as codex:
+with Codewen(config=runtime_config()) as codewen:
     thread = codex.thread_start(model="gpt-5.4", config={"model_reasoning_effort": "high"})
     first = thread.turn("One sentence about structured planning.").run()
     second = thread.turn("Now restate it for a junior engineer.").run()
 
-    reopened = codex.thread_resume(thread.id)
-    listing_active = codex.thread_list(limit=20, archived=False)
+    reopened = codewen.thread_resume(thread.id)
+    listing_active = codewen.thread_list(limit=20, archived=False)
     reading = reopened.read(include_turns=True)
 
     _ = reopened.set_name("sdk-lifecycle-demo")
-    _ = codex.thread_archive(reopened.id)
-    listing_archived = codex.thread_list(limit=20, archived=True)
-    unarchived = codex.thread_unarchive(reopened.id)
+    _ = codewen.thread_archive(reopened.id)
+    listing_archived = codewen.thread_list(limit=20, archived=True)
+    unarchived = codewen.thread_unarchive(reopened.id)
 
-    resumed = codex.thread_resume(
+    resumed = codewen.thread_resume(
         unarchived.id,
         model="gpt-5.4",
         config={"model_reasoning_effort": "high"},

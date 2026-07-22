@@ -19,7 +19,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     timeout-minutes: 60
-    environment: codex-r2-publisher
+    environment: codewen-r2-publisher
     permissions:
       contents: read
 

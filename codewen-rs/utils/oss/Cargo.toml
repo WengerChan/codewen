@@ -1,0 +1,17 @@
+[package]
+name = "codewen-utils-oss"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+codewen-core = { workspace = true }
+codewen-lmstudio = { workspace = true }
+codewen-model-provider-info = { workspace = true }
+codewen-ollama = { workspace = true }
+
+[lib]
+doctest = false

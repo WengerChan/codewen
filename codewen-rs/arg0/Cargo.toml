@@ -1,0 +1,33 @@
+[package]
+name = "codewen-arg0"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+name = "codewen_arg0"
+path = "src/lib.rs"
+doctest = false
+
+[lints]
+workspace = true
+
+[dependencies]
+anyhow = { workspace = true }
+codewen-apply-patch = { workspace = true }
+codewen-exec-server = { workspace = true }
+codewen-install-context = { workspace = true }
+codewen-linux-sandbox = { workspace = true }
+codewen-sandboxing = { workspace = true }
+codewen-shell-escalation = { workspace = true }
+codewen-utils-absolute-path = { workspace = true }
+codewen-utils-home-dir = { workspace = true }
+dotenvy = { workspace = true }
+tempfile = { workspace = true }
+tokio = { workspace = true, features = ["rt-multi-thread"] }
+
+[target.'cfg(windows)'.dependencies]
+codewen-windows-sandbox = { workspace = true }
+
+[dev-dependencies]
+pretty_assertions = { workspace = true }

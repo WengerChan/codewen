@@ -1,0 +1,6 @@
+load("//:defs.bzl", "codewen_rust_crate")
+
+codewen_rust_crate(
+    name = "shell-escalation",
+    crate_name = "codewen_shell_escalation",
+)

@@ -1,0 +1,35 @@
+[package]
+edition.workspace = true
+license.workspace = true
+name = "codewen-model-provider"
+version.workspace = true
+
+[lib]
+doctest = false
+name = "codewen_model_provider"
+path = "src/lib.rs"
+
+[lints]
+workspace = true
+
+[dependencies]
+codewen-api = { workspace = true }
+codewen-agent-identity = { workspace = true }
+codewen-aws-auth = { workspace = true }
+codewen-http-client = { workspace = true }
+codewen-feedback = { workspace = true }
+codewen-login = { workspace = true }
+codewen-model-provider-info = { workspace = true }
+codewen-models-manager = { workspace = true }
+codewen-otel = { workspace = true }
+codewen-protocol = { workspace = true }
+codewen-response-debug-context = { workspace = true }
+http = { workspace = true }
+tokio = { workspace = true, features = ["sync", "time"] }
+tracing = { workspace = true, features = ["log"] }
+
+[dev-dependencies]
+pretty_assertions = { workspace = true }
+serde_json = { workspace = true }
+tokio = { workspace = true, features = ["macros", "rt"] }
+wiremock = { workspace = true }

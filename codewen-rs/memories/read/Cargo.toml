@@ -1,0 +1,21 @@
+[package]
+edition.workspace = true
+license.workspace = true
+name = "codewen-memories-read"
+version.workspace = true
+
+[lib]
+name = "codewen_memories_read"
+path = "src/lib.rs"
+doctest = false
+
+[lints]
+workspace = true
+
+[dependencies]
+codewen-protocol = { workspace = true }
+codewen-shell-command = { workspace = true }
+codewen-utils-absolute-path = { workspace = true }
+
+[dev-dependencies]
+pretty_assertions = { workspace = true }

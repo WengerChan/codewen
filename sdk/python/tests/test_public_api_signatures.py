@@ -14,8 +14,8 @@ from openai_codex import (
     AsyncCodex,
     AsyncThread,
     AsyncTurnHandle,
-    Codex,
-    CodexConfig,
+    Codewen,
+    CodewenConfig,
     Sandbox,
     Thread,
     TurnHandle,
@@ -26,8 +26,8 @@ from openai_codex.types import InitializeResponse
 
 EXPECTED_ROOT_EXPORTS = [
     "__version__",
-    "CodexConfig",
-    "Codex",
+    "CodewenConfig",
+    "Codewen",
     "AsyncCodex",
     "ApprovalMode",
     "Sandbox",
@@ -49,10 +49,10 @@ EXPECTED_ROOT_EXPORTS = [
     "SkillInput",
     "MentionInput",
     "retry_on_overload",
-    "CodexError",
+    "CodewenError",
     "TransportClosedError",
     "JsonRpcError",
-    "CodexRpcError",
+    "CodewenRpcError",
     "ParseError",
     "InvalidRequestError",
     "MethodNotFoundError",
@@ -129,9 +129,9 @@ def _assert_no_any_annotations(fn: object) -> None:
         raise AssertionError(f"{fn} has public return annotation typed as Any")
 
 
-def test_root_exports_codex_config() -> None:
+def test_root_exports_codewen_config() -> None:
     """The root package should expose the process configuration object."""
-    assert CodexConfig.__name__ == "CodexConfig"
+    assert CodewenConfig.__name__ == "CodewenConfig"
 
 
 def test_root_exports_turn_result() -> None:
@@ -208,24 +208,24 @@ def test_package_and_default_client_versions_follow_project_version() -> None:
     pyproject = tomllib.loads(pyproject_path.read_text())
 
     assert openai_codex.__version__ == pyproject["project"]["version"]
-    assert CodexConfig().client_version == openai_codex.__version__
+    assert CodewenConfig().client_version == openai_codex.__version__
 
 
 def test_curated_public_api_has_builtin_help_documentation() -> None:
     """The package's normal ``help()`` surface should explain common first-use APIs."""
     documented = {
         "module": openai_codex,
-        "Codex": Codex,
+        "Codewen": Codewen,
         "AsyncCodex": AsyncCodex,
-        "CodexConfig": CodexConfig,
+        "CodewenConfig": CodewenConfig,
         "Thread": Thread,
         "AsyncThread": AsyncThread,
         "TurnHandle": TurnHandle,
         "AsyncTurnHandle": AsyncTurnHandle,
         "TurnResult": TurnResult,
         "Sandbox": Sandbox,
-        "thread_start": Codex.thread_start,
-        "thread_resume": Codex.thread_resume,
+        "thread_start": Codewen.thread_start,
+        "thread_resume": Codewen.thread_resume,
         "thread_run": Thread.run,
         "thread_turn": Thread.turn,
     }
@@ -248,7 +248,7 @@ def test_package_root_exports_only_public_api() -> None:
         EXPECTED_ROOT_EXPORTS, True
     )
     assert {
-        "CodexClient": hasattr(openai_codex, "CodexClient"),
+        "CodewenClient": hasattr(openai_codex, "CodewenClient"),
         "AsyncCodexClient": hasattr(openai_codex, "AsyncCodexClient"),
         "InitializeResponse": hasattr(openai_codex, "InitializeResponse"),
         "ThreadStartParams": hasattr(openai_codex, "ThreadStartParams"),
@@ -256,7 +256,7 @@ def test_package_root_exports_only_public_api() -> None:
         "TurnCompletedNotification": hasattr(openai_codex, "TurnCompletedNotification"),
         "TurnStatus": hasattr(openai_codex, "TurnStatus"),
     } == {
-        "CodexClient": False,
+        "CodewenClient": False,
         "AsyncCodexClient": False,
         "InitializeResponse": False,
         "ThreadStartParams": False,
@@ -276,7 +276,7 @@ def test_package_star_import_matches_public_api() -> None:
 
 
 def test_types_module_exports_curated_public_types() -> None:
-    """The public type module should expose Codex protocol models."""
+    """The public type module should expose Codewen protocol models."""
     assert public_types.__all__ == EXPECTED_TYPES_EXPORTS
     assert {name: hasattr(public_types, name) for name in EXPECTED_TYPES_EXPORTS} == dict.fromkeys(
         EXPECTED_TYPES_EXPORTS, True
@@ -316,7 +316,7 @@ def test_examples_use_public_import_surfaces() -> None:
 def test_generated_public_signatures_are_snake_case_and_typed() -> None:
     """Generated convenience methods should expose typed Pythonic keyword names."""
     expected = {
-        Codex.thread_start: [
+        Codewen.thread_start: [
             "approval_mode",
             "base_instructions",
             "config",
@@ -332,7 +332,7 @@ def test_generated_public_signatures_are_snake_case_and_typed() -> None:
             "session_start_source",
             "thread_source",
         ],
-        Codex.thread_list: [
+        Codewen.thread_list: [
             "archived",
             "cursor",
             "cwd",
@@ -344,7 +344,7 @@ def test_generated_public_signatures_are_snake_case_and_typed() -> None:
             "source_kinds",
             "use_state_db_only",
         ],
-        Codex.thread_resume: [
+        Codewen.thread_resume: [
             "approval_mode",
             "base_instructions",
             "config",
@@ -356,7 +356,7 @@ def test_generated_public_signatures_are_snake_case_and_typed() -> None:
             "sandbox",
             "service_tier",
         ],
-        Codex.thread_fork: [
+        Codewen.thread_fork: [
             "approval_mode",
             "base_instructions",
             "config",
@@ -480,7 +480,7 @@ def test_generated_public_signatures_are_snake_case_and_typed() -> None:
 def test_new_thread_methods_default_to_auto_review() -> None:
     """New threads should start with auto-review unless callers opt out."""
     funcs = [
-        Codex.thread_start,
+        Codewen.thread_start,
         AsyncCodex.thread_start,
     ]
 
@@ -492,8 +492,8 @@ def test_new_thread_methods_default_to_auto_review() -> None:
 def test_existing_thread_methods_default_to_preserving_approval_settings() -> None:
     """Existing thread operations should not serialize approval overrides by default."""
     funcs = [
-        Codex.thread_resume,
-        Codex.thread_fork,
+        Codewen.thread_resume,
+        Codewen.thread_fork,
         Thread.turn,
         Thread.run,
         AsyncCodex.thread_resume,
@@ -505,17 +505,17 @@ def test_existing_thread_methods_default_to_preserving_approval_settings() -> No
     assert {fn: _keyword_default(fn, "approval_mode") for fn in funcs} == dict.fromkeys(funcs)
 
 
-def test_lifecycle_methods_are_codex_scoped() -> None:
+def test_lifecycle_methods_are_codewen_scoped() -> None:
     """Lifecycle operations should hang off the client rather than thread objects."""
-    assert hasattr(Codex, "thread_resume")
-    assert hasattr(Codex, "thread_fork")
-    assert hasattr(Codex, "thread_archive")
-    assert hasattr(Codex, "thread_unarchive")
+    assert hasattr(Codewen, "thread_resume")
+    assert hasattr(Codewen, "thread_fork")
+    assert hasattr(Codewen, "thread_archive")
+    assert hasattr(Codewen, "thread_unarchive")
     assert hasattr(AsyncCodex, "thread_resume")
     assert hasattr(AsyncCodex, "thread_fork")
     assert hasattr(AsyncCodex, "thread_archive")
     assert hasattr(AsyncCodex, "thread_unarchive")
-    assert not hasattr(Codex, "thread")
+    assert not hasattr(Codewen, "thread")
     assert not hasattr(AsyncCodex, "thread")
 
     assert not hasattr(Thread, "resume")
@@ -528,8 +528,8 @@ def test_lifecycle_methods_are_codex_scoped() -> None:
     assert not hasattr(AsyncThread, "unarchive")
 
     for fn in (
-        Codex.thread_archive,
-        Codex.thread_unarchive,
+        Codewen.thread_archive,
+        Codewen.thread_unarchive,
         AsyncCodex.thread_archive,
         AsyncCodex.thread_unarchive,
     ):
@@ -538,12 +538,12 @@ def test_lifecycle_methods_are_codex_scoped() -> None:
 
 def test_initialize_metadata_parses_user_agent_shape() -> None:
     """Initialize metadata should accept the legacy user-agent-only payload shape."""
-    payload = InitializeResponse.model_validate({"userAgent": "codex-cli/1.2.3"})
+    payload = InitializeResponse.model_validate({"userAgent": "codewen-cli/1.2.3"})
     parsed = validate_initialize_metadata(payload)
     assert parsed is payload
-    assert parsed.userAgent == "codex-cli/1.2.3"
+    assert parsed.userAgent == "codewen-cli/1.2.3"
     assert parsed.serverInfo is not None
-    assert parsed.serverInfo.name == "codex-cli"
+    assert parsed.serverInfo.name == "codewen-cli"
     assert parsed.serverInfo.version == "1.2.3"
 
 

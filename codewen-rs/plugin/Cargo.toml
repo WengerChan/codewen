@@ -1,0 +1,24 @@
+[package]
+edition.workspace = true
+license.workspace = true
+name = "codewen-plugin"
+version.workspace = true
+
+[lib]
+doctest = false
+name = "codewen_plugin"
+path = "src/lib.rs"
+
+[lints]
+workspace = true
+
+[dependencies]
+codewen-config = { workspace = true }
+codewen-protocol = { workspace = true }
+codewen-utils-absolute-path = { workspace = true }
+codewen-utils-path-uri = { workspace = true }
+codewen-utils-plugins = { workspace = true }
+thiserror = { workspace = true }
+
+[dev-dependencies]
+pretty_assertions = { workspace = true }

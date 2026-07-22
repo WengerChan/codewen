@@ -1,0 +1,43 @@
+[package]
+edition.workspace = true
+license.workspace = true
+name = "codewen-cloud-tasks"
+version.workspace = true
+
+[lib]
+name = "codewen_cloud_tasks"
+path = "src/lib.rs"
+doctest = false
+
+[lints]
+workspace = true
+
+[dependencies]
+anyhow = { workspace = true }
+chrono = { workspace = true, features = ["serde"] }
+clap = { workspace = true, features = ["derive"] }
+codewen-http-client = { workspace = true }
+codewen-cloud-tasks-client = { workspace = true }
+# TODO: codewen-cloud-tasks-mock-client should be in dev-dependencies.
+codewen-cloud-tasks-mock-client = { workspace = true }
+codewen-core = { workspace = true }
+codewen-git-utils = { workspace = true }
+codewen-login = { path = "../login" }
+codewen-model-provider = { workspace = true }
+codewen-tui = { workspace = true }
+codewen-utils-cli = { workspace = true }
+crossterm = { workspace = true, features = ["event-stream"] }
+http = { workspace = true }
+owo-colors = { workspace = true, features = ["supports-colors"] }
+ratatui = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true }
+supports-color = { workspace = true }
+tokio = { workspace = true, features = ["macros", "rt-multi-thread"] }
+tokio-stream = { workspace = true }
+tracing = { workspace = true, features = ["log"] }
+tracing-subscriber = { workspace = true, features = ["env-filter"] }
+unicode-width = { workspace = true }
+
+[dev-dependencies]
+pretty_assertions = { workspace = true }

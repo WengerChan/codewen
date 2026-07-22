@@ -1,0 +1,21 @@
+load("//:defs.bzl", "MACOS_WEBRTC_RUSTC_LINK_FLAGS", "codewen_rust_crate")
+load("//bazel/platforms:release_binaries.bzl", "multiplatform_binaries")
+load("//bazel/rules:e2e_benchmark.bzl", "codewen_e2e_benchmark")
+
+codewen_rust_crate(
+    name = "cli",
+    crate_name = "codewen_cli",
+    extra_binaries = [
+        "//codewen-rs/bwrap:bwrap",
+    ],
+    rustc_flags_extra = MACOS_WEBRTC_RUSTC_LINK_FLAGS,
+)
+
+multiplatform_binaries(
+    name = "codewen",
+)
+
+codewen_e2e_benchmark(
+    name = "codewen-help",
+    binaries = [":codewen"],
+)

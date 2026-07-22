@@ -49,7 +49,7 @@ describe("CodexExec", () => {
     const child = createEarlyExitChild();
     spawnMock.mockReturnValue(child as unknown as child_process.ChildProcess);
 
-    const exec = new CodexExec("codex");
+    const exec = new CodexExec("codewen");
     const runPromise = (async () => {
       for await (const _ of exec.run({ input: "hi" })) {
         // no-op
@@ -83,7 +83,7 @@ describe("CodexExec", () => {
       child.emit("exit", 0, null);
     });
 
-    const exec = new CodexExec("codex");
+    const exec = new CodexExec("codewen");
     for await (const _ of exec.run({ input: "hi", images: ["img.png"], threadId: "thread-id" })) {
       // no-op
     }
@@ -112,8 +112,8 @@ describe("CodexExec", () => {
     process.env.CODEX_ENV_SHOULD_NOT_LEAK = "leak";
 
     try {
-      const exec = new CodexExec("codex", {
-        CODEX_HOME: "/tmp/codex-home",
+      const exec = new CodexExec("codewen", {
+        CODEWEN_HOME: "/tmp/codewen-home",
         CUSTOM_ENV: "custom",
       });
 
@@ -134,7 +134,7 @@ describe("CodexExec", () => {
         throw new Error("Spawn args missing");
       }
 
-      expect(spawnEnv.CODEX_HOME).toBe("/tmp/codex-home");
+      expect(spawnEnv./CODEWEN_HOME).toBe("/tmp/codewen-home");
       expect(spawnEnv.CUSTOM_ENV).toBe("custom");
       expect(spawnEnv.CODEX_ENV_SHOULD_NOT_LEAK).toBeUndefined();
       expect(spawnEnv.CODEX_API_KEY).toBe("test");
@@ -148,40 +148,40 @@ describe("CodexExec", () => {
 
   it("resolves the package-layout binary and PATH directory", async () => {
     const { resolveNativePackage } = await import("../src/exec");
-    const vendorRoot = mkdtempSync(path.join(tmpdir(), "codex-sdk-vendor-"));
+    const vendorRoot = mkdtempSync(path.join(tmpdir(), "codewen-sdk-vendor-"));
     const packageRoot = path.join(vendorRoot, "x86_64-unknown-linux-musl");
     const binDir = path.join(packageRoot, "bin");
-    const pathDir = path.join(packageRoot, "codex-path");
+    const pathDir = path.join(packageRoot, "codewen-path");
     mkdirSync(binDir, { recursive: true });
     mkdirSync(pathDir, { recursive: true });
-    writeFileSync(path.join(packageRoot, "codex-package.json"), "{}");
-    writeFileSync(path.join(binDir, "codex"), "");
+    writeFileSync(path.join(packageRoot, "codewen-package.json"), "{}");
+    writeFileSync(path.join(binDir, "codewen"), "");
 
-    expect(resolveNativePackage(vendorRoot, "x86_64-unknown-linux-musl", "codex")).toEqual({
-      executablePath: path.join(binDir, "codex"),
+    expect(resolveNativePackage(vendorRoot, "x86_64-unknown-linux-musl", "codewen")).toEqual({
+      executablePath: path.join(binDir, "codewen"),
       pathDirs: [pathDir],
     });
   });
 
   it("falls back to the legacy binary layout", async () => {
     const { resolveNativePackage } = await import("../src/exec");
-    const vendorRoot = mkdtempSync(path.join(tmpdir(), "codex-sdk-vendor-"));
+    const vendorRoot = mkdtempSync(path.join(tmpdir(), "codewen-sdk-vendor-"));
     const packageRoot = path.join(vendorRoot, "x86_64-unknown-linux-musl");
-    const binDir = path.join(packageRoot, "codex");
+    const binDir = path.join(packageRoot, "codewen");
     const pathDir = path.join(packageRoot, "path");
     mkdirSync(binDir, { recursive: true });
     mkdirSync(pathDir, { recursive: true });
-    writeFileSync(path.join(binDir, "codex"), "");
+    writeFileSync(path.join(binDir, "codewen"), "");
 
-    expect(resolveNativePackage(vendorRoot, "x86_64-unknown-linux-musl", "codex")).toEqual({
-      executablePath: path.join(binDir, "codex"),
+    expect(resolveNativePackage(vendorRoot, "x86_64-unknown-linux-musl", "codewen")).toEqual({
+      executablePath: path.join(binDir, "codewen"),
       pathDirs: [pathDir],
     });
   });
 
   it("prepends package PATH entries without duplicating them", async () => {
     const { prependPathDirs } = await import("../src/exec");
-    const pathDir = path.join(tmpdir(), "codex-path");
+    const pathDir = path.join(tmpdir(), "codewen-path");
     const env = { PATH: `/usr/bin${path.delimiter}${pathDir}` };
 
     prependPathDirs(env, [pathDir]);
@@ -191,7 +191,7 @@ describe("CodexExec", () => {
 
   it("preserves the Windows Path key when prepending package PATH entries", async () => {
     const { prependPathDirs } = await import("../src/exec");
-    const pathDir = path.join(tmpdir(), "codex-path");
+    const pathDir = path.join(tmpdir(), "codewen-path");
     const env = { PATH: "/usr/bin", Path: `C\\Windows${path.delimiter}${pathDir}` };
 
     prependPathDirs(env, [pathDir], "win32");

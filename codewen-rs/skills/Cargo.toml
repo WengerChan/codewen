@@ -1,0 +1,21 @@
+[package]
+edition.workspace = true
+license.workspace = true
+name = "codewen-skills"
+version.workspace = true
+build = "build.rs"
+
+[lib]
+doctest = false
+name = "codewen_skills"
+path = "src/lib.rs"
+
+[lints]
+workspace = true
+
+[dependencies]
+codewen-protocol = { workspace = true }
+codewen-utils-absolute-path = { workspace = true }
+codewen-utils-path-uri = { workspace = true }
+include_dir = { workspace = true }
+thiserror = { workspace = true }

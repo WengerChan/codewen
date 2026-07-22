@@ -1,0 +1,39 @@
+[package]
+edition.workspace = true
+license.workspace = true
+name = "codewen-tools"
+version.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+codewen-code-mode = { workspace = true }
+codewen-connectors = { workspace = true }
+codewen-features = { workspace = true }
+codewen-file-system = { workspace = true }
+codewen-extension-items = { workspace = true }
+codewen-protocol = { workspace = true }
+codewen-utils-absolute-path = { workspace = true }
+codewen-utils-output-truncation = { workspace = true }
+codewen-utils-pty = { workspace = true }
+codewen-utils-string = { workspace = true }
+jsonptr = { workspace = true }
+rmcp = { workspace = true, default-features = false, features = [
+    "base64",
+    "macros",
+    "schemars",
+    "server",
+] }
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+urlencoding = { workspace = true }
+
+[dev-dependencies]
+codewen-utils-cargo-bin = { workspace = true }
+pretty_assertions = { workspace = true }
+
+[lib]
+doctest = false

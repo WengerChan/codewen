@@ -24,15 +24,15 @@ class InstallShTest(unittest.TestCase):
         self.assertEqual(
             requests,
             [
-                "https://api.github.com/repos/openai/codex/releases/tags/"
+                "https://api.github.com/repos/openai/codewen/releases/tags/"
                 f"rust-v{VERSION}"
             ],
         )
         self.assertIn(
-            f"Could not fetch GitHub release metadata for Codex {VERSION}",
+            f"Could not fetch GitHub release metadata for Codewen {VERSION}",
             result.stderr,
         )
-        self.assertNotIn("Could not find Codex package", result.stderr)
+        self.assertNotIn("Could not find Codewen package", result.stderr)
 
     def test_exact_release_fetches_metadata_once(self) -> None:
         result, requests = run_installer(VERSION)
@@ -41,10 +41,10 @@ class InstallShTest(unittest.TestCase):
         self.assertEqual(
             requests,
             [
-                "https://api.github.com/repos/openai/codex/releases/tags/"
+                "https://api.github.com/repos/openai/codewen/releases/tags/"
                 f"rust-v{VERSION}",
-                "https://github.com/openai/codex/releases/download/"
-                f"rust-v{VERSION}/codex-package_SHA256SUMS",
+                "https://github.com/openai/codewen/releases/download/"
+                f"rust-v{VERSION}/codewen-package_SHA256SUMS",
             ],
         )
         self.assertIn(f"Resolved version: {VERSION}", result.stdout)
@@ -57,10 +57,10 @@ class InstallShTest(unittest.TestCase):
         self.assertEqual(
             requests,
             [
-                "https://api.github.com/repos/openai/codex/releases/tags/"
+                "https://api.github.com/repos/openai/codewen/releases/tags/"
                 f"rust-v{version}",
-                "https://github.com/openai/codex/releases/download/"
-                f"rust-v{version}/codex-package_SHA256SUMS",
+                "https://github.com/openai/codewen/releases/download/"
+                f"rust-v{version}/codewen-package_SHA256SUMS",
             ],
         )
         self.assertIn(f"Resolved version: {version}", result.stdout)
@@ -72,9 +72,9 @@ class InstallShTest(unittest.TestCase):
         self.assertEqual(
             requests,
             [
-                "https://api.github.com/repos/openai/codex/releases/latest",
-                "https://github.com/openai/codex/releases/download/"
-                f"rust-v{VERSION}/codex-package_SHA256SUMS",
+                "https://api.github.com/repos/openai/codewen/releases/latest",
+                "https://github.com/openai/codewen/releases/download/"
+                f"rust-v{VERSION}/codewen-package_SHA256SUMS",
             ],
         )
         self.assertIn(f"Resolved version: {VERSION}", result.stdout)
@@ -88,9 +88,9 @@ class InstallShTest(unittest.TestCase):
         self.assertEqual(
             requests,
             [
-                "https://api.github.com/repos/openai/codex/releases/latest",
-                "https://github.com/openai/codex/releases/download/"
-                f"rust-v{VERSION}/codex-package_SHA256SUMS",
+                "https://api.github.com/repos/openai/codewen/releases/latest",
+                "https://github.com/openai/codewen/releases/download/"
+                f"rust-v{VERSION}/codewen-package_SHA256SUMS",
             ],
         )
         self.assertIn(f"Resolved version: {VERSION}", result.stdout)
@@ -102,8 +102,8 @@ class InstallShTest(unittest.TestCase):
 
         self.assertNotEqual(result.returncode, 0)
         self.assertEqual(len(requests), 2)
-        self.assertIn("/codex-npm-", requests[1])
-        self.assertNotIn("codex-package_SHA256SUMS", requests[1])
+        self.assertIn("/codewen-npm-", requests[1])
+        self.assertNotIn("codewen-package_SHA256SUMS", requests[1])
 
     def test_macos_install_exposes_code_mode_host_beside_codex(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -121,13 +121,13 @@ class InstallShTest(unittest.TestCase):
 
             self.assertEqual(result.returncode, 0, result.stderr)
             install_bin = root / "install-bin"
-            current = root / "codex-home" / "packages" / "standalone" / "current"
-            codex_path = install_bin / "codex"
-            host_path = install_bin / "codex-code-mode-host"
-            self.assertEqual(os.readlink(codex_path), str(current / "bin" / "codex"))
+            current = root / "codewen-home" / "packages" / "standalone" / "current"
+            codewen_path = install_bin / "codewen"
+            host_path = install_bin / "codewen-code-mode-host"
+            self.assertEqual(os.readlink(codewen_path), str(current / "bin" / "codewen"))
             self.assertEqual(
                 os.readlink(host_path),
-                str(current / "bin" / "codex-code-mode-host"),
+                str(current / "bin" / "codewen-code-mode-host"),
             )
             self.assertTrue(os.access(host_path, os.X_OK))
 
@@ -151,8 +151,8 @@ class InstallShTest(unittest.TestCase):
                 requests,
                 [
                     "https://releases.openai.com/codex/channels/latest",
-                    f"https://releases.openai.com/codex/releases/{VERSION}/codex-package_SHA256SUMS",
-                    f"https://releases.openai.com/codex/releases/{VERSION}/codex-package-aarch64-apple-darwin.tar.gz",
+                    f"https://releases.openai.com/codex/releases/{VERSION}/codewen-package_SHA256SUMS",
+                    f"https://releases.openai.com/codex/releases/{VERSION}/codewen-package-aarch64-apple-darwin.tar.gz",
                 ],
             )
 
@@ -177,12 +177,12 @@ class InstallShTest(unittest.TestCase):
                 requests,
                 [
                     "https://releases.openai.com/codex/channels/latest",
-                    f"https://releases.openai.com/codex/releases/{VERSION}/codex-package_SHA256SUMS",
-                    "https://github.com/openai/codex/releases/download/"
-                    f"rust-v{VERSION}/codex-package_SHA256SUMS",
-                    f"https://releases.openai.com/codex/releases/{VERSION}/codex-package-aarch64-apple-darwin.tar.gz",
-                    "https://github.com/openai/codex/releases/download/"
-                    f"rust-v{VERSION}/codex-package-aarch64-apple-darwin.tar.gz",
+                    f"https://releases.openai.com/codex/releases/{VERSION}/codewen-package_SHA256SUMS",
+                    "https://github.com/openai/codewen/releases/download/"
+                    f"rust-v{VERSION}/codewen-package_SHA256SUMS",
+                    f"https://releases.openai.com/codex/releases/{VERSION}/codewen-package-aarch64-apple-darwin.tar.gz",
+                    "https://github.com/openai/codewen/releases/download/"
+                    f"rust-v{VERSION}/codewen-package-aarch64-apple-darwin.tar.gz",
                 ],
             )
             self.assertIn("retrying from GitHub Releases", result.stderr)
@@ -210,8 +210,8 @@ class InstallShTest(unittest.TestCase):
                 requests,
                 [
                     f"https://releases.openai.com/codex/releases/{MISMATCH_VERSION}/release.json",
-                    f"https://releases.openai.com/codex/releases/{MISMATCH_VERSION}/codex-package_SHA256SUMS",
-                    f"https://releases.openai.com/codex/releases/{MISMATCH_VERSION}/codex-package-aarch64-apple-darwin.tar.gz",
+                    f"https://releases.openai.com/codex/releases/{MISMATCH_VERSION}/codewen-package_SHA256SUMS",
+                    f"https://releases.openai.com/codex/releases/{MISMATCH_VERSION}/codewen-package-aarch64-apple-darwin.tar.gz",
                 ],
             )
             self.assertIn(
@@ -240,10 +240,10 @@ class InstallShTest(unittest.TestCase):
                 first_requests,
                 [
                     f"https://releases.openai.com/codex/releases/{VERSION}/release.json",
-                    "https://api.github.com/repos/openai/codex/releases/tags/"
+                    "https://api.github.com/repos/openai/codewen/releases/tags/"
                     f"rust-v{VERSION}",
-                    "https://github.com/openai/codex/releases/download/"
-                    f"rust-v{VERSION}/codex-npm-darwin-arm64-{VERSION}.tgz",
+                    "https://github.com/openai/codewen/releases/download/"
+                    f"rust-v{VERSION}/codewen-npm-darwin-arm64-{VERSION}.tgz",
                 ],
             )
 
@@ -262,11 +262,11 @@ class InstallShTest(unittest.TestCase):
                 second_requests,
                 [
                     f"https://releases.openai.com/codex/releases/{VERSION}/release.json",
-                    "https://api.github.com/repos/openai/codex/releases/tags/"
+                    "https://api.github.com/repos/openai/codewen/releases/tags/"
                     f"rust-v{VERSION}",
                 ],
             )
-            self.assertNotIn("Downloading Codex CLI", second_result.stdout)
+            self.assertNotIn("Downloading Codewen CLI", second_result.stdout)
 
 
 def run_installer(
@@ -317,59 +317,59 @@ def run_installer_in(
               fi
               previous="$arg"
             done
-            printf '%s\n' "$url" >>"$CODEX_TEST_REQUEST_LOG"
+            printf '%s\n' "$url" >>"$CODEWEN_TEST_REQUEST_LOG"
 
             case "$url" in
               https://api.github.com/*)
-                if [ "$CODEX_TEST_METADATA_FAILURE" = "1" ]; then
+                if [ "$CODEWEN_TEST_METADATA_FAILURE" = "1" ]; then
                   echo "curl: (22) The requested URL returned error: 403" >&2
                   exit 22
                 fi
-                printf '%s\n' "$CODEX_TEST_METADATA_JSON"
+                printf '%s\n' "$CODEWEN_TEST_METADATA_JSON"
                 ;;
               https://releases.openai.com/codex/channels/latest|https://releases.openai.com/codex/releases/*/release.json)
-                if [ "$CODEX_TEST_RELEASES_MODE" = "channel_failure" ]; then
+                if [ "$CODEWEN_TEST_RELEASES_MODE" = "channel_failure" ]; then
                   exit 22
                 fi
-                printf '%s\n' "$CODEX_TEST_RELEASES_METADATA_JSON"
+                printf '%s\n' "$CODEWEN_TEST_RELEASES_METADATA_JSON"
                 ;;
-              https://releases.openai.com/codex/releases/*/codex-package_SHA256SUMS)
-                if [ "$CODEX_TEST_RELEASES_MODE" = "asset_fallback" ]; then
+              https://releases.openai.com/codex/releases/*/codewen-package_SHA256SUMS)
+                if [ "$CODEWEN_TEST_RELEASES_MODE" = "asset_fallback" ]; then
                   exit 22
                 fi
-                if [ -n "$CODEX_TEST_CHECKSUM_PATH" ]; then
-                  cp "$CODEX_TEST_CHECKSUM_PATH" "$output"
+                if [ -n "$CODEWEN_TEST_CHECKSUM_PATH" ]; then
+                  cp "$CODEWEN_TEST_CHECKSUM_PATH" "$output"
                 else
                   exit 22
                 fi
                 ;;
-              https://releases.openai.com/codex/releases/*/codex-package-*.tar.gz)
-                if [ "$CODEX_TEST_RELEASES_MODE" = "asset_fallback" ]; then
+              https://releases.openai.com/codex/releases/*/codewen-package-*.tar.gz)
+                if [ "$CODEWEN_TEST_RELEASES_MODE" = "asset_fallback" ]; then
                   exit 22
                 fi
-                if [ -n "$CODEX_TEST_ARCHIVE_PATH" ]; then
-                  cp "$CODEX_TEST_ARCHIVE_PATH" "$output"
+                if [ -n "$CODEWEN_TEST_ARCHIVE_PATH" ]; then
+                  cp "$CODEWEN_TEST_ARCHIVE_PATH" "$output"
                 else
                   exit 22
                 fi
                 ;;
-              https://github.com/openai/codex/releases/download/*/codex-package_SHA256SUMS)
-                if [ -n "$CODEX_TEST_CHECKSUM_PATH" ]; then
-                  cp "$CODEX_TEST_CHECKSUM_PATH" "$output"
+              https://github.com/openai/codewen/releases/download/*/codewen-package_SHA256SUMS)
+                if [ -n "$CODEWEN_TEST_CHECKSUM_PATH" ]; then
+                  cp "$CODEWEN_TEST_CHECKSUM_PATH" "$output"
                 else
                   exit 22
                 fi
                 ;;
-              https://github.com/openai/codex/releases/download/*/codex-package-*.tar.gz)
-                if [ -n "$CODEX_TEST_ARCHIVE_PATH" ]; then
-                  cp "$CODEX_TEST_ARCHIVE_PATH" "$output"
+              https://github.com/openai/codewen/releases/download/*/codewen-package-*.tar.gz)
+                if [ -n "$CODEWEN_TEST_ARCHIVE_PATH" ]; then
+                  cp "$CODEWEN_TEST_ARCHIVE_PATH" "$output"
                 else
                   exit 22
                 fi
                 ;;
-              https://github.com/openai/codex/releases/download/*/codex-npm-*.tgz)
-                if [ -n "$CODEX_TEST_LEGACY_ARCHIVE_PATH" ]; then
-                  cp "$CODEX_TEST_LEGACY_ARCHIVE_PATH" "$output"
+              https://github.com/openai/codewen/releases/download/*/codewen-npm-*.tgz)
+                if [ -n "$CODEWEN_TEST_LEGACY_ARCHIVE_PATH" ]; then
+                  cp "$CODEWEN_TEST_LEGACY_ARCHIVE_PATH" "$output"
                 else
                   exit 22
                 fi
@@ -400,25 +400,25 @@ def run_installer_in(
     env = os.environ.copy()
     env.update(
         {
-            "CODEX_HOME": str(root / "codex-home"),
-            "CODEX_INSTALL_DIR": str(root / "install-bin"),
-            "CODEX_NON_INTERACTIVE": "1",
-            "CODEX_RELEASE": release,
-            "CODEX_INSTALLER_USE_RELEASES_OPENAI_COM": (
+            "CODEWEN_HOME": str(root / "codewen-home"),
+            "CODEWEN_INSTALL_DIR": str(root / "install-bin"),
+            "CODEWEN_NON_INTERACTIVE": "1",
+            "CODEWEN_RELEASE": release,
+            "CODEWEN_INSTALLER_USE_RELEASES_OPENAI_COM": (
                 "TRUE" if use_releases else "0"
             ),
-            "CODEX_TEST_ARCHIVE_PATH": str(archive_path or ""),
-            "CODEX_TEST_CHECKSUM_PATH": str(checksum_path or ""),
-            "CODEX_TEST_LEGACY_ARCHIVE_PATH": str(legacy_archive_path or ""),
-            "CODEX_TEST_METADATA_FAILURE": "1" if metadata_failure else "0",
-            "CODEX_TEST_METADATA_JSON": (
+            "CODEWEN_TEST_ARCHIVE_PATH": str(archive_path or ""),
+            "CODEWEN_TEST_CHECKSUM_PATH": str(checksum_path or ""),
+            "CODEWEN_TEST_LEGACY_ARCHIVE_PATH": str(legacy_archive_path or ""),
+            "CODEWEN_TEST_METADATA_FAILURE": "1" if metadata_failure else "0",
+            "CODEWEN_TEST_METADATA_JSON": (
                 metadata_json if metadata_json is not None else release_metadata()
             ),
-            "CODEX_TEST_RELEASES_METADATA_JSON": (
+            "CODEWEN_TEST_RELEASES_METADATA_JSON": (
                 metadata_json if metadata_json is not None else release_metadata()
             ),
-            "CODEX_TEST_RELEASES_MODE": releases_mode,
-            "CODEX_TEST_REQUEST_LOG": str(request_log),
+            "CODEWEN_TEST_RELEASES_MODE": releases_mode,
+            "CODEWEN_TEST_REQUEST_LOG": str(request_log),
             "HOME": str(home),
             "PATH": f"{bin_dir}:/usr/bin:/bin",
             "SHELL": "/bin/sh",
@@ -446,26 +446,26 @@ def create_package_release(
 ) -> tuple[Path, Path, str]:
     package_dir = root / "package"
     (package_dir / "bin").mkdir(parents=True)
-    (package_dir / "codex-path").mkdir()
-    (package_dir / "codex-package.json").write_text("{}\n", encoding="utf-8")
+    (package_dir / "codewen-path").mkdir()
+    (package_dir / "codewen-package.json").write_text("{}\n", encoding="utf-8")
     write_executable(
-        package_dir / "bin" / "codex",
-        f"#!/bin/sh\nprintf 'codex-cli {VERSION}\\n'\n",
+        package_dir / "bin" / "codewen",
+        f"#!/bin/sh\nprintf 'codewen-cli {VERSION}\\n'\n",
     )
     write_executable(
-        package_dir / "bin" / "codex-code-mode-host",
+        package_dir / "bin" / "codewen-code-mode-host",
         "#!/bin/sh\nexit 0\n",
     )
-    write_executable(package_dir / "codex-path" / "rg", "#!/bin/sh\nexit 0\n")
+    write_executable(package_dir / "codewen-path" / "rg", "#!/bin/sh\nexit 0\n")
 
-    asset = "codex-package-aarch64-apple-darwin.tar.gz"
+    asset = "codewen-package-aarch64-apple-darwin.tar.gz"
     archive_path = root / asset
     with tarfile.open(archive_path, "w:gz") as archive:
         for path in package_dir.iterdir():
             archive.add(path, arcname=path.name)
 
     archive_digest = hashlib.sha256(archive_path.read_bytes()).hexdigest()
-    checksum_path = root / "codex-package_SHA256SUMS"
+    checksum_path = root / "codewen-package_SHA256SUMS"
     checksum_path.write_text(f"{archive_digest}  {asset}\n", encoding="utf-8")
     checksum_digest = hashlib.sha256(checksum_path.read_bytes()).hexdigest()
     metadata_json = json.dumps(
@@ -473,7 +473,7 @@ def create_package_release(
             "assets": [
                 {"name": asset, "digest": f"sha256:{archive_digest}"},
                 {
-                    "name": "codex-package_SHA256SUMS",
+                    "name": "codewen-package_SHA256SUMS",
                     "digest": f"sha256:{checksum_digest}",
                 },
             ],
@@ -487,15 +487,15 @@ def create_package_release(
 def create_legacy_release(root: Path) -> tuple[Path, str]:
     package_dir = root / "legacy-package"
     vendor_dir = package_dir / "package" / "vendor" / "aarch64-apple-darwin"
-    (vendor_dir / "codex").mkdir(parents=True)
+    (vendor_dir / "codewen").mkdir(parents=True)
     (vendor_dir / "path").mkdir()
     write_executable(
-        vendor_dir / "codex" / "codex",
-        f"#!/bin/sh\nprintf 'codex-cli {VERSION}\\n'\n",
+        vendor_dir / "codewen" / "codewen",
+        f"#!/bin/sh\nprintf 'codewen-cli {VERSION}\\n'\n",
     )
     write_executable(vendor_dir / "path" / "rg", "#!/bin/sh\nexit 0\n")
 
-    asset = f"codex-npm-darwin-arm64-{VERSION}.tgz"
+    asset = f"codewen-npm-darwin-arm64-{VERSION}.tgz"
     archive_path = root / asset
     with tarfile.open(archive_path, "w:gz") as archive:
         archive.add(package_dir / "package", arcname="package")
@@ -519,7 +519,7 @@ def write_executable(path: Path, contents: str) -> None:
 def release_metadata(*, compact: bool = False, reorder: bool = False) -> str:
     assets = [
         asset_metadata(
-            f"codex-package-{target}.tar.gz",
+            f"codewen-package-{target}.tar.gz",
             f"sha256:{'a' * 64}",
             reorder=reorder,
         )
@@ -532,7 +532,7 @@ def release_metadata(*, compact: bool = False, reorder: bool = False) -> str:
     ]
     assets.append(
         asset_metadata(
-            "codex-package_SHA256SUMS",
+            "codewen-package_SHA256SUMS",
             f"sha256:{'b' * 64}",
             reorder=reorder,
         )
@@ -556,18 +556,18 @@ def legacy_release_metadata_with_decoys() -> str:
     assets = [
         {
             "metadata": {
-                "name": "codex-package-x86_64-unknown-linux-musl.tar.gz",
+                "name": "codewen-package-x86_64-unknown-linux-musl.tar.gz",
                 "digest": fake_digest,
             },
             "digest": f"sha256:{'c' * 64}",
-            "name": f"codex-npm-{target}-{VERSION}.tgz",
+            "name": f"codewen-npm-{target}-{VERSION}.tgz",
         }
         for target in ("darwin-arm64", "darwin-x64", "linux-arm64", "linux-x64")
     ]
     return json.dumps(
         {
             "body": (
-                f'fake: {{"name":"codex-package_SHA256SUMS","digest":"{fake_digest}"}}'
+                f'fake: {{"name":"codewen-package_SHA256SUMS","digest":"{fake_digest}"}}'
             ),
             "assets": assets,
             "tag_name": f"rust-v{VERSION}",

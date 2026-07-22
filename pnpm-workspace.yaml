@@ -1,6 +1,6 @@
 packages:
-  - codex-cli
-  - codex-rs/responses-api-proxy/npm
+  - codewen-cli
+  - codewen-rs/responses-api-proxy/npm
   - sdk/typescript
 
 ignoredBuiltDependencies:

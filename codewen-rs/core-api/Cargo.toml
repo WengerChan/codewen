@@ -1,0 +1,31 @@
+[package]
+edition.workspace = true
+license.workspace = true
+name = "codewen-core-api"
+version.workspace = true
+
+[lib]
+doctest = false
+name = "codewen_core_api"
+path = "src/lib.rs"
+test = false
+
+[lints]
+workspace = true
+
+[dependencies]
+codewen-app-server-protocol = { workspace = true }
+codewen-arg0 = { workspace = true }
+codewen-analytics = { workspace = true }
+codewen-config = { workspace = true }
+codewen-core = { workspace = true }
+codewen-extension-api = { workspace = true }
+codewen-home = { workspace = true }
+codewen-image-generation-extension = { workspace = true }
+codewen-exec-server = { workspace = true }
+codewen-features = { workspace = true }
+codewen-login = { workspace = true }
+codewen-model-provider-info = { workspace = true }
+codewen-models-manager = { workspace = true }
+codewen-protocol = { workspace = true }
+codewen-utils-absolute-path = { workspace = true }

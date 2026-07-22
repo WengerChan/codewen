@@ -1,0 +1,9 @@
+load("//:defs.bzl", "codewen_rust_crate")
+
+codewen_rust_crate(
+    name = "linux-sandbox",
+    crate_name = "codewen_linux_sandbox",
+    extra_binaries = [
+        "//codewen-rs/bwrap:bwrap",
+    ],
+)

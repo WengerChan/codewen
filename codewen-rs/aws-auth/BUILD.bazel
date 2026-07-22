@@ -1,0 +1,6 @@
+load("//:defs.bzl", "codewen_rust_crate")
+
+codewen_rust_crate(
+    name = "aws-auth",
+    crate_name = "codewen_aws_auth",
+)

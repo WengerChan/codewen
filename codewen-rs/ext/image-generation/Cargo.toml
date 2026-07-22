@@ -1,0 +1,38 @@
+[package]
+edition.workspace = true
+license.workspace = true
+name = "codewen-image-generation-extension"
+version.workspace = true
+
+[lib]
+name = "codewen_image_generation_extension"
+path = "src/lib.rs"
+doctest = false
+
+[lints]
+workspace = true
+
+[dependencies]
+base64 = { workspace = true }
+codewen-api = { workspace = true }
+codewen-core = { workspace = true }
+codewen-exec-server = { workspace = true }
+codewen-extension-api = { workspace = true }
+codewen-extension-items = { workspace = true }
+codewen-login = { workspace = true }
+codewen-model-provider = { workspace = true }
+codewen-model-provider-info = { workspace = true }
+codewen-protocol = { workspace = true }
+codewen-tools = { workspace = true }
+codewen-utils-absolute-path = { workspace = true }
+codewen-utils-image = { workspace = true }
+codewen-utils-path-uri = { workspace = true }
+http = { workspace = true }
+schemars = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true }
+tracing = { workspace = true }
+
+[dev-dependencies]
+pretty_assertions = { workspace = true }
+tokio = { workspace = true, features = ["macros", "rt"] }

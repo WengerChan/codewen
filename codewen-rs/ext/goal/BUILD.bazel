@@ -1,0 +1,10 @@
+load("//:defs.bzl", "codewen_rust_crate")
+
+codewen_rust_crate(
+    name = "goal",
+    compile_data = glob([
+        "templates/**",
+    ]),
+    crate_name = "codewen_goal_extension",
+    integration_compile_data_extra = ["src/accounting.rs"],
+)

@@ -1,0 +1,6 @@
+load("//:defs.bzl", "codewen_rust_crate")
+
+codewen_rust_crate(
+    name = "app-server-test-client",
+    crate_name = "codewen_app_server_test_client",
+)

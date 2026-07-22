@@ -26,7 +26,7 @@ export type {
 export { Thread } from "./thread";
 export type { RunResult, RunStreamedResult, Input, UserInput } from "./thread";
 
-export { Codex } from "./codex";
+export { Codewen } from "./codewen";
 
 export type { CodexOptions } from "./codexOptions";
 

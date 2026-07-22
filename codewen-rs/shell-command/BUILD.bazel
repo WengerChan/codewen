@@ -1,0 +1,7 @@
+load("//:defs.bzl", "codewen_rust_crate")
+
+codewen_rust_crate(
+    name = "shell-command",
+    compile_data = ["src/command_safety/powershell_parser.ps1"],
+    crate_name = "codewen_shell_command",
+)

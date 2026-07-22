@@ -1,0 +1,23 @@
+[package]
+edition.workspace = true
+license.workspace = true
+name = "codewen-connectors-extension"
+version.workspace = true
+
+[lib]
+name = "codewen_connectors_extension"
+path = "src/lib.rs"
+doctest = false
+test = false
+
+[lints]
+workspace = true
+
+[dependencies]
+codewen-connectors = { workspace = true }
+codewen-core-plugins = { workspace = true }
+codewen-plugin = { workspace = true }
+codewen-utils-path-uri = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }

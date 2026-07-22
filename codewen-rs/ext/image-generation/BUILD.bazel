@@ -1,0 +1,9 @@
+load("//:defs.bzl", "codewen_rust_crate")
+
+codewen_rust_crate(
+    name = "image-generation",
+    compile_data = [
+        "imagegen_description.md",
+    ],
+    crate_name = "codewen_image_generation_extension",
+)

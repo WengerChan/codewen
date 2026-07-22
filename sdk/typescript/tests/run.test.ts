@@ -628,7 +628,7 @@ describe("Codex", () => {
     });
 
     const { args: spawnArgs, restore } = codexExecSpy();
-    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "codex-images-"));
+    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "codewen-images-"));
     const imagesDirectoryEntries: [string, string] = [
       path.join(tempDir, "first.png"),
       path.join(tempDir, "second.jpg"),
@@ -675,7 +675,7 @@ describe("Codex", () => {
     });
 
     const { args: spawnArgs, restore } = codexExecSpy();
-    const workingDirectory = fs.mkdtempSync(path.join(os.tmpdir(), "codex-working-dir-"));
+    const workingDirectory = fs.mkdtempSync(path.join(os.tmpdir(), "codewen-working-dir-"));
     const { client, cleanup } = createTestClient({
       baseUrl: url,
       apiKey: "test",
@@ -709,7 +709,7 @@ describe("Codex", () => {
         ),
       ],
     });
-    const workingDirectory = fs.mkdtempSync(path.join(os.tmpdir(), "codex-working-dir-"));
+    const workingDirectory = fs.mkdtempSync(path.join(os.tmpdir(), "codewen-working-dir-"));
     const { client, cleanup } = createTestClient({
       baseUrl: url,
       apiKey: "test",
@@ -729,7 +729,7 @@ describe("Codex", () => {
     }
   });
 
-  it("sets the codex sdk originator header", async () => {
+  it("sets the codewen sdk originator header", async () => {
     const { url, close, requests } = await startResponsesTestProxy({
       statusCode: 200,
       responseBodies: [sse(responseStarted(), assistantMessage("Hi!"), responseCompleted())],
@@ -775,7 +775,7 @@ describe("Codex", () => {
 });
 
 /**
- * Given a list of args to `codex` and a `key`, collects all `--config`
+ * Given a list of args to `codewen` and a `key`, collects all `--config`
  * overrides for that key.
  */
 function collectConfigValues(args: string[] | undefined, key: string): string[] {

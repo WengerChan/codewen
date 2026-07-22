@@ -1,0 +1,38 @@
+[package]
+edition.workspace = true
+license.workspace = true
+name = "codewen-mcp-extension"
+version.workspace = true
+
+[lib]
+name = "codewen_mcp_extension"
+path = "src/lib.rs"
+doctest = false
+
+[lints]
+workspace = true
+
+[dependencies]
+codewen-core = { workspace = true }
+codewen-core-plugins = { workspace = true }
+codewen-config = { workspace = true }
+codewen-connectors = { workspace = true }
+codewen-connectors-extension = { workspace = true }
+codewen-exec-server = { workspace = true }
+codewen-extension-api = { workspace = true }
+codewen-features = { workspace = true }
+codewen-mcp = { workspace = true }
+codewen-plugin = { workspace = true }
+codewen-protocol = { workspace = true }
+codewen-utils-absolute-path = { workspace = true }
+codewen-utils-path-uri = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+tokio = { workspace = true, features = ["sync"] }
+
+[dev-dependencies]
+codewen-login = { workspace = true }
+pretty_assertions = { workspace = true }
+tempfile = { workspace = true }
+tokio = { workspace = true, features = ["macros", "rt-multi-thread"] }

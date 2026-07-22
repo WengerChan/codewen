@@ -1,0 +1,6 @@
+load("//:defs.bzl", "codewen_rust_crate")
+
+codewen_rust_crate(
+    name = "responses-api-proxy",
+    crate_name = "codewen_responses_api_proxy",
+)

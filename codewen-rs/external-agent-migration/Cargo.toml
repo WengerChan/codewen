@@ -1,0 +1,39 @@
+[package]
+name = "codewen-external-agent-migration"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+doctest = false
+name = "codewen_external_agent_migration"
+path = "src/lib.rs"
+
+[lints]
+workspace = true
+
+[dependencies]
+chrono = { workspace = true }
+codewen-analytics = { workspace = true }
+codewen-config = { workspace = true }
+codewen-core = { workspace = true }
+codewen-core-plugins = { workspace = true }
+codewen-hooks = { workspace = true }
+codewen-memories-write = { workspace = true }
+codewen-otel = { workspace = true }
+codewen-plugin = { workspace = true }
+codewen-protocol = { workspace = true }
+codewen-rollout = { workspace = true }
+codewen-utils-output-truncation = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true }
+serde_yaml = { workspace = true }
+sha2 = { workspace = true }
+toml = { workspace = true }
+tracing = { workspace = true }
+
+[dev-dependencies]
+codewen-app-server-protocol = { workspace = true }
+pretty_assertions = { workspace = true }
+tempfile = { workspace = true }
+tokio = { workspace = true, features = ["macros", "rt-multi-thread"] }

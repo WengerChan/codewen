@@ -3,12 +3,12 @@
 
 Cloudflare R2 exposes an S3-compatible API, so the built-in AWS CLI uses
 standard AWS credentials and the R2 endpoint from ``AWS_ENDPOINT_URL``.
-Objects are created under ``codex/releases/<version>/`` with a validated upload
+Objects are created under ``codewen/releases/<version>/`` with a validated upload
 checksum and checked using object metadata before the run succeeds. The
 versioned prefix includes every release asset plus installer-facing
 ``release.json`` metadata derived from the verified downloads. Once those
-objects are verified, the same metadata advances ``codex/channels/latest`` when
-the release is marked latest and ``codex/channels/prerelease`` for prereleases.
+objects are verified, the same metadata advances ``codewen/channels/latest`` when
+the release is marked latest and ``codewen/channels/prerelease`` for prereleases.
 """
 
 import argparse
@@ -24,8 +24,8 @@ from typing import Any, NamedTuple, NoReturn
 from urllib.parse import quote
 
 BUCKET = "releases"
-PREFIX = "codex"
-REPOSITORY = "openai/codex"
+PREFIX = "codewen"
+REPOSITORY = "yourname/codewen"
 RELEASE_METADATA_NAME = "release.json"
 VERSION_RE = re.compile(r"^[0-9]+\.[0-9]+\.[0-9]+(?:-(?:alpha|beta)(?:\.[0-9]+)?)?$")
 CRC64_RE = re.compile(r"^[A-Za-z0-9+/]{11}=$")

@@ -1,0 +1,49 @@
+[package]
+edition.workspace = true
+license.workspace = true
+name = "codewen-memories-write"
+version.workspace = true
+
+[lib]
+name = "codewen_memories_write"
+path = "src/lib.rs"
+doctest = false
+
+[lints]
+workspace = true
+
+[dependencies]
+anyhow = { workspace = true }
+chrono = { workspace = true }
+codewen-backend-client = { workspace = true }
+codewen-core = { workspace = true }
+codewen-config = { workspace = true }
+codewen-features = { workspace = true }
+codewen-git-utils = { workspace = true }
+codewen-login = { workspace = true }
+codewen-model-provider = { workspace = true }
+codewen-otel = { workspace = true }
+codewen-protocol = { workspace = true }
+codewen-rollout = { workspace = true }
+codewen-rollout-trace = { workspace = true }
+codewen-secrets = { workspace = true }
+codewen-state = { workspace = true }
+codewen-terminal-detection = { workspace = true }
+codewen-utils-absolute-path = { workspace = true }
+codewen-utils-output-truncation = { workspace = true }
+codewen-utils-template = { workspace = true }
+futures = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true }
+tokio = { workspace = true, features = ["fs", "rt", "sync", "time"] }
+tracing = { workspace = true, features = ["log"] }
+uuid = { workspace = true, features = ["v4", "v5"] }
+
+[dev-dependencies]
+codewen-model-provider-info = { workspace = true }
+codewen-models-manager = { workspace = true }
+core_test_support = { workspace = true }
+pretty_assertions = { workspace = true }
+tempfile = { workspace = true }
+tokio = { workspace = true, features = ["fs", "macros"] }
+wiremock = { workspace = true }

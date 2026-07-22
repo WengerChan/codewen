@@ -48,11 +48,11 @@ def ensure_local_sdk_src() -> Path:
 
 
 def runtime_config():
-    """Return an example-friendly CodexConfig for repo-source SDK usage."""
-    from openai_codex import CodexConfig
+    """Return an example-friendly CodewenConfig for repo-source SDK usage."""
+    from openai_codex import CodewenConfig
 
     ensure_runtime_package_installed(sys.executable, _SDK_PYTHON_DIR)
-    return CodexConfig()
+    return CodewenConfig()
 
 
 def _png_chunk(chunk_type: bytes, data: bytes) -> bytes:
@@ -103,7 +103,7 @@ def generated_sample_image_data_url() -> str:
 
 @contextlib.contextmanager
 def temporary_sample_image_path() -> Iterator[Path]:
-    with tempfile.TemporaryDirectory(prefix="codex-python-example-image-") as temp_root:
+    with tempfile.TemporaryDirectory(prefix="codewen-python-example-image-") as temp_root:
         image_path = Path(temp_root) / "generated_sample.png"
         image_path.write_bytes(_generated_sample_png_bytes())
         yield image_path
