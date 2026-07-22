@@ -1,11 +1,7 @@
 name: codewen-auto-fmt
+
 on:
   workflow_dispatch:
-    inputs:
-      branch:
-        description: 'Branch to format'
-        required: true
-        default: 'codewen-rename-full-ci'
 
 jobs:
   fmt:
@@ -15,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
-          ref: ${{ inputs.branch }}
+          ref: codewen-rename-full-ci
           fetch-depth: 0
           persist-credentials: false
 
@@ -27,14 +23,14 @@ jobs:
         working-directory: codewen-rs
         run: cargo fmt --all
 
-      - name: Commit changes
+      - name: Auto-commit formatting
         run: |
           git config user.email "codewen-bot@users.noreply.github.com"
           git config user.name "codewen-bot"
-          git add -A
-          if git diff --cached --quiet; then
-            echo "No formatting changes needed."
-          else
-            git commit -m "chore: cargo fmt --all"
-            git push origin HEAD:${{ inputs.branch }}
+          if git diff --quiet; then
+            echo "No formatting changes"
+            exit 0
           fi
+          git add -A
+          git commit -m "chore: cargo fmt --all"
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:codewen-rename-full-ci
