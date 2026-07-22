@@ -1,0 +1,40 @@
+name: codewen-auto-fmt
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to format'
+        required: true
+        default: 'codewen-rename-full-ci'
+
+jobs:
+  fmt:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          ref: ${{ inputs.branch }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: dtolnay/rust-toolchain@e081816240890017053eacbb1bdf337761dc5582 # 1.95.0
+        with:
+          components: rustfmt
+
+      - name: cargo fmt --all
+        working-directory: codewen-rs
+        run: cargo fmt --all
+
+      - name: Commit changes
+        run: |
+          git config user.email "codewen-bot@users.noreply.github.com"
+          git config user.name "codewen-bot"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No formatting changes needed."
+          else
+            git commit -m "chore: cargo fmt --all"
+            git push origin HEAD:${{ inputs.branch }}
+          fi

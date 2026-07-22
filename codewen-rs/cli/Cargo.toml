@@ -89,7 +89,7 @@ url = { workspace = true }
 which = { workspace = true }
 
 [target.'cfg(target_os = "windows")'.dependencies]
-codex_windows_sandbox = { package = "codewen-windows-sandbox", path = "../windows-sandbox-rs" }
+codewen_windows_sandbox = { package = "codewen-windows-sandbox", path = "../windows-sandbox-rs" }
 windows-sys = { version = "0.52", features = [
     "Win32_Foundation",
     "Win32_System_Console",
