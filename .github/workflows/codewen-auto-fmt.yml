@@ -2,6 +2,9 @@ name: codewen-auto-fmt
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - codewen-rename-full-ci
 
 jobs:
   fmt:
