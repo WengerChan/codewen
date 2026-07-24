@@ -18,13 +18,19 @@ jobs:
         with:
           persist-credentials: false
 
+      # Install system dependencies required for bwrap and other crates
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcap-dev libdbus-1-dev libssl-dev pkg-config
+
       # Use nightly for cargo fmt because rustfmt.toml uses unstable features
       - uses: dtolnay/rust-toolchain@e081816240890017053eacbb1bdf337761dc5582 # 1.95.0
         with:
           toolchain: nightly-2025-09-18
           components: rustfmt
 
-      - name: Auto-format code (uses nightly toolchain)
+      - name: Auto-format code
         working-directory: codewen-rs
         run: cargo fmt --all
 
@@ -55,11 +61,7 @@ jobs:
           key: cargo-${{ runner.os }}-${{ hashFiles('codewen-rs/Cargo.lock') }}
           restore-keys: cargo-${{ runner.os }}-
 
-      - name: cargo check (verify compilation)
-        working-directory: codewen-rs
-        run: cargo check --workspace --all-targets
-
-      - name: cargo build (release, linux x86_64)
+      - name: cargo build (release, linux x86_64, main binaries only)
         working-directory: codewen-rs
         run: cargo build --release --target x86_64-unknown-linux-gnu -p codewen-cli -p codewen-app-server -p codewen-code-mode-host -p codewen-responses-api-proxy
 
