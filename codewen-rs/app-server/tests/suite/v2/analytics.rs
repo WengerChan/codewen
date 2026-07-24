@@ -158,7 +158,7 @@ pub(crate) async fn wait_for_matching_analytics_event(
             };
             for request in &requests {
                 if request.method != "POST"
-                    || request.url.path() != /codewen/analytics-events/events"
+                    || request.url.path() != "/codewen/analytics-events/events"
                 {
                     continue;
                 }
