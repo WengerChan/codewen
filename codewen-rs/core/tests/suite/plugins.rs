@@ -536,7 +536,7 @@ async fn explicit_plugin_mentions_track_plugin_used_analytics() -> Result<()> {
         let requests = server.received_requests().await.unwrap_or_default();
         if let Some(event) = requests
             .into_iter()
-            .filter(|request| request.url.path() == /codewen/analytics-events/events")
+            .filter(|request| request.url.path() == "/codewen/analytics-events/events")
             .find_map(|request| {
                 let payload: serde_json::Value = serde_json::from_slice(&request.body).ok()?;
                 payload["events"].as_array().and_then(|events| {
