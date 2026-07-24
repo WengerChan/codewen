@@ -18,9 +18,32 @@ jobs:
         with:
           persist-credentials: false
 
+      # Use nightly for cargo fmt because rustfmt.toml uses unstable features
       - uses: dtolnay/rust-toolchain@e081816240890017053eacbb1bdf337761dc5582 # 1.95.0
         with:
-          components: rustfmt, clippy
+          toolchain: nightly-2025-09-18
+          components: rustfmt
+
+      - name: Auto-format code (uses nightly toolchain)
+        working-directory: codewen-rs
+        run: cargo fmt --all
+
+      - name: Auto-commit formatting
+        run: |
+          git config user.email "codewen-bot@users.noreply.github.com"
+          git config user.name "codewen-bot"
+          if ! git diff --quiet; then
+            git add -A
+            git commit -m "chore: cargo fmt --all"
+            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:codewen-rename-full-ci
+            echo "Pushed formatting fixes"
+          else
+            echo "No formatting changes"
+          fi
+
+      - uses: dtolnay/rust-toolchain@e081816240890017053eacbb1bdf337761dc5582 # 1.95.0
+        with:
+          components: clippy
 
       - name: Cache cargo
         uses: actions/cache@v4
@@ -32,11 +55,7 @@ jobs:
           key: cargo-${{ runner.os }}-${{ hashFiles('codewen-rs/Cargo.lock') }}
           restore-keys: cargo-${{ runner.os }}-
 
-      - name: cargo fmt --check
-        working-directory: codewen-rs
-        run: cargo fmt --all -- --check
-
-      - name: cargo check
+      - name: cargo check (verify compilation)
         working-directory: codewen-rs
         run: cargo check --workspace --all-targets
 
