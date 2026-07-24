@@ -356,7 +356,7 @@ fn foreign_agents_md_uses_environment_native_paths() {
     let (cwd, rendered_cwd) = if cfg!(windows) {
         (
             PathUri::parse("file:///codewen%20runtime").expect("POSIX cwd URI"),
-            /codewen runtime",
+            r"/codewen runtime",
         )
     } else {
         (

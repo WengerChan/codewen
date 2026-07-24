@@ -109,7 +109,7 @@ pub(crate) async fn wait_for_analytics_payload(
                 continue;
             };
             if let Some(request) = requests.iter().find(|request| {
-                request.method == "POST" && request.url.path() == /codewen/analytics-events/events"
+                request.method == "POST" && request.url.path() == "/codewen/analytics-events/events"
             }) {
                 break request.body.clone();
             }
