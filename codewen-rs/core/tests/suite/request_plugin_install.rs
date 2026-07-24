@@ -481,7 +481,7 @@ async fn run_remote_plugin_install_metadata_case() -> Result<()> {
         let requests = server.received_requests().await.unwrap_or_default();
         if let Some(event) = requests
             .into_iter()
-            .filter(|request| request.url.path() == /codewen/analytics-events/events")
+            .filter(|request| request.url.path() == "/codewen/analytics-events/events"
             .find_map(|request| {
                 let payload: Value = serde_json::from_slice(&request.body).ok()?;
                 payload["events"].as_array().and_then(|events| {
