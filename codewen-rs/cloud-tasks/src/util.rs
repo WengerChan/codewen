@@ -102,7 +102,7 @@ pub fn task_url(base_url: &str, task_id: &str) -> String {
     if let Some(root) = normalized.strip_suffix("/api/codewen") {
         return format!("{root}/codewen/tasks/{task_id}");
     }
-    if normalized.ends_with(/codewen) {
+    if normalized.ends_with("/codewen") {
         return format!("{normalized}/tasks/{task_id}");
     }
     format!("{normalized}/codewen/tasks/{task_id}")

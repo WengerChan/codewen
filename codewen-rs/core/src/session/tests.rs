@@ -4503,7 +4503,7 @@ async fn emit_subagent_session_started_includes_fork_lineage_and_originator() {
 
     let server = MockServer::start().await;
     Mock::given(method("POST"))
-        .and(path(/codewen/analytics-events/events"))
+        .and(path("/codewen/analytics-events/events"))
         .respond_with(ResponseTemplate::new(200))
         .mount(&server)
         .await;

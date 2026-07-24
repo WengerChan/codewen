@@ -81,7 +81,7 @@ async fn app_server_default_analytics_enabled_with_flag() -> Result<()> {
 
 pub(crate) async fn mount_analytics_capture(server: &MockServer, codewen_home: &Path) -> Result<()> {
     Mock::given(method("POST"))
-        .and(path(/codewen/analytics-events/events"))
+        .and(path("/codewen/analytics-events/events"))
         .respond_with(ResponseTemplate::new(200))
         .mount(server)
         .await;
