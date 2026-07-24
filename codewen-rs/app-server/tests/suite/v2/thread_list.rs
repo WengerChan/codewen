@@ -555,7 +555,12 @@ async fn thread_list_respects_cwd_filters() -> Result<()> {
     fs::create_dir_all(&first_target_cwd)?;
     fs::create_dir_all(&second_target_cwd)?;
     set_rollout_cwd(
-        rollout_path(codewen_home.path(), "2025-01-02T10-00-00", &first_filtered_id).as_path(),
+        rollout_path(
+            codewen_home.path(),
+            "2025-01-02T10-00-00",
+            &first_filtered_id,
+        )
+        .as_path(),
         &first_target_cwd,
     )?;
     set_rollout_cwd(
@@ -653,9 +658,11 @@ sqlite = true
     // `thread/list` applies `search_term` on the sqlite fast path. This test creates
     // rollouts manually, so mark the DB backfill complete and then run an unsearched
     // list large enough to repair every rollout the searched list should find.
-    let state_db =
-        codewen_state::StateRuntime::init(codewen_home.path().to_path_buf(), "mock_provider".into())
-            .await?;
+    let state_db = codewen_state::StateRuntime::init(
+        codewen_home.path().to_path_buf(),
+        "mock_provider".into(),
+    )
+    .await?;
     state_db
         .mark_backfill_complete(/*last_watermark*/ None)
         .await?;
@@ -893,9 +900,11 @@ sqlite = true
         Some("mock_provider"),
         /*git_info*/ None,
     )?;
-    let state_db =
-        codewen_state::StateRuntime::init(codewen_home.path().to_path_buf(), "mock_provider".into())
-            .await?;
+    let state_db = codewen_state::StateRuntime::init(
+        codewen_home.path().to_path_buf(),
+        "mock_provider".into(),
+    )
+    .await?;
     state_db
         .mark_backfill_complete(/*last_watermark*/ None)
         .await?;
@@ -1791,9 +1800,11 @@ async fn thread_list_sort_recency_at_uses_state_db_order_with_provider_filter() 
         "2025-01-03T00:00:00Z",
     )?;
 
-    let state_db =
-        codewen_state::StateRuntime::init(codewen_home.path().to_path_buf(), "mock_provider".into())
-            .await?;
+    let state_db = codewen_state::StateRuntime::init(
+        codewen_home.path().to_path_buf(),
+        "mock_provider".into(),
+    )
+    .await?;
     state_db
         .mark_backfill_complete(/*last_watermark*/ None)
         .await?;

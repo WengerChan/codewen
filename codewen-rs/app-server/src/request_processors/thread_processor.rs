@@ -1235,7 +1235,9 @@ impl ThreadRequestProcessor {
                     .unwrap_or(codewen_app_server_protocol::ThreadStartSource::Startup)
                 {
                     codewen_app_server_protocol::ThreadStartSource::Startup => InitialHistory::New,
-                    codewen_app_server_protocol::ThreadStartSource::Clear => InitialHistory::Cleared,
+                    codewen_app_server_protocol::ThreadStartSource::Clear => {
+                        InitialHistory::Cleared
+                    }
                 },
                 history_mode,
                 session_source: None,

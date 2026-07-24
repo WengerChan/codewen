@@ -175,8 +175,8 @@ fn up_to_date_fast_path_validates_marketplace_name() {
 }
 
 fn config_layer_stack(codewen_home: &Path, config: &str) -> ConfigLayerStack {
-    let config_file =
-        AbsolutePathBuf::try_from(codewen_home.join(CONFIG_TOML_FILE)).expect("absolute config path");
+    let config_file = AbsolutePathBuf::try_from(codewen_home.join(CONFIG_TOML_FILE))
+        .expect("absolute config path");
     ConfigLayerStack::new(
         vec![ConfigLayerEntry::new(
             ConfigLayerSource::User {

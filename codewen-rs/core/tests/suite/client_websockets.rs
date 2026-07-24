@@ -130,7 +130,10 @@ fn responses_metadata(
     )
 }
 
-fn turn_metadata(harness: &WebsocketTestHarness, turn_id: Option<&str>) -> CodewenResponsesMetadata {
+fn turn_metadata(
+    harness: &WebsocketTestHarness,
+    turn_id: Option<&str>,
+) -> CodewenResponsesMetadata {
     responses_metadata(harness, turn_id, TestCodexResponsesRequestKind::Turn)
 }
 
@@ -2353,8 +2356,9 @@ async fn websocket_harness_with_provider_options(
     let model_info = codewen_core::test_support::construct_model_info_offline(MODEL, &config);
     let thread_id = ThreadId::new();
     let session_id = SessionId::new();
-    let auth_manager =
-        codewen_core::test_support::auth_manager_from_auth(CodewenAuth::from_api_key("Test API Key"));
+    let auth_manager = codewen_core::test_support::auth_manager_from_auth(
+        CodewenAuth::from_api_key("Test API Key"),
+    );
     let exporter = InMemoryMetricExporter::default();
     let metrics = MetricsClient::new(
         MetricsConfig::in_memory("test", "codewen-core", env!("CARGO_PKG_VERSION"), exporter)

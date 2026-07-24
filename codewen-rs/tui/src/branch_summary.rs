@@ -667,7 +667,10 @@ mod tests {
             repo_search_order_from_output(
                 r#"{"nameWithOwner":"fcoury/codewen","parent":{"nameWithOwner":"openai/codewen"}}"#
             ),
-            Some(vec!["openai/codewen".to_string(), "fcoury/codewen".to_string()])
+            Some(vec![
+                "openai/codewen".to_string(),
+                "fcoury/codewen".to_string()
+            ])
         );
     }
 

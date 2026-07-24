@@ -1331,7 +1331,8 @@ mod tests {
         let github_root =
             test_path_buf("/Users/xl/.codewen/plugins/cache/openai-curated/github/hash123/skills")
                 .abs();
-        let marketplace_root = test_path_buf("/Users/xl/.codewen/plugins/cache/openai-curated").abs();
+        let marketplace_root =
+            test_path_buf("/Users/xl/.codewen/plugins/cache/openai-curated").abs();
         let github = skill_with_path("github:gh-fix-ci", &github_root.join("gh-fix-ci/SKILL.md"));
         let outcome = outcome_with_roots(vec![github.clone()], vec![github_root.clone()]);
         let plan = build_alias_plan(
@@ -1483,7 +1484,8 @@ mod tests {
         let slack_root =
             test_path_buf("/Users/xl/.codewen/plugins/cache/openai-curated/slack/hash456/skills")
                 .abs();
-        let marketplace_root = test_path_buf("/Users/xl/.codewen/plugins/cache/openai-curated").abs();
+        let marketplace_root =
+            test_path_buf("/Users/xl/.codewen/plugins/cache/openai-curated").abs();
         let github = skill_with_path("github:gh-fix-ci", &github_root.join("gh-fix-ci/SKILL.md"));
         let slack = skill_with_path(
             "slack:daily-digest",
@@ -1532,7 +1534,8 @@ mod tests {
             "/Users/xl/.codewen/plugins/cache/openai-curated/github/hash456/extra-skills",
         )
         .abs();
-        let marketplace_root = test_path_buf("/Users/xl/.codewen/plugins/cache/openai-curated").abs();
+        let marketplace_root =
+            test_path_buf("/Users/xl/.codewen/plugins/cache/openai-curated").abs();
         let fix_ci = skill_with_path("github:gh-fix-ci", &skills_root.join("gh-fix-ci/SKILL.md"));
         let yeet = skill_with_path("github:yeet", &extra_root.join("yeet/SKILL.md"));
         let outcome = outcome_with_roots(

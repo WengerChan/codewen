@@ -601,7 +601,10 @@ impl CodewenThread {
     }
 
     /// Resolves the MCP runtime configuration using this thread's extension data.
-    pub async fn runtime_mcp_config(&self, config: &crate::config::Config) -> codewen_mcp::McpConfig {
+    pub async fn runtime_mcp_config(
+        &self,
+        config: &crate::config::Config,
+    ) -> codewen_mcp::McpConfig {
         self.session.runtime_mcp_config(config).await
     }
 

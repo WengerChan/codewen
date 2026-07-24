@@ -28,7 +28,10 @@ pub(super) async fn archive_thread(
     })?;
 
     let canonical_rollout_path = scoped_rollout_path(
-        store.config.codewen_home.join(codewen_rollout::SESSIONS_SUBDIR),
+        store
+            .config
+            .codewen_home
+            .join(codewen_rollout::SESSIONS_SUBDIR),
         rollout_path.as_path(),
         "sessions",
     )?;

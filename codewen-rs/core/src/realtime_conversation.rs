@@ -1562,7 +1562,10 @@ fn wrap_realtime_delegation_input(
     RealtimeDelegation::new(input, transcript_delta, source).render()
 }
 
-fn realtime_api_key(auth: Option<&CodewenAuth>, provider: &ModelProviderInfo) -> CodewenResult<String> {
+fn realtime_api_key(
+    auth: Option<&CodewenAuth>,
+    provider: &ModelProviderInfo,
+) -> CodewenResult<String> {
     if let Some(api_key) = provider.api_key()? {
         return Ok(api_key);
     }

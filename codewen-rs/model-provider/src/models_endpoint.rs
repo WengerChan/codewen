@@ -86,7 +86,8 @@ impl OpenAiModelsEndpoint {
         let request_url =
             ModelsClient::<ReqwestTransport>::request_url(&api_provider, client_version);
         let auth_telemetry = auth_header_telemetry(api_auth.as_ref());
-        let agent_identity_telemetry = if let Some(CodewenAuth::AgentIdentity(auth)) = auth.as_ref() {
+        let agent_identity_telemetry = if let Some(CodewenAuth::AgentIdentity(auth)) = auth.as_ref()
+        {
             Some(agent_identity_telemetry(auth))
         } else {
             None

@@ -4950,8 +4950,9 @@ mod tests {
     #[test]
     fn restricted_file_system_policy_treats_root_with_carveouts_as_scoped_access() {
         let cwd = TempDir::new().expect("tempdir");
-        let canonical_cwd = codewen_utils_absolute_path::canonicalize_preserving_symlinks(cwd.path())
-            .expect("canonicalize cwd");
+        let canonical_cwd =
+            codewen_utils_absolute_path::canonicalize_preserving_symlinks(cwd.path())
+                .expect("canonicalize cwd");
         let root = AbsolutePathBuf::from_absolute_path(&canonical_cwd)
             .expect("absolute canonical tempdir")
             .as_path()
@@ -5008,8 +5009,9 @@ mod tests {
         let cwd = TempDir::new().expect("tempdir");
         std::fs::create_dir_all(cwd.path().join(".agents")).expect("create .agents");
         std::fs::create_dir_all(cwd.path().join(".codewen")).expect("create .codewen");
-        let canonical_cwd = codewen_utils_absolute_path::canonicalize_preserving_symlinks(cwd.path())
-            .expect("canonicalize cwd");
+        let canonical_cwd =
+            codewen_utils_absolute_path::canonicalize_preserving_symlinks(cwd.path())
+                .expect("canonicalize cwd");
         let cwd_absolute =
             AbsolutePathBuf::from_absolute_path(&canonical_cwd).expect("absolute tempdir");
         let secret = AbsolutePathBuf::resolve_path_against_base("secret", cwd.path());
@@ -5079,8 +5081,9 @@ mod tests {
     #[test]
     fn restricted_file_system_policy_treats_read_entries_as_read_only_subpaths() {
         let cwd = TempDir::new().expect("tempdir");
-        let canonical_cwd = codewen_utils_absolute_path::canonicalize_preserving_symlinks(cwd.path())
-            .expect("canonicalize cwd");
+        let canonical_cwd =
+            codewen_utils_absolute_path::canonicalize_preserving_symlinks(cwd.path())
+                .expect("canonicalize cwd");
         let docs = AbsolutePathBuf::resolve_path_against_base("docs", cwd.path());
         let docs_public = AbsolutePathBuf::resolve_path_against_base("docs/public", cwd.path());
         let expected_docs = AbsolutePathBuf::from_absolute_path(canonical_cwd.join("docs"))
@@ -5088,8 +5091,9 @@ mod tests {
         let expected_docs_public =
             AbsolutePathBuf::from_absolute_path(canonical_cwd.join("docs/public"))
                 .expect("canonical docs/public");
-        let expected_dot_codex = AbsolutePathBuf::from_absolute_path(canonical_cwd.join(".codewen"))
-            .expect("canonical .codewen");
+        let expected_dot_codex =
+            AbsolutePathBuf::from_absolute_path(canonical_cwd.join(".codewen"))
+                .expect("canonical .codewen");
         let policy = FileSystemSandboxPolicy::restricted(vec![
             FileSystemSandboxEntry {
                 path: FileSystemPath::Special {

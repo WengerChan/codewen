@@ -32,12 +32,18 @@ use std::sync::atomic::Ordering;
 use tempfile::tempdir;
 
 fn write_auth_json(codewen_home: &Path, value: serde_json::Value) -> std::io::Result<()> {
-    std::fs::write(codewen_home.join("auth.json"), serde_json::to_string(&value)?)?;
+    std::fs::write(
+        codewen_home.join("auth.json"),
+        serde_json::to_string(&value)?,
+    )?;
     Ok(())
 }
 
 fn create_test_cache(codewen_home: &Path) -> CloudConfigBundleCache {
-    CloudConfigBundleCache::new(AbsolutePathBuf::resolve_path_against_base(codewen_home, "/"))
+    CloudConfigBundleCache::new(AbsolutePathBuf::resolve_path_against_base(
+        codewen_home,
+        "/",
+    ))
 }
 
 async fn auth_manager_with_api_key() -> Arc<AuthManager> {
@@ -234,7 +240,10 @@ impl StaticBundleClient {
 }
 
 impl BundleClient for StaticBundleClient {
-    async fn get_bundle(&self, _auth: &CodewenAuth) -> Result<CloudConfigBundle, BundleRequestError> {
+    async fn get_bundle(
+        &self,
+        _auth: &CodewenAuth,
+    ) -> Result<CloudConfigBundle, BundleRequestError> {
         self.request_count.fetch_add(1, Ordering::SeqCst);
         Ok(self.bundle.clone())
     }
@@ -243,7 +252,10 @@ impl BundleClient for StaticBundleClient {
 struct PendingBundleClient;
 
 impl BundleClient for PendingBundleClient {
-    async fn get_bundle(&self, _auth: &CodewenAuth) -> Result<CloudConfigBundle, BundleRequestError> {
+    async fn get_bundle(
+        &self,
+        _auth: &CodewenAuth,
+    ) -> Result<CloudConfigBundle, BundleRequestError> {
         pending::<()>().await;
         Ok(CloudConfigBundle::default())
     }
@@ -264,7 +276,10 @@ impl SequenceBundleClient {
 }
 
 impl BundleClient for SequenceBundleClient {
-    async fn get_bundle(&self, _auth: &CodewenAuth) -> Result<CloudConfigBundle, BundleRequestError> {
+    async fn get_bundle(
+        &self,
+        _auth: &CodewenAuth,
+    ) -> Result<CloudConfigBundle, BundleRequestError> {
         self.request_count.fetch_add(1, Ordering::SeqCst);
         let mut responses = self.responses.lock().await;
         responses
@@ -280,7 +295,10 @@ struct TokenBundleClient {
 }
 
 impl BundleClient for TokenBundleClient {
-    async fn get_bundle(&self, auth: &CodewenAuth) -> Result<CloudConfigBundle, BundleRequestError> {
+    async fn get_bundle(
+        &self,
+        auth: &CodewenAuth,
+    ) -> Result<CloudConfigBundle, BundleRequestError> {
         self.request_count.fetch_add(1, Ordering::SeqCst);
         if matches!(
             auth.get_token().as_deref(),
@@ -335,7 +353,10 @@ impl ExternalAuth for TestExternalChatgptAuth {
 }
 
 impl BundleClient for UnauthorizedBundleClient {
-    async fn get_bundle(&self, _auth: &CodewenAuth) -> Result<CloudConfigBundle, BundleRequestError> {
+    async fn get_bundle(
+        &self,
+        _auth: &CodewenAuth,
+    ) -> Result<CloudConfigBundle, BundleRequestError> {
         self.request_count.fetch_add(1, Ordering::SeqCst);
         Err(BundleRequestError::Unauthorized {
             status_code: Some(401),
@@ -1037,21 +1058,23 @@ async fn refresh_from_remote_updates_cached_bundle() {
 #[test]
 fn bundle_response_conversion_preserves_fragment_order() {
     let response = ConfigBundleResponse {
-        config_toml: Some(Some(Box::new(codewen_backend_client::DeliveredConfigToml {
-            enterprise_managed: Some(Some(vec![
-                DeliveredTomlFragment::new(
-                    "cfg_high".to_string(),
-                    "High config".to_string(),
-                    "model = \"high\"".to_string(),
-                ),
-                DeliveredTomlFragment::new(
-                    "cfg_low".to_string(),
-                    "Low config".to_string(),
-                    "model = \"low\"".to_string(),
-                ),
-            ])),
-            managed_layers: None,
-        }))),
+        config_toml: Some(Some(Box::new(
+            codewen_backend_client::DeliveredConfigToml {
+                enterprise_managed: Some(Some(vec![
+                    DeliveredTomlFragment::new(
+                        "cfg_high".to_string(),
+                        "High config".to_string(),
+                        "model = \"high\"".to_string(),
+                    ),
+                    DeliveredTomlFragment::new(
+                        "cfg_low".to_string(),
+                        "Low config".to_string(),
+                        "model = \"low\"".to_string(),
+                    ),
+                ])),
+                managed_layers: None,
+            },
+        ))),
         requirements_toml: Some(Some(Box::new(
             codewen_backend_client::DeliveredRequirementsToml {
                 enterprise_managed: Some(Some(vec![DeliveredTomlFragment::new(

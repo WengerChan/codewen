@@ -235,7 +235,11 @@ impl ExternalAgentSessionImporter {
     ) -> Result<Option<PendingSessionImport>, SessionImportStepFailure> {
         let codewen_home = self.codewen_home.clone();
         tokio::task::spawn_blocking(move || {
-            prepare_validated_session_import_with_metadata_mode(&codewen_home, session, metadata_mode)
+            prepare_validated_session_import_with_metadata_mode(
+                &codewen_home,
+                session,
+                metadata_mode,
+            )
         })
         .await
         .map_err(|err| {

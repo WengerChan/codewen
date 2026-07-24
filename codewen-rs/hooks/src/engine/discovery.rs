@@ -477,7 +477,8 @@ fn append_matcher_groups(
                     } else {
                         command
                     };
-                    if r#async && event_name != codewen_protocol::protocol::HookEventName::SessionEnd
+                    if r#async
+                        && event_name != codewen_protocol::protocol::HookEventName::SessionEnd
                     {
                         warnings.push(format!(
                             "skipping async hook in {}: async hooks are not supported yet",

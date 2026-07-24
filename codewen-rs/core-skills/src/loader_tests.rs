@@ -1456,7 +1456,12 @@ async fn respects_max_scan_depth_for_user_scope() {
 #[tokio::test]
 async fn loads_valid_skill() {
     let codewen_home = tempfile::tempdir().expect("tempdir");
-    let skill_path = write_skill(&codewen_home, "demo", "demo-skill", "does things\ncarefully");
+    let skill_path = write_skill(
+        &codewen_home,
+        "demo",
+        "demo-skill",
+        "does things\ncarefully",
+    );
     let cfg = make_config(&codewen_home).await;
 
     let outcome = load_skills_for_test(&cfg).await;

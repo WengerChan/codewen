@@ -109,7 +109,9 @@ impl AgentGraphStore for LocalAgentGraphStore {
     }
 }
 
-fn to_state_status(status: ThreadSpawnEdgeStatus) -> codewen_state::DirectionalThreadSpawnEdgeStatus {
+fn to_state_status(
+    status: ThreadSpawnEdgeStatus,
+) -> codewen_state::DirectionalThreadSpawnEdgeStatus {
     match status {
         ThreadSpawnEdgeStatus::Open => codewen_state::DirectionalThreadSpawnEdgeStatus::Open,
         ThreadSpawnEdgeStatus::Closed => codewen_state::DirectionalThreadSpawnEdgeStatus::Closed,
@@ -141,10 +143,12 @@ mod tests {
 
     async fn state_runtime() -> TestRuntime {
         let codewen_home = TempDir::new().expect("tempdir should be created");
-        let state_db =
-            StateRuntime::init(codewen_home.path().to_path_buf(), "test-provider".to_string())
-                .await
-                .expect("state db should initialize");
+        let state_db = StateRuntime::init(
+            codewen_home.path().to_path_buf(),
+            "test-provider".to_string(),
+        )
+        .await
+        .expect("state db should initialize");
         TestRuntime {
             state_db,
             _codewen_home: codewen_home,

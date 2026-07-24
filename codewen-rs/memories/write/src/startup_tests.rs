@@ -596,8 +596,8 @@ async fn build_test_codewen_with_memories_config(
 }
 
 async fn init_state_db(home: &Arc<TempDir>) -> anyhow::Result<Arc<codewen_state::StateRuntime>> {
-    let db =
-        codewen_state::StateRuntime::init(home.path().to_path_buf(), "test-provider".into()).await?;
+    let db = codewen_state::StateRuntime::init(home.path().to_path_buf(), "test-provider".into())
+        .await?;
     db.mark_backfill_complete(/*last_watermark*/ None).await?;
     Ok(db)
 }

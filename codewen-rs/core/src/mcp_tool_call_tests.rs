@@ -102,7 +102,8 @@ fn mcp_turn_metadata_context(turn_context: &TurnContext) -> McpTurnMetadataConte
 
 fn write_sample_plugin_mcp(codewen_home: &std::path::Path) {
     let plugin_root = codewen_home.join("plugins/cache/test/sample/local");
-    std::fs::create_dir_all(plugin_root.join(".codewen-plugin")).expect("create plugin manifest dir");
+    std::fs::create_dir_all(plugin_root.join(".codewen-plugin"))
+        .expect("create plugin manifest dir");
     std::fs::write(
         plugin_root.join(".codewen-plugin/plugin.json"),
         r#"{
@@ -2413,7 +2414,8 @@ enabled = true
 
     maybe_persist_mcp_tool_approval(&session, &turn_context, key.clone()).await;
 
-    let contents = std::fs::read_to_string(codewen_home.join(CONFIG_TOML_FILE)).expect("read config");
+    let contents =
+        std::fs::read_to_string(codewen_home.join(CONFIG_TOML_FILE)).expect("read config");
     let parsed: ConfigToml = toml::from_str(&contents).expect("parse config");
     let tool = parsed
         .plugins

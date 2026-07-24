@@ -118,7 +118,8 @@ async fn submit_user_turn(codewen: &Arc<CodewenThread>, text: &str) -> Result<()
 
 async fn submit_compact_turn(codewen: &Arc<CodewenThread>) -> Result<()> {
     codewen.submit(Op::Compact).await?;
-    let warning_event = wait_for_event(codewen, |event| matches!(event, EventMsg::Warning(_))).await;
+    let warning_event =
+        wait_for_event(codewen, |event| matches!(event, EventMsg::Warning(_))).await;
     let EventMsg::Warning(WarningEvent { message }) = warning_event else {
         panic!("expected warning event after compact");
     };

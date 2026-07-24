@@ -37,7 +37,11 @@ fn record_duration_records_histogram() -> Result<()> {
 fn record_duration_keeps_whole_millisecond_behavior() -> Result<()> {
     let (metrics, exporter) = build_metrics_with_defaults(&[])?;
 
-    metrics.record_duration("codewen.request_latency", Duration::from_micros(15_999), &[])?;
+    metrics.record_duration(
+        "codewen.request_latency",
+        Duration::from_micros(15_999),
+        &[],
+    )?;
     metrics.shutdown()?;
 
     let resource_metrics = latest_metrics(&exporter);

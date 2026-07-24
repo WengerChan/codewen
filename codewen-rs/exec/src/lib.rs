@@ -244,7 +244,10 @@ pub async fn run_main(cli: Cli, arg0_paths: Arg0DispatchPaths) -> anyhow::Result
     }
 
     if let Err(err) = set_default_originator("codewen_exec".to_string()) {
-        tracing::warn!(?err, "Failed to set codewen exec originator override {err:?}");
+        tracing::warn!(
+            ?err,
+            "Failed to set codewen exec originator override {err:?}"
+        );
     }
 
     let Cli {
@@ -552,8 +555,11 @@ pub async fn run_main(cli: Cli, arg0_paths: Arg0DispatchPaths) -> anyhow::Result
     let environment_manager = if run_loader_overrides.ignore_user_config {
         EnvironmentManager::from_env(Some(local_runtime_paths)).await?
     } else {
-        EnvironmentManager::from_codewen_home(config.codewen_home.clone(), Some(local_runtime_paths))
-            .await?
+        EnvironmentManager::from_codewen_home(
+            config.codewen_home.clone(),
+            Some(local_runtime_paths),
+        )
+        .await?
     };
     let in_process_start_args = InProcessClientStartArgs {
         arg0_paths,

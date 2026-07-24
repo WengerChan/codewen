@@ -254,7 +254,9 @@ pub(crate) async fn finalize_non_tool_response_item(
                     .content
                     .iter()
                     .map(|entry| match entry {
-                        codewen_protocol::items::AgentMessageContent::Text { text } => text.as_str(),
+                        codewen_protocol::items::AgentMessageContent::Text { text } => {
+                            text.as_str()
+                        }
                     })
                     .collect::<String>();
                 let last_agent_message = if combined.trim().is_empty() {

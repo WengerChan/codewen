@@ -360,8 +360,9 @@ pub fn item_event_to_server_notification(
             })
         }
         EventMsg::AgentMessageContentDelta(event) => {
-            let codewen_protocol::protocol::AgentMessageContentDeltaEvent { item_id, delta, .. } =
-                event;
+            let codewen_protocol::protocol::AgentMessageContentDeltaEvent {
+                item_id, delta, ..
+            } = event;
             ServerNotification::AgentMessageDelta(AgentMessageDeltaNotification {
                 thread_id,
                 turn_id,

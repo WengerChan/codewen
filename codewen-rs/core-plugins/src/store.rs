@@ -56,8 +56,9 @@ impl PluginStore {
     }
 
     pub fn try_new(codewen_home: PathBuf) -> Result<Self, PluginStoreError> {
-        let root = AbsolutePathBuf::from_absolute_path_checked(codewen_home.join(PLUGINS_CACHE_DIR))
-            .map_err(|err| PluginStoreError::io("failed to resolve plugin cache root", err))?;
+        let root =
+            AbsolutePathBuf::from_absolute_path_checked(codewen_home.join(PLUGINS_CACHE_DIR))
+                .map_err(|err| PluginStoreError::io("failed to resolve plugin cache root", err))?;
         let data_root =
             AbsolutePathBuf::from_absolute_path_checked(codewen_home.join(PLUGINS_DATA_DIR))
                 .map_err(|err| PluginStoreError::io("failed to resolve plugin data root", err))?;

@@ -573,7 +573,10 @@ fn build_authorize_url(
         ),
         ("code_challenge_method".to_string(), "S256".to_string()),
         ("id_token_add_organizations".to_string(), "true".to_string()),
-        ("codewen_cli_simplified_flow".to_string(), "true".to_string()),
+        (
+            "codewen_cli_simplified_flow".to_string(),
+            "true".to_string(),
+        ),
         ("state".to_string(), state.to_string()),
         ("originator".to_string(), originator().value),
     ];

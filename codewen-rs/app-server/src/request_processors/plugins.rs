@@ -629,10 +629,12 @@ impl PluginRequestProcessor {
                     outcome
                         .errors
                         .into_iter()
-                        .map(|err| codewen_app_server_protocol::MarketplaceLoadErrorInfo {
-                            marketplace_path: err.path,
-                            message: err.message,
-                        })
+                        .map(
+                            |err| codewen_app_server_protocol::MarketplaceLoadErrorInfo {
+                                marketplace_path: err.path,
+                                message: err.message,
+                            },
+                        )
                         .collect(),
                 ))
             })
@@ -917,10 +919,12 @@ impl PluginRequestProcessor {
                 outcome
                     .errors
                     .into_iter()
-                    .map(|err| codewen_app_server_protocol::MarketplaceLoadErrorInfo {
-                        marketplace_path: err.path,
-                        message: err.message,
-                    })
+                    .map(
+                        |err| codewen_app_server_protocol::MarketplaceLoadErrorInfo {
+                            marketplace_path: err.path,
+                            message: err.message,
+                        },
+                    )
                     .collect(),
             ))
         })
@@ -1583,25 +1587,26 @@ impl PluginRequestProcessor {
             remote_plugin_bundle_install_error_to_jsonrpc(err)
         })?;
 
-        let result = codewen_core_plugins::remote_bundle::download_and_install_remote_plugin_bundle(
-            &remote_plugin_service_config,
-            config.codewen_home.to_path_buf(),
-            validated_bundle,
-        )
-        .await
-        .map_err(|err| {
-            let error_type = remote_plugin_bundle_install_error_type(&err);
-            let sub_error_type = err.sub_error_type();
-            self.track_plugin_install_failed_for_remote_plugin(
-                &remote_plugin_id,
-                &actual_remote_marketplace_name,
-                Some(&resolved_plugin_id),
-                error_type,
-                sub_error_type,
-                err.to_string(),
-            );
-            remote_plugin_bundle_install_error_to_jsonrpc(err)
-        })?;
+        let result =
+            codewen_core_plugins::remote_bundle::download_and_install_remote_plugin_bundle(
+                &remote_plugin_service_config,
+                config.codewen_home.to_path_buf(),
+                validated_bundle,
+            )
+            .await
+            .map_err(|err| {
+                let error_type = remote_plugin_bundle_install_error_type(&err);
+                let sub_error_type = err.sub_error_type();
+                self.track_plugin_install_failed_for_remote_plugin(
+                    &remote_plugin_id,
+                    &actual_remote_marketplace_name,
+                    Some(&resolved_plugin_id),
+                    error_type,
+                    sub_error_type,
+                    err.to_string(),
+                );
+                remote_plugin_bundle_install_error_to_jsonrpc(err)
+            })?;
 
         // Cache first so a backend install cannot succeed when local materialization fails.
         // If this backend call fails, the cache entry is harmless because remote installed state
@@ -2001,15 +2006,19 @@ impl PluginRequestProcessor {
 
         let auth = self.auth_manager.auth().await;
         let remote_plugin_service_config = remote_plugin_service_config(&config);
-        let uninstall_target = codewen_core_plugins::remote::resolve_remote_plugin_uninstall_target(
-            &remote_plugin_service_config,
-            auth.as_ref(),
-            &plugin_id,
-        )
-        .await
-        .map_err(|err| {
-            remote_plugin_catalog_error_to_jsonrpc(err, "resolve remote plugin before uninstall")
-        })?;
+        let uninstall_target =
+            codewen_core_plugins::remote::resolve_remote_plugin_uninstall_target(
+                &remote_plugin_service_config,
+                auth.as_ref(),
+                &plugin_id,
+            )
+            .await
+            .map_err(|err| {
+                remote_plugin_catalog_error_to_jsonrpc(
+                    err,
+                    "resolve remote plugin before uninstall",
+                )
+            })?;
         let plugins_manager = self.thread_manager.plugins_manager();
         let mut plugin_telemetry = plugins_manager
             .telemetry_metadata_for_installed_plugin_with_remote_id(

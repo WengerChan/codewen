@@ -227,7 +227,9 @@ fn parse_windows_sandbox_wrapper_args(args: Vec<String>) -> Result<WindowsSandbo
 
     while let Some(arg) = args.next() {
         match arg.as_str() {
-            CODEX_HOME_FLAG => codewen_home = Some(PathBuf::from(next_flag_value(&mut args, &arg)?)),
+            CODEX_HOME_FLAG => {
+                codewen_home = Some(PathBuf::from(next_flag_value(&mut args, &arg)?))
+            }
             COMMAND_CWD_FLAG => {
                 command_cwd = Some(absolute_path_arg(next_flag_value(&mut args, &arg)?, &arg)?);
             }

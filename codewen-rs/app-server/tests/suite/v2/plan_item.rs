@@ -133,7 +133,9 @@ async fn plan_mode_without_proposed_plan_does_not_emit_plan_item() -> Result<()>
     Ok(())
 }
 
-async fn start_plan_mode_turn(mcp: &mut TestAppServer) -> Result<codewen_app_server_protocol::Turn> {
+async fn start_plan_mode_turn(
+    mcp: &mut TestAppServer,
+) -> Result<codewen_app_server_protocol::Turn> {
     let thread_req = mcp
         .send_thread_start_request_with_auto_env(ThreadStartParams {
             model: Some("mock-model".to_string()),

@@ -512,7 +512,8 @@ mod thread_processor_behavior_tests {
     fn requested_permissions_trust_project_uses_permission_profile_intent() {
         let cwd = test_path_buf("/tmp/project").abs();
         let full_access_profile = codewen_protocol::models::PermissionProfile::Disabled;
-        let workspace_write_profile = codewen_protocol::models::PermissionProfile::workspace_write();
+        let workspace_write_profile =
+            codewen_protocol::models::PermissionProfile::workspace_write();
         let read_only_profile = codewen_protocol::models::PermissionProfile::read_only();
         let split_write_profile =
             codewen_protocol::models::PermissionProfile::from_runtime_permissions(
@@ -878,7 +879,10 @@ mod thread_processor_behavior_tests {
             &persisted_metadata,
         );
 
-        assert_eq!(typesafe_overrides.model, Some("gpt-5.2-codewen".to_string()));
+        assert_eq!(
+            typesafe_overrides.model,
+            Some("gpt-5.2-codewen".to_string())
+        );
         assert_eq!(typesafe_overrides.model_provider, None);
         assert_eq!(
             request_overrides,

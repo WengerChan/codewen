@@ -85,7 +85,11 @@ pub(crate) fn executable_identity_from_bytes(bytes: &[u8]) -> ExecutableIdentity
 }
 
 fn managed_codewen_file_name() -> &'static str {
-    if cfg!(windows) { "codewen.exe" } else { "codewen" }
+    if cfg!(windows) {
+        "codewen.exe"
+    } else {
+        "codewen"
+    }
 }
 
 #[cfg(unix)]

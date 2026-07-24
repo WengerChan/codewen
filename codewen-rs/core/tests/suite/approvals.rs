@@ -3089,8 +3089,7 @@ async fn invalid_requested_prefix_rule_falls_back_for_compound_command() -> Resu
     let test = builder.build(&server).await?;
 
     let call_id = "invalid-prefix-rule";
-    let command =
-        "touch /tmp/codewen-fallback-rule-test.txt && echo hello > /tmp/codewen-fallback-rule-test.txt";
+    let command = "touch /tmp/codewen-fallback-rule-test.txt && echo hello > /tmp/codewen-fallback-rule-test.txt";
     let event = shell_event_with_prefix_rule(
         call_id,
         command,
@@ -3142,8 +3141,7 @@ async fn approving_fallback_rule_for_compound_command_works() -> Result<()> {
     let test = builder.build(&server).await?;
 
     let call_id = "invalid-prefix-rule";
-    let command =
-        "touch /tmp/codewen-fallback-rule-test.txt && echo hello > /tmp/codewen-fallback-rule-test.txt";
+    let command = "touch /tmp/codewen-fallback-rule-test.txt && echo hello > /tmp/codewen-fallback-rule-test.txt";
     let event = shell_event_with_prefix_rule(
         call_id,
         command,
@@ -3189,8 +3187,7 @@ async fn approving_fallback_rule_for_compound_command_works() -> Result<()> {
     wait_for_completion(&test).await;
 
     let call_id = "invalid-prefix-rule-again";
-    let command =
-        "touch /tmp/codewen-fallback-rule-test.txt && echo hello > /tmp/codewen-fallback-rule-test.txt";
+    let command = "touch /tmp/codewen-fallback-rule-test.txt && echo hello > /tmp/codewen-fallback-rule-test.txt";
     let event = shell_event_with_prefix_rule(
         call_id,
         command,

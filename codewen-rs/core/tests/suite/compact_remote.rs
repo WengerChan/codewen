@@ -436,7 +436,9 @@ async fn remote_compact_replaces_history_for_followups() -> Result<()> {
     )
     .expect("remote compact turn metadata should be valid json");
     assert_eq!(
-        compact_request.header("x-codewen-installation-id").as_deref(),
+        compact_request
+            .header("x-codewen-installation-id")
+            .as_deref(),
         compact_metadata["installation_id"].as_str()
     );
     assert!(
@@ -1258,7 +1260,8 @@ async fn remote_compact_filters_deferred_dynamic_tools() -> Result<()> {
     skip_if_no_network!(Ok(()));
 
     let server = responses::start_mock_server().await;
-    let mut builder = test_codewen().with_auth(CodewenAuth::create_dummy_chatgpt_auth_for_testing());
+    let mut builder =
+        test_codewen().with_auth(CodewenAuth::create_dummy_chatgpt_auth_for_testing());
     let mut test = builder.build(&server).await?;
     let hidden_tool = "hidden_dynamic_tool";
     let visible_tool = "visible_dynamic_tool";
@@ -2768,10 +2771,16 @@ async fn remote_compact_and_resume_refresh_stale_developer_instructions() -> Res
             thread_settings: Default::default(),
         })
         .await?;
-    wait_for_event(&initial.codewen, |ev| matches!(ev, EventMsg::TurnComplete(_))).await;
+    wait_for_event(&initial.codewen, |ev| {
+        matches!(ev, EventMsg::TurnComplete(_))
+    })
+    .await;
 
     initial.codewen.submit(Op::Compact).await?;
-    wait_for_event(&initial.codewen, |ev| matches!(ev, EventMsg::TurnComplete(_))).await;
+    wait_for_event(&initial.codewen, |ev| {
+        matches!(ev, EventMsg::TurnComplete(_))
+    })
+    .await;
 
     initial
         .codewen
@@ -2786,7 +2795,10 @@ async fn remote_compact_and_resume_refresh_stale_developer_instructions() -> Res
             thread_settings: Default::default(),
         })
         .await?;
-    wait_for_event(&initial.codewen, |ev| matches!(ev, EventMsg::TurnComplete(_))).await;
+    wait_for_event(&initial.codewen, |ev| {
+        matches!(ev, EventMsg::TurnComplete(_))
+    })
+    .await;
 
     initial.codewen.submit(Op::Shutdown).await?;
     wait_for_event(&initial.codewen, |ev| {
@@ -2811,7 +2823,10 @@ async fn remote_compact_and_resume_refresh_stale_developer_instructions() -> Res
             thread_settings: Default::default(),
         })
         .await?;
-    wait_for_event(&resumed.codewen, |ev| matches!(ev, EventMsg::TurnComplete(_))).await;
+    wait_for_event(&resumed.codewen, |ev| {
+        matches!(ev, EventMsg::TurnComplete(_))
+    })
+    .await;
 
     assert_eq!(compact_mock.requests().len(), 1);
     let requests = responses_mock.requests();
@@ -2858,7 +2873,8 @@ async fn remote_compact_refreshes_stale_developer_instructions_without_resume() 
     let server = wiremock::MockServer::start().await;
     let stale_developer_message = "STALE_DEVELOPER_INSTRUCTIONS_SHOULD_BE_REMOVED";
 
-    let mut builder = test_codewen().with_auth(CodewenAuth::create_dummy_chatgpt_auth_for_testing());
+    let mut builder =
+        test_codewen().with_auth(CodewenAuth::create_dummy_chatgpt_auth_for_testing());
     let test = builder.build(&server).await?;
 
     let responses_mock = responses::mount_sse_sequence(
@@ -2956,9 +2972,10 @@ async fn snapshot_request_shape_remote_pre_turn_compaction_restates_realtime_sta
 
     let server = wiremock::MockServer::start().await;
     let realtime_server = start_remote_realtime_server().await;
-    let mut builder = remote_realtime_test_codewen_builder(&realtime_server).with_config(|config| {
-        config.model_auto_compact_token_limit = Some(200);
-    });
+    let mut builder =
+        remote_realtime_test_codewen_builder(&realtime_server).with_config(|config| {
+            config.model_auto_compact_token_limit = Some(200);
+        });
     let test = builder.build(&server).await?;
 
     let responses_mock = responses::mount_sse_sequence(
@@ -3264,9 +3281,10 @@ async fn snapshot_request_shape_remote_mid_turn_compaction_does_not_restate_real
 
     let server = wiremock::MockServer::start().await;
     let realtime_server = start_remote_realtime_server().await;
-    let mut builder = remote_realtime_test_codewen_builder(&realtime_server).with_config(|config| {
-        config.model_auto_compact_token_limit = Some(200);
-    });
+    let mut builder =
+        remote_realtime_test_codewen_builder(&realtime_server).with_config(|config| {
+            config.model_auto_compact_token_limit = Some(200);
+        });
     let test = builder.build(&server).await?;
 
     let responses_mock = responses::mount_sse_sequence(

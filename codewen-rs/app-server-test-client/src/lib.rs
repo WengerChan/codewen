@@ -474,12 +474,14 @@ pub async fn run() -> Result<()> {
         }
         CliCommand::ThreadIncrementElicitation { thread_id } => {
             ensure_dynamic_tools_unused(&dynamic_tools, "thread-increment-elicitation")?;
-            let url = resolve_shared_websocket_url(codewen_bin, url, "thread-increment-elicitation")?;
+            let url =
+                resolve_shared_websocket_url(codewen_bin, url, "thread-increment-elicitation")?;
             thread_increment_elicitation(&url, thread_id)
         }
         CliCommand::ThreadDecrementElicitation { thread_id } => {
             ensure_dynamic_tools_unused(&dynamic_tools, "thread-decrement-elicitation")?;
-            let url = resolve_shared_websocket_url(codewen_bin, url, "thread-decrement-elicitation")?;
+            let url =
+                resolve_shared_websocket_url(codewen_bin, url, "thread-decrement-elicitation")?;
             thread_decrement_elicitation(&url, thread_id)
         }
         CliCommand::LiveElicitationTimeoutPause {
@@ -507,7 +509,8 @@ pub async fn run() -> Result<()> {
             if url.is_some() {
                 bail!("plugin-analytics-smoke requires --codewen-bin and does not support --url");
             }
-            let codewen_bin = codewen_bin.context("plugin-analytics-smoke requires --codewen-bin")?;
+            let codewen_bin =
+                codewen_bin.context("plugin-analytics-smoke requires --codewen-bin")?;
             plugin_analytics_smoke::run(&codewen_bin, &config_overrides, &plugin_id, capture_file)
         }
         CliCommand::PluginAnalyticsMutationSmoke {
@@ -541,7 +544,8 @@ pub async fn run() -> Result<()> {
             if url.is_some() {
                 bail!("plugin-remote-uninstall requires --codewen-bin and does not support --url");
             }
-            let codewen_bin = codewen_bin.context("plugin-remote-uninstall requires --codewen-bin")?;
+            let codewen_bin =
+                codewen_bin.context("plugin-remote-uninstall requires --codewen-bin")?;
             plugin_analytics_mutation_smoke::run_cleanup(
                 &codewen_bin,
                 &config_overrides,

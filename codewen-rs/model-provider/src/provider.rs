@@ -419,7 +419,10 @@ mod tests {
     }
 
     fn test_codewen_home() -> std::path::PathBuf {
-        std::env::temp_dir().join(format!("codewen-model-provider-test-{}", std::process::id()))
+        std::env::temp_dir().join(format!(
+            "codewen-model-provider-test-{}",
+            std::process::id()
+        ))
     }
 
     fn provider_for(base_url: String) -> ModelProviderInfo {
@@ -556,9 +559,9 @@ mod tests {
                 profile: Some("codewen-bedrock".to_string()),
                 region: None,
             })),
-            Some(AuthManager::from_auth_for_testing(CodewenAuth::from_api_key(
-                "openai-api-key",
-            ))),
+            Some(AuthManager::from_auth_for_testing(
+                CodewenAuth::from_api_key("openai-api-key"),
+            )),
         );
 
         assert!(provider.auth_manager().is_none());
@@ -595,9 +598,9 @@ mod tests {
     fn openai_provider_returns_api_key_account_state() {
         let provider = create_model_provider(
             ModelProviderInfo::create_openai_provider(/*base_url*/ None),
-            Some(AuthManager::from_auth_for_testing(CodewenAuth::from_api_key(
-                "openai-api-key",
-            ))),
+            Some(AuthManager::from_auth_for_testing(
+                CodewenAuth::from_api_key("openai-api-key"),
+            )),
         );
 
         assert_eq!(

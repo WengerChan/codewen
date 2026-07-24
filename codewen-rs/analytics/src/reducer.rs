@@ -794,10 +794,12 @@ impl AnalyticsReducer {
 
     fn ingest_plugin_used(&mut self, input: PluginUsedInput, out: &mut Vec<TrackEventRequest>) {
         let PluginUsedInput { tracking, plugin } = input;
-        out.push(TrackEventRequest::PluginUsed(CodewenPluginUsedEventRequest {
-            event_type: "codewen_plugin_used",
-            event_params: codewen_plugin_used_metadata(&tracking, plugin),
-        }));
+        out.push(TrackEventRequest::PluginUsed(
+            CodewenPluginUsedEventRequest {
+                event_type: "codewen_plugin_used",
+                event_params: codewen_plugin_used_metadata(&tracking, plugin),
+            },
+        ));
     }
 
     fn ingest_plugin_install_requested(
@@ -1396,7 +1398,11 @@ impl AnalyticsReducer {
         ));
     }
 
-    fn ingest_compaction(&mut self, input: CodewenCompactionEvent, out: &mut Vec<TrackEventRequest>) {
+    fn ingest_compaction(
+        &mut self,
+        input: CodewenCompactionEvent,
+        out: &mut Vec<TrackEventRequest>,
+    ) {
         let Some((connection_state, thread_state, thread_metadata)) =
             self.thread_context_or_warn(AnalyticsDropSite::compaction(&input))
         else {
@@ -1869,17 +1875,19 @@ fn tool_item_event(input: ToolItemEventInput<'_>) -> Option<TrackEventRequest> {
                     review_summary,
                 },
             );
-            Some(TrackEventRequest::FileChange(CodewenFileChangeEventRequest {
-                event_type: "codewen_file_change_event",
-                event_params: CodewenFileChangeEventParams {
-                    base,
-                    file_change_count: usize_to_u64(changes.len()),
-                    file_add_count: counts.add,
-                    file_update_count: counts.update,
-                    file_delete_count: counts.delete,
-                    file_move_count: counts.move_,
+            Some(TrackEventRequest::FileChange(
+                CodewenFileChangeEventRequest {
+                    event_type: "codewen_file_change_event",
+                    event_params: CodewenFileChangeEventParams {
+                        base,
+                        file_change_count: usize_to_u64(changes.len()),
+                        file_add_count: counts.add,
+                        file_update_count: counts.update,
+                        file_delete_count: counts.delete,
+                        file_move_count: counts.move_,
+                    },
                 },
-            }))
+            ))
         }
         ThreadItem::McpToolCall {
             id,
@@ -2495,7 +2503,9 @@ struct FileChangeCounts {
     move_: u64,
 }
 
-fn file_change_counts(changes: &[codewen_app_server_protocol::FileUpdateChange]) -> FileChangeCounts {
+fn file_change_counts(
+    changes: &[codewen_app_server_protocol::FileUpdateChange],
+) -> FileChangeCounts {
     let mut counts = FileChangeCounts::default();
     for change in changes {
         match &change.kind {

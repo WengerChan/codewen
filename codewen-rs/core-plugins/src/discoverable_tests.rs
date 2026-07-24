@@ -771,7 +771,12 @@ source = "/tmp/{sales_marketplace_name}"
 "#
         ),
     );
-    install_marketplace_plugin(codewen_home.path(), sales_marketplace_root.as_path(), "sales").await;
+    install_marketplace_plugin(
+        codewen_home.path(),
+        sales_marketplace_root.as_path(),
+        "sales",
+    )
+    .await;
 
     let plugins = load_plugins_config(codewen_home.path(), codewen_home.path()).await;
     let plugins_manager = PluginsManager::new(codewen_home.path().to_path_buf());
@@ -934,7 +939,11 @@ fn string_set(values: &[&str]) -> HashSet<String> {
     values.iter().map(ToString::to_string).collect()
 }
 
-async fn install_marketplace_plugin(codewen_home: &Path, marketplace_root: &Path, plugin_name: &str) {
+async fn install_marketplace_plugin(
+    codewen_home: &Path,
+    marketplace_root: &Path,
+    plugin_name: &str,
+) {
     write_curated_plugin_sha_with(codewen_home, TEST_CURATED_PLUGIN_SHA);
     let config = load_plugins_config(codewen_home, marketplace_root).await;
     PluginsManager::new(codewen_home.to_path_buf())

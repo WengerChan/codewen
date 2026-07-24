@@ -559,8 +559,10 @@ async fn start_thread_seeds_extension_data_for_mcp_and_lifecycle_contributors() 
         fn contribute<'a>(
             &'a self,
             context: codewen_extension_api::McpServerContributionContext<'a, Config>,
-        ) -> codewen_extension_api::ExtensionFuture<'a, Vec<codewen_extension_api::McpServerContribution>>
-        {
+        ) -> codewen_extension_api::ExtensionFuture<
+            'a,
+            Vec<codewen_extension_api::McpServerContribution>,
+        > {
             Box::pin(async move {
                 let thread_init = context
                     .thread_init()
@@ -583,13 +585,15 @@ async fn start_thread_seeds_extension_data_for_mcp_and_lifecycle_contributors() 
                 server.environment_id = environment_id.clone();
                 server.enabled = false;
                 let plugin_id = selected_root.id;
-                vec![codewen_extension_api::McpServerContribution::SelectedPlugin {
-                    name: plugin_id.clone(),
-                    plugin_display_name: plugin_id.clone(),
-                    plugin_id,
-                    selection_order: 0,
-                    config: Box::new(server),
-                }]
+                vec![
+                    codewen_extension_api::McpServerContribution::SelectedPlugin {
+                        name: plugin_id.clone(),
+                        plugin_display_name: plugin_id.clone(),
+                        plugin_id,
+                        selection_order: 0,
+                        config: Box::new(server),
+                    },
+                ]
             })
         }
     }
@@ -748,7 +752,9 @@ async fn start_thread_seeds_extension_data_for_mcp_and_lifecycle_contributors() 
         .remove(codewen_mcp::CODEX_APPS_MCP_SERVER_NAME)
         .expect("Codex Apps server should be configured");
     let codewen_apps_headers = match codewen_apps_server.transport {
-        codewen_config::McpServerTransportConfig::StreamableHttp { http_headers, .. } => http_headers,
+        codewen_config::McpServerTransportConfig::StreamableHttp { http_headers, .. } => {
+            http_headers
+        }
         codewen_config::McpServerTransportConfig::Stdio { .. } => {
             panic!("Codex Apps server should use streamable HTTP")
         }

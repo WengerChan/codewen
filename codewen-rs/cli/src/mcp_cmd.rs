@@ -433,7 +433,9 @@ async fn run_remove(config_overrides: &CliConfigOverrides, remove_args: RemoveAr
             .replace_mcp_servers(&servers)
             .apply()
             .await
-            .with_context(|| format!("failed to write MCP servers to {}", codewen_home.display()))?;
+            .with_context(|| {
+                format!("failed to write MCP servers to {}", codewen_home.display())
+            })?;
     }
 
     if removed {

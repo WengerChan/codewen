@@ -569,7 +569,9 @@ fn map_network_unix_socket_permission_to_api(
     permission: codewen_config::NetworkUnixSocketPermissionToml,
 ) -> NetworkUnixSocketPermission {
     match permission {
-        codewen_config::NetworkUnixSocketPermissionToml::Allow => NetworkUnixSocketPermission::Allow,
+        codewen_config::NetworkUnixSocketPermissionToml::Allow => {
+            NetworkUnixSocketPermission::Allow
+        }
         codewen_config::NetworkUnixSocketPermissionToml::Deny => NetworkUnixSocketPermission::Deny,
     }
 }

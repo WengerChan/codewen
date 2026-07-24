@@ -220,7 +220,9 @@ async fn get_conversation_summary_by_relative_rollout_path_resolves_from_codewen
     )?;
     let thread_id = ThreadId::from_string(&conversation_id)?;
     let rollout_path = rollout_path(codewen_home.path(), FILENAME_TS, &conversation_id);
-    let relative_path = rollout_path.strip_prefix(codewen_home.path())?.to_path_buf();
+    let relative_path = rollout_path
+        .strip_prefix(codewen_home.path())?
+        .to_path_buf();
     let expected = expected_summary(thread_id, normalized_canonical_path(rollout_path)?);
 
     let mut mcp = TestAppServer::builder()

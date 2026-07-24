@@ -131,7 +131,9 @@ fn codewen_new_thread_url(workspace: &Path) -> String {
     format!("codewen://threads/new?{query}")
 }
 
-async fn download_and_install_codewen_to_user_applications(dmg_url: &str) -> anyhow::Result<PathBuf> {
+async fn download_and_install_codewen_to_user_applications(
+    dmg_url: &str,
+) -> anyhow::Result<PathBuf> {
     let temp_dir = Builder::new()
         .prefix("codewen-app-installer-")
         .tempdir()
@@ -387,8 +389,10 @@ mod tests {
 
     #[test]
     fn codewen_new_thread_url_encodes_workspace_path() {
-        let url = url::Url::parse(&codewen_new_thread_url(Path::new("/tmp/codewen workspace/#1")))
-            .expect("deep link should parse");
+        let url = url::Url::parse(&codewen_new_thread_url(Path::new(
+            "/tmp/codewen workspace/#1",
+        )))
+        .expect("deep link should parse");
 
         assert_eq!(
             (

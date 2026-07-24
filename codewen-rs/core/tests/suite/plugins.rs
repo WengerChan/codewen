@@ -46,7 +46,8 @@ fn sample_plugin_root(home: &TempDir) -> std::path::PathBuf {
 
 fn write_sample_plugin_manifest_and_config(home: &TempDir) -> std::path::PathBuf {
     let plugin_root = sample_plugin_root(home);
-    std::fs::create_dir_all(plugin_root.join(".codewen-plugin")).expect("create plugin manifest dir");
+    std::fs::create_dir_all(plugin_root.join(".codewen-plugin"))
+        .expect("create plugin manifest dir");
     std::fs::write(
         plugin_root.join(".codewen-plugin/plugin.json"),
         format!(

@@ -177,7 +177,9 @@ impl ConfigManager {
         if self.loader_overrides.user_config_path.is_some()
             || self.loader_overrides.user_config_profile.is_some()
         {
-            let user_config_path = self.loader_overrides.user_config_path(self.codewen_home())?;
+            let user_config_path = self
+                .loader_overrides
+                .user_config_path(self.codewen_home())?;
             config.config_layer_stack = config.config_layer_stack.with_user_config_profile(
                 &user_config_path,
                 self.loader_overrides.user_config_profile.as_ref(),

@@ -682,7 +682,8 @@ async fn thread_search_occurrences_reads_paginated_projection() -> Result<()> {
 #[tokio::test]
 async fn thread_turns_list_reads_store_history_without_rollout_path() -> Result<()> {
     let codewen_home = TempDir::new()?;
-    let thread_id = codewen_protocol::ThreadId::from_string("00000000-0000-4000-8000-000000000123")?;
+    let thread_id =
+        codewen_protocol::ThreadId::from_string("00000000-0000-4000-8000-000000000123")?;
     let store_id = Uuid::new_v4().to_string();
     create_config_toml_with_thread_store(codewen_home.path(), &store_id)?;
     let store = InMemoryThreadStore::for_id(store_id.clone());
@@ -852,7 +853,8 @@ async fn thread_read_loaded_include_turns_reads_store_history_without_rollout_pa
 #[tokio::test]
 async fn thread_list_includes_store_thread_without_rollout_path() -> Result<()> {
     let codewen_home = TempDir::new()?;
-    let thread_id = codewen_protocol::ThreadId::from_string("00000000-0000-4000-8000-000000000124")?;
+    let thread_id =
+        codewen_protocol::ThreadId::from_string("00000000-0000-4000-8000-000000000124")?;
     let store_id = Uuid::new_v4().to_string();
     create_config_toml_with_thread_store(codewen_home.path(), &store_id)?;
     let store = InMemoryThreadStore::for_id(store_id.clone());
@@ -2302,7 +2304,10 @@ fn store_history_items() -> Vec<RolloutItem> {
     ))]
 }
 
-fn create_config_toml_with_thread_store(codewen_home: &Path, store_id: &str) -> std::io::Result<()> {
+fn create_config_toml_with_thread_store(
+    codewen_home: &Path,
+    store_id: &str,
+) -> std::io::Result<()> {
     let config_toml = codewen_home.join("config.toml");
     std::fs::write(
         config_toml,

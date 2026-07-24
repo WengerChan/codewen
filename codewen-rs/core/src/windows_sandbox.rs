@@ -130,10 +130,12 @@ fn provisioning_settings(
     let Some(network) = network.filter(|network| network.enabled()) else {
         return Ok(codewen_windows_sandbox::WindowsSandboxProvisioningSettings::default());
     };
-    Ok(codewen_windows_sandbox::WindowsSandboxProvisioningSettings {
-        proxy_ports: network.configured_proxy_ports()?,
-        allow_local_binding: network.allow_local_binding(),
-    })
+    Ok(
+        codewen_windows_sandbox::WindowsSandboxProvisioningSettings {
+            proxy_ports: network.configured_proxy_ports()?,
+            allow_local_binding: network.allow_local_binding(),
+        },
+    )
 }
 
 #[cfg(target_os = "windows")]

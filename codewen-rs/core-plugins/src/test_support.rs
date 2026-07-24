@@ -200,7 +200,8 @@ pub(crate) fn write_curated_plugin_sha_with(codewen_home: &Path, sha: &str) {
 }
 
 pub(crate) async fn load_plugins_config(codewen_home: &Path, cwd: &Path) -> PluginsConfigInput {
-    let codewen_home = AbsolutePathBuf::try_from(codewen_home).expect("codewen home should be absolute");
+    let codewen_home =
+        AbsolutePathBuf::try_from(codewen_home).expect("codewen home should be absolute");
     let cwd = AbsolutePathBuf::try_from(cwd).expect("cwd should be absolute");
     let config_layer_stack = load_config_layers_state(
         LOCAL_FS.as_ref(),

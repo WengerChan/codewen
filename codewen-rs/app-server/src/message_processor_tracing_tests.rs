@@ -234,7 +234,8 @@ async fn build_test_processor(
 ) {
     let (outgoing_tx, outgoing_rx) = mpsc::channel(16);
     let auth_manager =
-        AuthManager::shared_from_config(config.as_ref(), /*enable_codewen_api_key_env*/ false).await;
+        AuthManager::shared_from_config(config.as_ref(), /*enable_codewen_api_key_env*/ false)
+            .await;
     let config_manager = ConfigManager::new(
         config.codewen_home.to_path_buf(),
         Vec::new(),

@@ -57,10 +57,9 @@ impl AgentRunner {
             ));
         }
 
-        let thread_manager = self
-            .thread_manager
-            .upgrade()
-            .ok_or_else(|| CodewenErr::UnsupportedOperation("thread manager dropped".to_string()))?;
+        let thread_manager = self.thread_manager.upgrade().ok_or_else(|| {
+            CodewenErr::UnsupportedOperation("thread manager dropped".to_string())
+        })?;
         let environments =
             thread_manager.default_environment_selections(&config.cwd, &config.workspace_roots);
         let NewThread {

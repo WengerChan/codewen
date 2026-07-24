@@ -88,8 +88,8 @@ fn codewen_apps_tools_cache_is_overwritten_by_last_write() {
     assert_eq!(cached_gateway_1[0].callable_name, "one");
 
     write_cached_codewen_apps_tools(&cache_context, &tools_gateway_2).expect("write second cache");
-    let cached_gateway_2 =
-        read_cached_codewen_apps_tools(&cache_context).expect("cache entry exists for second write");
+    let cached_gateway_2 = read_cached_codewen_apps_tools(&cache_context)
+        .expect("cache entry exists for second write");
     assert_eq!(cached_gateway_2[0].callable_name, "two");
 }
 
@@ -152,7 +152,8 @@ fn codewen_apps_tools_cache_preserves_formerly_disallowed_connectors() {
     ];
 
     write_cached_codewen_apps_tools(&cache_context, &tools).expect("write cache");
-    let cached = read_cached_codewen_apps_tools(&cache_context).expect("cache entry exists for user");
+    let cached =
+        read_cached_codewen_apps_tools(&cache_context).expect("cache entry exists for user");
 
     assert_eq!(
         cached

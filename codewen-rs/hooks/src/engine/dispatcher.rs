@@ -207,7 +207,9 @@ pub(crate) fn hook_source_label(source: codewen_protocol::protocol::HookSource) 
         codewen_protocol::protocol::HookSource::LegacyManagedConfigFile => {
             "legacy_managed_config_file"
         }
-        codewen_protocol::protocol::HookSource::LegacyManagedConfigMdm => "legacy_managed_config_mdm",
+        codewen_protocol::protocol::HookSource::LegacyManagedConfigMdm => {
+            "legacy_managed_config_mdm"
+        }
         codewen_protocol::protocol::HookSource::Unknown => "unknown",
     }
 }

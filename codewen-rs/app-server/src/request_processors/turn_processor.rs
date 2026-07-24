@@ -1077,7 +1077,9 @@ impl TurnRequestProcessor {
                     .unwrap_or(false),
                 codewen_responses_as_items: params.codewen_responses_as_items.unwrap_or(false),
                 codewen_response_item_prefix: params.codewen_response_item_prefix,
-                codewen_response_handoff_mode: params.codewen_response_handoff_mode.unwrap_or_default(),
+                codewen_response_handoff_mode: params
+                    .codewen_response_handoff_mode
+                    .unwrap_or_default(),
                 model: params.model,
                 output_modality: params.output_modality,
                 include_startup_context: params.include_startup_context.unwrap_or(true),

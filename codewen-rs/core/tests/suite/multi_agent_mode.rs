@@ -317,7 +317,12 @@ async fn leaving_ultra_after_cold_resume_emits_explicit_mode() -> Result<()> {
         .with_model_info_override("gpt-5.4", add_ultra_reasoning)
         .with_config(configure_ultra);
     let resumed = resume_builder.resume(&server, home, rollout_path).await?;
-    submit_turn(&resumed.codewen, "after resume", Some(ReasoningEffort::High)).await?;
+    submit_turn(
+        &resumed.codewen,
+        "after resume",
+        Some(ReasoningEffort::High),
+    )
+    .await?;
 
     let requests = responses.requests();
     assert_eq!(

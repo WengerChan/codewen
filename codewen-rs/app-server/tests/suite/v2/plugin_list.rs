@@ -1481,7 +1481,9 @@ async fn plugin_list_returns_installed_git_source_interface_from_cache() -> Resu
 }}"#
         ),
     )?;
-    let cached_plugin_root = codewen_home.path().join("plugins/cache/debug/toolkit/local");
+    let cached_plugin_root = codewen_home
+        .path()
+        .join("plugins/cache/debug/toolkit/local");
     std::fs::create_dir_all(cached_plugin_root.join(".codewen-plugin"))?;
     std::fs::write(
         cached_plugin_root.join(".codewen-plugin/plugin.json"),
@@ -2873,11 +2875,9 @@ plugin_sharing = false
             .collect::<Vec<_>>(),
         vec![("private-linear@created-by-me-remote", true, true)]
     );
-    wait_for_path_exists(
-        &codewen_home.path().join(
-            "plugins/cache/created-by-me-remote/private-linear/1.2.3/.codewen-plugin/plugin.json",
-        ),
-    )
+    wait_for_path_exists(&codewen_home.path().join(
+        "plugins/cache/created-by-me-remote/private-linear/1.2.3/.codewen-plugin/plugin.json",
+    ))
     .await?;
     wait_for_remote_installed_scope_request(&server, "USER").await?;
     Ok(())
@@ -3822,7 +3822,10 @@ remote_plugin = true
 async fn plugin_list_fetches_featured_plugin_ids_without_chatgpt_auth() -> Result<()> {
     let codewen_home = TempDir::new()?;
     let server = MockServer::start().await;
-    write_plugin_sync_config(codewen_home.path(), &format!("{}/backend-api/", server.uri()))?;
+    write_plugin_sync_config(
+        codewen_home.path(),
+        &format!("{}/backend-api/", server.uri()),
+    )?;
     write_openai_curated_marketplace(codewen_home.path(), &["linear", "gmail"])?;
 
     Mock::given(method("GET"))
@@ -3865,7 +3868,10 @@ async fn plugin_list_fetches_featured_plugin_ids_without_chatgpt_auth() -> Resul
 async fn plugin_list_uses_warmed_featured_plugin_ids_cache_on_first_request() -> Result<()> {
     let codewen_home = TempDir::new()?;
     let server = MockServer::start().await;
-    write_plugin_sync_config(codewen_home.path(), &format!("{}/backend-api/", server.uri()))?;
+    write_plugin_sync_config(
+        codewen_home.path(),
+        &format!("{}/backend-api/", server.uri()),
+    )?;
     write_openai_curated_marketplace(codewen_home.path(), &["linear", "gmail"])?;
 
     Mock::given(method("GET"))

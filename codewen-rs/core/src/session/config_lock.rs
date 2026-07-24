@@ -379,7 +379,9 @@ mod tests {
                 enabled: Some(true),
                 reminder_interval_seconds: Some(1),
                 clock_source: Some(codewen_features::CurrentTimeSource::System),
-                delivery_mode: Some(codewen_features::CurrentTimeReminderDeliveryMode::AnyInference),
+                delivery_mode: Some(
+                    codewen_features::CurrentTimeReminderDeliveryMode::AnyInference
+                ),
                 sleep_tool: Some(false),
             }))
         );

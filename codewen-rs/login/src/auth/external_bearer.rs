@@ -38,7 +38,9 @@ impl BearerTokenRefresher {
                     None => true,
                 };
                 if should_use_cached_token {
-                    return Ok(CodewenAuth::from_api_key(cached_token.access_token.as_str()));
+                    return Ok(CodewenAuth::from_api_key(
+                        cached_token.access_token.as_str(),
+                    ));
                 }
             }
 

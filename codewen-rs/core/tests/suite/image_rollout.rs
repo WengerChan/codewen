@@ -151,7 +151,10 @@ async fn copy_paste_local_image_persists_rollout_request_shape() -> anyhow::Resu
 
     wait_for_event(&codewen, |event| matches!(event, EventMsg::TurnComplete(_))).await;
     codewen.submit(Op::Shutdown).await?;
-    wait_for_event(&codewen, |event| matches!(event, EventMsg::ShutdownComplete)).await;
+    wait_for_event(&codewen, |event| {
+        matches!(event, EventMsg::ShutdownComplete)
+    })
+    .await;
 
     let rollout_path = codewen.rollout_path().expect("rollout path");
     let rollout_text = read_rollout_text(&rollout_path).await?;
@@ -250,7 +253,10 @@ async fn drag_drop_image_persists_rollout_request_shape() -> anyhow::Result<()> 
 
     wait_for_event(&codewen, |event| matches!(event, EventMsg::TurnComplete(_))).await;
     codewen.submit(Op::Shutdown).await?;
-    wait_for_event(&codewen, |event| matches!(event, EventMsg::ShutdownComplete)).await;
+    wait_for_event(&codewen, |event| {
+        matches!(event, EventMsg::ShutdownComplete)
+    })
+    .await;
 
     let rollout_path = codewen.rollout_path().expect("rollout path");
     let rollout_text = read_rollout_text(&rollout_path).await?;

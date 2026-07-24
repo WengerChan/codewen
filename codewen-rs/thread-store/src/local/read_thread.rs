@@ -230,7 +230,8 @@ pub(super) async fn resolve_rollout_path(
         && codewen_rollout::existing_rollout_path(path.as_path())
             .await
             .is_some()
-        && (include_archived || !rollout_path_is_archived(store.config.codewen_home.as_path(), &path))
+        && (include_archived
+            || !rollout_path_is_archived(store.config.codewen_home.as_path(), &path))
     {
         return Ok(Some(path));
     }

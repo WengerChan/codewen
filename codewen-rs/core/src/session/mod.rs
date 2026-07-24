@@ -1575,7 +1575,9 @@ impl Session {
             .clone()
     }
 
-    pub(crate) async fn user_instructions(&self) -> Option<codewen_extension_api::UserInstructions> {
+    pub(crate) async fn user_instructions(
+        &self,
+    ) -> Option<codewen_extension_api::UserInstructions> {
         self.services.agents_md_manager.user_instructions()
     }
 
@@ -1978,7 +1980,9 @@ impl Session {
     /// Delivers an event without creating a local rollout for a thread that has not materialized.
     pub(crate) async fn send_event_raw_without_materializing_rollout(&self, event: Event) {
         let persist = match self.current_rollout_path().await {
-            Ok(Some(path)) => codewen_rollout::existing_rollout_path(&path).await.is_some(),
+            Ok(Some(path)) => codewen_rollout::existing_rollout_path(&path)
+                .await
+                .is_some(),
             Ok(None) => true,
             Err(err) => {
                 warn!("failed to check whether thread persistence is materialized: {err}");

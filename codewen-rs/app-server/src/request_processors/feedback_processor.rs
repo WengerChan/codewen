@@ -332,7 +332,8 @@ fn auto_review_rollout_filename(thread_id: ThreadId) -> String {
 
 #[cfg(target_os = "windows")]
 fn windows_sandbox_log_attachment(codewen_home: &Path) -> Option<FeedbackAttachmentPath> {
-    let sandbox_log_path = codewen_windows_sandbox::current_log_file_path_for_codewen_home(codewen_home);
+    let sandbox_log_path =
+        codewen_windows_sandbox::current_log_file_path_for_codewen_home(codewen_home);
     sandbox_log_path
         .is_file()
         .then_some(FeedbackAttachmentPath {

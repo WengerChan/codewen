@@ -749,7 +749,8 @@ mod tests {
             pending.note_server_request(&ServerRequest::ChatgptAuthTokensRefresh {
                 request_id: AppServerRequestId::Integer(100),
                 params: codewen_app_server_protocol::ChatgptAuthTokensRefreshParams {
-                    reason: codewen_app_server_protocol::ChatgptAuthTokensRefreshReason::Unauthorized,
+                    reason:
+                        codewen_app_server_protocol::ChatgptAuthTokensRefreshReason::Unauthorized,
                     previous_account_id: Some("workspace-1".to_string()),
                 },
             }),

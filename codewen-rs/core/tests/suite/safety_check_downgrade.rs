@@ -91,7 +91,8 @@ async fn openai_model_header_mismatch_emits_warning_event() -> Result<()> {
     assert_eq!(reroute.to_model, SERVER_MODEL);
     assert_eq!(reroute.reason, ModelRerouteReason::HighRiskCyberActivity);
 
-    let warning = wait_for_event(&test.codewen, |event| matches!(event, EventMsg::Warning(_))).await;
+    let warning =
+        wait_for_event(&test.codewen, |event| matches!(event, EventMsg::Warning(_))).await;
     let EventMsg::Warning(warning) = warning else {
         panic!("expected warning event");
     };
@@ -133,7 +134,10 @@ async fn cyber_policy_response_emits_typed_error_without_retry() -> Result<()> {
         panic!("expected error event");
     };
     assert_eq!(error.message, CYBER_POLICY_MESSAGE);
-    assert_eq!(error.codewen_error_info, Some(CodewenErrorInfo::CyberPolicy));
+    assert_eq!(
+        error.codewen_error_info,
+        Some(CodewenErrorInfo::CyberPolicy)
+    );
 
     mock.single_request();
 

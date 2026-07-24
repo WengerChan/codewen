@@ -175,7 +175,8 @@ async fn assistant_message_item_is_emitted() -> anyhow::Result<()> {
     .await;
 
     assert_eq!(started.id, completed.id);
-    let Some(codewen_protocol::items::AgentMessageContent::Text { text }) = completed.content.first()
+    let Some(codewen_protocol::items::AgentMessageContent::Text { text }) =
+        completed.content.first()
     else {
         panic!("expected agent message text content");
     };

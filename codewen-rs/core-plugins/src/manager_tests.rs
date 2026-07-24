@@ -85,8 +85,8 @@ fn config_layer_stack_with_requirements(
     .expect("requirements should be present");
     let requirements_toml = with_sources.clone().into_toml();
     let requirements = ConfigRequirements::try_from(with_sources).expect("normalize requirements");
-    let config_file =
-        AbsolutePathBuf::try_from(codewen_home.join(CONFIG_TOML_FILE)).expect("absolute config path");
+    let config_file = AbsolutePathBuf::try_from(codewen_home.join(CONFIG_TOML_FILE))
+        .expect("absolute config path");
     ConfigLayerStack::new(
         vec![ConfigLayerEntry::new(
             ConfigLayerSource::User {
@@ -2678,7 +2678,8 @@ async fn skills_service_reuses_skills_parsed_during_plugin_load() {
         /*bundled_skills_enabled*/ false,
     )
     .with_plugin_skill_snapshots(plugin_skill_snapshots);
-    let skills_service = SkillsService::new(codewen_home_abs, /*bundled_skills_enabled*/ false);
+    let skills_service =
+        SkillsService::new(codewen_home_abs, /*bundled_skills_enabled*/ false);
     let cached = skills_service
         .snapshot_for_config(&skills_input, /*fs*/ None)
         .await;
@@ -5968,7 +5969,8 @@ async fn load_plugins_ignores_project_config_files() {
     let stack = ConfigLayerStack::new(
         vec![ConfigLayerEntry::new(
             ConfigLayerSource::Project {
-                dot_codewen_folder: AbsolutePathBuf::try_from(project_root.join(".codewen")).unwrap(),
+                dot_codewen_folder: AbsolutePathBuf::try_from(project_root.join(".codewen"))
+                    .unwrap(),
             },
             toml::from_str(&plugin_config_toml(
                 /*enabled*/ true, /*plugins_feature_enabled*/ true,

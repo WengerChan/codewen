@@ -44,7 +44,10 @@ where
         }
         TestBinaryDispatchMode::Skip => None,
         TestBinaryDispatchMode::InstallAliases => {
-            let codewen_home = match tempfile::Builder::new().prefix(codewen_home_prefix).tempdir() {
+            let codewen_home = match tempfile::Builder::new()
+                .prefix(codewen_home_prefix)
+                .tempdir()
+            {
                 Ok(codewen_home) => codewen_home,
                 Err(error) => panic!("failed to create test CODEX_HOME: {error}"),
             };

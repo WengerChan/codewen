@@ -1471,8 +1471,9 @@ mod tests {
     #[tokio::test]
     async fn remote_unix_socket_typed_request_roundtrip_works() {
         let socket_dir = TempDir::new().expect("socket dir");
-        let socket_path = AbsolutePathBuf::from_absolute_path(socket_dir.path().join("codewen.sock"))
-            .expect("socket path should resolve");
+        let socket_path =
+            AbsolutePathBuf::from_absolute_path(socket_dir.path().join("codewen.sock"))
+                .expect("socket path should resolve");
         let mut listener = UnixListener::bind(socket_path.as_path())
             .await
             .expect("listener should bind");

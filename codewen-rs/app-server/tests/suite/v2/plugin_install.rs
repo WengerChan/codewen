@@ -518,7 +518,10 @@ async fn plugin_install_rejects_invalid_remote_release_version() -> Result<()> {
 #[tokio::test]
 async fn plugin_install_rejects_invalid_remote_plugin_name() -> Result<()> {
     let codewen_home = TempDir::new()?;
-    write_remote_plugin_catalog_config(codewen_home.path(), "https://example.invalid/backend-api/")?;
+    write_remote_plugin_catalog_config(
+        codewen_home.path(),
+        "https://example.invalid/backend-api/",
+    )?;
     let mut mcp = TestAppServer::builder()
         .with_codewen_home(codewen_home.path())
         .without_auto_env()

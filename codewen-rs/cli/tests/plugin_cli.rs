@@ -57,7 +57,12 @@ plugins = true
 
 fn write_marketplace_source_with_manifest(source: &Path, marketplace_manifest: &str) -> Result<()> {
     std::fs::create_dir_all(source.join(".agents").join("plugins"))?;
-    std::fs::create_dir_all(source.join("plugins").join("sample").join(".codewen-plugin"))?;
+    std::fs::create_dir_all(
+        source
+            .join("plugins")
+            .join("sample")
+            .join(".codewen-plugin"),
+    )?;
     std::fs::write(
         source
             .join(".agents")

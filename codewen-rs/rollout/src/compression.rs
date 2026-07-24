@@ -829,7 +829,8 @@ mod worker {
 mod metrics {
     use std::time::Duration;
 
-    const FILE_COMPRESSED_BYTES_HISTOGRAM: &str = "codewen.rollout_compression.file.compressed_bytes";
+    const FILE_COMPRESSED_BYTES_HISTOGRAM: &str =
+        "codewen.rollout_compression.file.compressed_bytes";
     const FILE_COUNTER: &str = "codewen.rollout_compression.file";
     const FILE_DURATION_HISTOGRAM: &str = "codewen.rollout_compression.file.duration_ms";
     const FILE_SOURCE_BYTES_HISTOGRAM: &str = "codewen.rollout_compression.file.source_bytes";

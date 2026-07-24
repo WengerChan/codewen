@@ -2145,7 +2145,8 @@ fn project_mcp_tool_approval_config_folder(
                 .and_then(|table| table.get("mcp_servers"))
                 .cloned()
                 .and_then(|value| {
-                    HashMap::<String, codewen_config::types::McpServerConfig>::deserialize(value).ok()
+                    HashMap::<String, codewen_config::types::McpServerConfig>::deserialize(value)
+                        .ok()
                 })?;
             if servers.contains_key(server) {
                 layer.config_folder()

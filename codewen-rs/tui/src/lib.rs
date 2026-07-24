@@ -415,7 +415,8 @@ async fn connect_remote_app_server(
 
 #[cfg(unix)]
 async fn maybe_probe_default_daemon_socket(codewen_home: &Path) -> Option<AbsolutePathBuf> {
-    let socket_path = codewen_app_server_client::app_server_control_socket_path(codewen_home).ok()?;
+    let socket_path =
+        codewen_app_server_client::app_server_control_socket_path(codewen_home).ok()?;
     if !socket_path.as_path().try_exists().unwrap_or(false) {
         return None;
     }
@@ -989,7 +990,8 @@ pub async fn run_main(
     )?;
     let environment_manager =
         if should_load_configured_environments(&loader_overrides, &app_server_target) {
-            EnvironmentManager::from_codewen_home(codewen_home.clone(), Some(local_runtime_paths)).await
+            EnvironmentManager::from_codewen_home(codewen_home.clone(), Some(local_runtime_paths))
+                .await
         } else {
             EnvironmentManager::from_env(Some(local_runtime_paths)).await
         }
@@ -2399,7 +2401,9 @@ mod tests {
         assert_eq!(
             resolve_remote_addr("unix://")?,
             RemoteAppServerEndpoint::UnixSocket {
-                socket_path: codewen_app_server_client::app_server_control_socket_path(&codewen_home)?,
+                socket_path: codewen_app_server_client::app_server_control_socket_path(
+                    &codewen_home
+                )?,
             }
         );
         Ok(())

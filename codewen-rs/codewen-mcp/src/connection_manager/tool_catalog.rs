@@ -198,13 +198,12 @@ impl McpConnectionManager {
             .context("failed to get client")?;
 
         let list_start = Instant::now();
-        let fetch_ticket =
-            managed_client
-                .codewen_apps_tools_cache_context
-                .as_ref()
-                .map(|cache_context| {
-                    cache_context.begin_fetch(ConnectorRuntimeFetchSource::HardRefresh)
-                });
+        let fetch_ticket = managed_client
+            .codewen_apps_tools_cache_context
+            .as_ref()
+            .map(|cache_context| {
+                cache_context.begin_fetch(ConnectorRuntimeFetchSource::HardRefresh)
+            });
         let client_tools = list_tools_for_client_uncached(
             CODEX_APPS_MCP_SERVER_NAME,
             /*is_codewen_apps_mcp_server*/ true,

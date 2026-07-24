@@ -328,7 +328,9 @@ async fn prefixes_context_and_instructions_once_and_consistently_across_requests
     )
     .await;
 
-    let TestCodex { codewen, config, .. } = test_codewen()
+    let TestCodex {
+        codewen, config, ..
+    } = test_codewen()
         .with_pre_build_hook(write_global_instructions)
         .with_config(|config| {
             config
@@ -429,7 +431,9 @@ async fn overrides_turn_context_but_keeps_cached_prefix_and_key_constant() -> an
     )
     .await;
 
-    let TestCodex { codewen, config, .. } = test_codewen()
+    let TestCodex {
+        codewen, config, ..
+    } = test_codewen()
         .with_pre_build_hook(write_global_instructions)
         .with_config(|config| {
             config

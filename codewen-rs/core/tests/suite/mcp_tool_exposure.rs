@@ -390,7 +390,9 @@ async fn later_follow_up_uses_background_recovered_apps_after_mid_thread_startup
     startup_control.fail_next_initialize_attempts(/*attempts*/ 1);
     let runtime_mcp_config = test.codewen.runtime_mcp_config(&test.config).await;
     let refresh_config = McpServerRefreshConfig {
-        mcp_servers: serde_json::to_value(codewen_mcp::configured_mcp_servers(&runtime_mcp_config))?,
+        mcp_servers: serde_json::to_value(codewen_mcp::configured_mcp_servers(
+            &runtime_mcp_config,
+        ))?,
         mcp_oauth_credentials_store_mode: serde_json::to_value(
             runtime_mcp_config.mcp_oauth_credentials_store_mode,
         )?,

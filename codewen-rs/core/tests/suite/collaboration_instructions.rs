@@ -712,7 +712,10 @@ async fn resume_replays_collaboration_instructions() -> Result<()> {
             thread_settings: Default::default(),
         })
         .await?;
-    wait_for_event(&initial.codewen, |ev| matches!(ev, EventMsg::TurnComplete(_))).await;
+    wait_for_event(&initial.codewen, |ev| {
+        matches!(ev, EventMsg::TurnComplete(_))
+    })
+    .await;
 
     let resumed = builder.resume(&server, home, rollout_path).await?;
     resumed
@@ -728,7 +731,10 @@ async fn resume_replays_collaboration_instructions() -> Result<()> {
             thread_settings: Default::default(),
         })
         .await?;
-    wait_for_event(&resumed.codewen, |ev| matches!(ev, EventMsg::TurnComplete(_))).await;
+    wait_for_event(&resumed.codewen, |ev| {
+        matches!(ev, EventMsg::TurnComplete(_))
+    })
+    .await;
 
     let input = req2.single_request().input();
     let dev_texts = developer_texts(&input);

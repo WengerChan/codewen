@@ -388,7 +388,10 @@ async fn sandbox_blocks_first_time_dot_codewen_creation() {
     .await
     .expect("should spawn command creating .codewen");
 
-    let status = child.wait().await.expect("should wait for .codewen command");
+    let status = child
+        .wait()
+        .await
+        .expect("should wait for .codewen command");
     assert!(
         !status.success(),
         "sandbox unexpectedly allowed first-time .codewen creation: {status:?}"

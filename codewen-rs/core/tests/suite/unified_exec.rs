@@ -2469,7 +2469,10 @@ async fn unified_exec_keeps_long_running_session_after_turn_end() -> Result<()> 
     );
 
     codewen.submit(Op::Shutdown).await?;
-    wait_for_event(&codewen, |event| matches!(event, EventMsg::ShutdownComplete)).await;
+    wait_for_event(&codewen, |event| {
+        matches!(event, EventMsg::ShutdownComplete)
+    })
+    .await;
     wait_for_process_exit(&pid).await?;
 
     Ok(())

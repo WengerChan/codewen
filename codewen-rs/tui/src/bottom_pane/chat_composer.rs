@@ -7411,8 +7411,9 @@ mod tests {
             /*enhanced_keys_supported*/ false,
             |composer| {
                 let features = codewen_features::Features::with_defaults();
-                composer
-                    .set_mentions_v2_enabled(features.enabled(codewen_features::Feature::MentionsV2));
+                composer.set_mentions_v2_enabled(
+                    features.enabled(codewen_features::Feature::MentionsV2),
+                );
                 composer.set_text_content("@sa".to_string(), Vec::new(), Vec::new());
                 composer.set_plugin_mentions(Some(vec![PluginCapabilitySummary {
                     config_name: "sample@test".to_string(),

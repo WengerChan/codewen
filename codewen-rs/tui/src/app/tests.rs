@@ -4798,7 +4798,11 @@ async fn set_thread_goal_draft_materializes_long_objective_and_confirms_before_p
     ));
     let unix_path = AppServerPath::from_app_server("/tmp/codewen\\").join("a");
     assert_eq!(unix_path.as_str(), "/tmp/codewen\\/a");
-    let attachments_dir = app.chat_widget.config_ref().codewen_home.join("attachments");
+    let attachments_dir = app
+        .chat_widget
+        .config_ref()
+        .codewen_home
+        .join("attachments");
     let attachment_count = std::fs::read_dir(&attachments_dir)?.count();
     let placeholder = "[Pasted Content 5 chars]";
     let paste_draft = crate::goal_files::GoalDraft {
@@ -6300,8 +6304,11 @@ async fn prompt_edit_forks_before_selected_prompt_and_preserves_source() -> Resu
         /*git_info*/ None,
     )
     .expect("materialized rollout should be created");
-    let source_path =
-        app_test_support::rollout_path(config.codewen_home.as_path(), filename_ts, &source_thread_id);
+    let source_path = app_test_support::rollout_path(
+        config.codewen_home.as_path(),
+        filename_ts,
+        &source_thread_id,
+    );
     let session_meta = std::fs::read_to_string(&source_path)?
         .lines()
         .next()

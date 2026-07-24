@@ -653,7 +653,8 @@ mod tests {
     }
 
     fn load_pet_error_from_dir(dir: &tempfile::TempDir) -> anyhow::Error {
-        Pet::load_with_codewen_home(dir.path().to_str().unwrap(), /*codewen_home*/ None).unwrap_err()
+        Pet::load_with_codewen_home(dir.path().to_str().unwrap(), /*codewen_home*/ None)
+            .unwrap_err()
     }
 
     #[test]
@@ -662,14 +663,18 @@ mod tests {
         super::super::asset_pack::write_test_pack(codewen_home.path());
 
         let pet =
-            Pet::load_with_codewen_home("dewey", /*codewen_home*/ Some(codewen_home.path())).unwrap();
+            Pet::load_with_codewen_home("dewey", /*codewen_home*/ Some(codewen_home.path()))
+                .unwrap();
 
         assert_eq!(pet.id, "dewey");
         assert_eq!(pet.display_name, "Dewey");
         assert_eq!(pet.description, "A tidy duck for calm workspace days");
         assert_eq!(
             pet.spritesheet_path,
-            super::super::builtin_spritesheet_path(codewen_home.path(), "dewey-spritesheet-v4.webp")
+            super::super::builtin_spritesheet_path(
+                codewen_home.path(),
+                "dewey-spritesheet-v4.webp"
+            )
         );
         assert_eq!(pet.frame_width, 192);
         assert_eq!(pet.frame_height, 208);

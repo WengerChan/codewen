@@ -180,8 +180,14 @@ async fn run_code_mode_turn_with_config(
     code: &str,
     configure: impl FnOnce(&mut Config) + Send + 'static,
 ) -> Result<(TestCodex, ResponseMock)> {
-    run_code_mode_turn_with_model_and_config(server, prompt, code, "test-gpt-5.1-codewen", configure)
-        .await
+    run_code_mode_turn_with_model_and_config(
+        server,
+        prompt,
+        code,
+        "test-gpt-5.1-codewen",
+        configure,
+    )
+    .await
 }
 
 async fn run_code_mode_turn_with_model_and_config(
@@ -563,11 +569,15 @@ async fn code_mode_exec_holds_captured_result_during_elicitation() -> Result<()>
     .await;
 
     assert_eq!(
-        test.codewen.increment_out_of_band_elicitation_count().await?,
+        test.codewen
+            .increment_out_of_band_elicitation_count()
+            .await?,
         1
     );
     assert_eq!(
-        test.codewen.increment_out_of_band_elicitation_count().await?,
+        test.codewen
+            .increment_out_of_band_elicitation_count()
+            .await?,
         2
     );
     let release_elicitation = async {
@@ -584,7 +594,9 @@ async fn code_mode_exec_holds_captured_result_during_elicitation() -> Result<()>
             "captured exec result should not return during an elicitation"
         );
         assert_eq!(
-            test.codewen.decrement_out_of_band_elicitation_count().await?,
+            test.codewen
+                .decrement_out_of_band_elicitation_count()
+                .await?,
             1
         );
         tokio::time::sleep(Duration::from_millis(100)).await;
@@ -593,7 +605,9 @@ async fn code_mode_exec_holds_captured_result_during_elicitation() -> Result<()>
             "captured exec result should wait for every elicitation"
         );
         assert_eq!(
-            test.codewen.decrement_out_of_band_elicitation_count().await?,
+            test.codewen
+                .decrement_out_of_band_elicitation_count()
+                .await?,
             0
         );
         Ok::<(), anyhow::Error>(())
@@ -3764,7 +3778,9 @@ text(
     )?;
     assert_eq!(
         parsed.get("name"),
-        Some(&Value::String("codewen_app__hidden_dynamic_tool".to_string()))
+        Some(&Value::String(
+            "codewen_app__hidden_dynamic_tool".to_string()
+        ))
     );
     assert_eq!(
         parsed.get("out"),

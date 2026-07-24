@@ -1166,7 +1166,8 @@ allowed_sandbox_modes = ["read-only"]
 
 #[cfg(target_os = "macos")]
 #[tokio::test]
-async fn managed_preferences_requirements_resolve_paths_against_codewen_home() -> anyhow::Result<()> {
+async fn managed_preferences_requirements_resolve_paths_against_codewen_home() -> anyhow::Result<()>
+{
     use base64::Engine;
 
     let tmp = tempdir()?;
@@ -1195,7 +1196,8 @@ model_catalog_json = "models.json"
         &codewen_config::NoopThreadConfigLoader,
     )
     .await?;
-    let expected_log_dir = AbsolutePathBuf::resolve_path_against_base("~/.codewen/logs", &codewen_home);
+    let expected_log_dir =
+        AbsolutePathBuf::resolve_path_against_base("~/.codewen/logs", &codewen_home);
     let requirements = layers.requirements_toml();
 
     assert_eq!(
@@ -2431,8 +2433,11 @@ deny_read = ["secrets/**"]
     assert_eq!(
         filesystem.deny_read,
         Some(vec![
-            FilesystemDenyReadPattern::from_input(&format!("{}/secrets/**", codewen_home.display()))
-                .expect("bundle requirements path should resolve against codewen_home")
+            FilesystemDenyReadPattern::from_input(&format!(
+                "{}/secrets/**",
+                codewen_home.display()
+            ))
+            .expect("bundle requirements path should resolve against codewen_home")
         ])
     );
 
@@ -2603,7 +2608,10 @@ async fn project_layers_prefer_closest_cwd() -> std::io::Result<()> {
         })
         .collect();
     assert_eq!(project_layers.len(), 2);
-    assert_eq!(project_layers[0].as_path(), nested.join(".codewen").as_path());
+    assert_eq!(
+        project_layers[0].as_path(),
+        nested.join(".codewen").as_path()
+    );
     assert_eq!(
         project_layers[1].as_path(),
         project_root.join(".codewen").as_path()
@@ -2835,7 +2843,9 @@ async fn nested_project_root_markers_do_not_redirect_regular_repo_hooks() -> std
     assert_eq!(project_layers.len(), 2);
     assert_eq!(
         project_layers[0].hooks_config_folder(),
-        Some(AbsolutePathBuf::from_absolute_path(nested.join(".codewen"))?)
+        Some(AbsolutePathBuf::from_absolute_path(
+            nested.join(".codewen")
+        )?)
     );
     assert_eq!(
         project_layers[1].hooks_config_folder(),
@@ -2885,7 +2895,11 @@ model_instructions_file = "root.txt"
     let nested_cfg = r#"
 model_instructions_file = "child.txt"
 "#;
-    tokio::fs::write(project_root.join(".codewen").join(CONFIG_TOML_FILE), root_cfg).await?;
+    tokio::fs::write(
+        project_root.join(".codewen").join(CONFIG_TOML_FILE),
+        root_cfg,
+    )
+    .await?;
     tokio::fs::write(nested.join(".codewen").join(CONFIG_TOML_FILE), nested_cfg).await?;
     tokio::fs::write(
         project_root.join(".codewen").join("root.txt"),
@@ -2986,7 +3000,8 @@ async fn inline_instructions_set_base_instructions() -> std::io::Result<()> {
 }
 
 #[tokio::test]
-async fn project_layer_is_added_when_dot_codewen_exists_without_config_toml() -> std::io::Result<()> {
+async fn project_layer_is_added_when_dot_codewen_exists_without_config_toml() -> std::io::Result<()>
+{
     let tmp = tempdir()?;
     let project_root = tmp.path().join("project");
     let nested = project_root.join("child");
@@ -3780,7 +3795,10 @@ async fn project_root_markers_supports_alternate_markers() -> std::io::Result<()
         })
         .collect();
     assert_eq!(project_layers.len(), 2);
-    assert_eq!(project_layers[0].as_path(), nested.join(".codewen").as_path());
+    assert_eq!(
+        project_layers[0].as_path(),
+        nested.join(".codewen").as_path()
+    );
     assert_eq!(
         project_layers[1].as_path(),
         project_root.join(".codewen").as_path()

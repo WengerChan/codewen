@@ -428,7 +428,10 @@ fn daemon_app_server_human_lines(output: &AppServerRemoteControlStartOutput) -> 
     vec![
         "Daemon used app-server:".to_string(),
         format!("  path: {}", managed_codewen_path.display()),
-        format!("  version: {}", managed_codewen_version.unwrap_or("unknown")),
+        format!(
+            "  version: {}",
+            managed_codewen_version.unwrap_or("unknown")
+        ),
     ]
 }
 

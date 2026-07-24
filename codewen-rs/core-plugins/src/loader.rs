@@ -585,8 +585,8 @@ fn refresh_non_curated_plugin_cache_with_mode(
             continue;
         };
         let refresh_result = (|| -> Result<bool, String> {
-            let materialized =
-                materialize_marketplace_plugin_source(codewen_home, &source).map_err(|err| {
+            let materialized = materialize_marketplace_plugin_source(codewen_home, &source)
+                .map_err(|err| {
                     format!("failed to materialize plugin source for {plugin_key}: {err}")
                 })?;
             let source_path = materialized.path;

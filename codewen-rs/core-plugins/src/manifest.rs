@@ -14,7 +14,8 @@ const MAX_DEFAULT_PROMPT_LEN: usize = 128;
 
 pub type PluginManifest = codewen_plugin::manifest::PluginManifest<AbsolutePathBuf>;
 pub type PluginManifestHooks = codewen_plugin::manifest::PluginManifestHooks<AbsolutePathBuf>;
-pub type PluginManifestInterface = codewen_plugin::manifest::PluginManifestInterface<AbsolutePathBuf>;
+pub type PluginManifestInterface =
+    codewen_plugin::manifest::PluginManifestInterface<AbsolutePathBuf>;
 pub type PluginManifestMcpServers =
     codewen_plugin::manifest::PluginManifestMcpServers<AbsolutePathBuf>;
 pub type PluginManifestPaths = codewen_plugin::manifest::PluginManifestPaths<AbsolutePathBuf>;
@@ -307,7 +308,8 @@ fn resolve_manifest_hooks(
                 .iter()
                 .filter_map(|path| resolve_manifest_path(plugin_root, "hooks", Some(path)))
                 .collect::<Vec<_>>();
-            (!hooks.is_empty()).then_some(codewen_plugin::manifest::PluginManifestHooks::Paths(hooks))
+            (!hooks.is_empty())
+                .then_some(codewen_plugin::manifest::PluginManifestHooks::Paths(hooks))
         }
         RawPluginManifestHooks::Inline(hooks) => {
             Some(codewen_plugin::manifest::PluginManifestHooks::Inline(vec![

@@ -681,7 +681,9 @@ impl Daemon {
 
     #[cfg(unix)]
     async fn managed_codewen_version_best_effort(&self) -> Option<String> {
-        managed_codewen_version(&self.managed_codewen_bin).await.ok()
+        managed_codewen_version(&self.managed_codewen_bin)
+            .await
+            .ok()
     }
 
     #[cfg(not(unix))]

@@ -98,8 +98,10 @@ async fn selected_environment_emits_connection_lifecycle_notifications() -> Resu
 
     let environment = TurnEnvironmentParams {
         environment_id: "remote-a".to_string(),
-        cwd: codewen_utils_absolute_path::AbsolutePathBuf::try_from(codewen_home.path().to_path_buf())?
-            .into(),
+        cwd: codewen_utils_absolute_path::AbsolutePathBuf::try_from(
+            codewen_home.path().to_path_buf(),
+        )?
+        .into(),
         runtime_workspace_roots: None,
     };
     let request_id = app_server

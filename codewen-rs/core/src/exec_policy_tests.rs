@@ -40,8 +40,8 @@ use toml::Value as TomlValue;
 mod windows_tests;
 
 fn config_stack_for_dot_codewen_folder(dot_codewen_folder: &Path) -> ConfigLayerStack {
-    let dot_codewen_folder =
-        AbsolutePathBuf::from_absolute_path(dot_codewen_folder).expect("absolute dot_codewen_folder");
+    let dot_codewen_folder = AbsolutePathBuf::from_absolute_path(dot_codewen_folder)
+        .expect("absolute dot_codewen_folder");
     let layer = ConfigLayerEntry::new(
         ConfigLayerSource::Project { dot_codewen_folder },
         TomlValue::Table(Default::default()),

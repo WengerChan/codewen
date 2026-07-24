@@ -231,7 +231,8 @@ pub(crate) fn create_tool_for_codewen_tool_call_reply_param() -> Tool {
         .into_generator()
         .into_root_schema_for::<CodewenToolCallReplyParam>();
 
-    let input_schema = create_tool_input_schema(schema, "Codewen reply tool schema should serialize");
+    let input_schema =
+        create_tool_input_schema(schema, "Codewen reply tool schema should serialize");
 
     Tool::new(
         "codewen-reply",

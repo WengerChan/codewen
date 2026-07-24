@@ -710,7 +710,8 @@ async fn guardian_subagent_does_not_inherit_parent_exec_policy_rules() {
         }
     );
 
-    let auth_manager = AuthManager::from_auth_for_testing(CodewenAuth::from_api_key("Test API Key"));
+    let auth_manager =
+        AuthManager::from_auth_for_testing(CodewenAuth::from_api_key("Test API Key"));
     let models_manager = models_manager_with_provider(
         config.codewen_home.to_path_buf(),
         auth_manager.clone(),

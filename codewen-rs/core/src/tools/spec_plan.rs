@@ -412,9 +412,9 @@ fn is_hidden_by_code_mode_only(
     let tool_mode = effective_tool_mode(turn_context);
     tool_mode == ToolMode::CodeModeOnly
         && exposure != ToolExposure::DirectModelOnly
-        && codewen_code_mode::is_code_mode_nested_tool(&codewen_tools::code_mode_name_for_tool_name(
-            tool_name,
-        ))
+        && codewen_code_mode::is_code_mode_nested_tool(
+            &codewen_tools::code_mode_name_for_tool_name(tool_name),
+        )
 }
 
 fn is_excluded_from_code_mode(turn_context: &TurnContext, tool_name: &ToolName) -> bool {

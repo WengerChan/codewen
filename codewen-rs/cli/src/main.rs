@@ -867,8 +867,13 @@ async fn run_debug_app_server_command(cmd: DebugAppServerCommand) -> anyhow::Res
     match cmd.subcommand {
         DebugAppServerSubcommand::SendMessageV2(cmd) => {
             let codewen_bin = std::env::current_exe()?;
-            codewen_app_server_test_client::send_message_v2(&codewen_bin, &[], cmd.user_message, &None)
-                .await
+            codewen_app_server_test_client::send_message_v2(
+                &codewen_bin,
+                &[],
+                cmd.user_message,
+                &None,
+            )
+            .await
         }
     }
 }
@@ -1736,7 +1741,8 @@ async fn run_exec_server_command(
             .listen
             .unwrap_or_else(|| codewen_exec_server::DEFAULT_LISTEN_URL.to_string());
         exec_server_telemetry::run_until_shutdown(async move {
-            codewen_exec_server::run_main_with_telemetry(&listen_url, runtime_paths, telemetry).await
+            codewen_exec_server::run_main_with_telemetry(&listen_url, runtime_paths, telemetry)
+                .await
         })
         .await
         .map_err(anyhow::Error::from_boxed)
@@ -1750,7 +1756,9 @@ async fn load_exec_server_remote_auth_provider(
 ) -> anyhow::Result<codewen_api::SharedAuthProvider> {
     if use_agent_identity_auth {
         let agent_identity_jwt = read_codewen_access_token_from_env().ok_or_else(|| {
-            anyhow::anyhow!("CODEWEN_ACCESS_TOKEN is required when --use-agent-identity-auth is set")
+            anyhow::anyhow!(
+                "CODEWEN_ACCESS_TOKEN is required when --use-agent-identity-auth is set"
+            )
         })?;
         let auth_route_config = config.auth_route_config();
         let auth = CodewenAuth::from_agent_identity_jwt(
@@ -2733,7 +2741,10 @@ mod tests {
 
         assert_eq!(
             overrides.user_config_path,
-            Some(resolve_profile_v2_config_path(codewen_home.path(), &profile))
+            Some(resolve_profile_v2_config_path(
+                codewen_home.path(),
+                &profile
+            ))
         );
         assert_eq!(overrides.user_config_profile, Some(profile));
         Ok(())
@@ -2741,7 +2752,9 @@ mod tests {
 
     #[test]
     fn profile_v2_is_rejected_for_config_management_subcommands() {
-        assert!(profile_v2_for_args(&["codewen", "--profile", "work", "features", "list"]).is_err());
+        assert!(
+            profile_v2_for_args(&["codewen", "--profile", "work", "features", "list"]).is_err()
+        );
     }
 
     #[test]
@@ -2783,7 +2796,8 @@ mod tests {
     #[test]
     fn profile_v2_rejects_non_plain_names_at_parse_time() {
         assert!(
-            MultitoolCli::try_parse_from(["codewen", "--profile", "nested/work", "resume"]).is_err()
+            MultitoolCli::try_parse_from(["codewen", "--profile", "nested/work", "resume"])
+                .is_err()
         );
     }
 
@@ -2894,8 +2908,8 @@ mod tests {
 
     #[test]
     fn debug_models_parses_bundled_flag() {
-        let cli =
-            MultitoolCli::try_parse_from(["codewen", "debug", "models", "--bundled"]).expect("parse");
+        let cli = MultitoolCli::try_parse_from(["codewen", "debug", "models", "--bundled"])
+            .expect("parse");
 
         let Some(Subcommand::Debug(DebugCommand {
             subcommand: DebugSubcommand::Models(cmd),
@@ -3495,8 +3509,9 @@ mod tests {
 
     #[test]
     fn fork_last_accepts_prompt_positional() {
-        let interactive =
-            finalize_fork_from_args(["codewen", "fork", "--last", "/compact focus on auth"].as_ref());
+        let interactive = finalize_fork_from_args(
+            ["codewen", "fork", "--last", "/compact focus on auth"].as_ref(),
+        );
 
         assert!(!interactive.fork_picker);
         assert!(interactive.fork_last);
@@ -3659,8 +3674,9 @@ mod tests {
 
     #[test]
     fn reject_remote_flag_for_remote_control() {
-        let cli = MultitoolCli::try_parse_from(["codewen", "--remote", "unix://", "remote-control"])
-            .expect("parse");
+        let cli =
+            MultitoolCli::try_parse_from(["codewen", "--remote", "unix://", "remote-control"])
+                .expect("parse");
         let Some(Subcommand::RemoteControl(remote_control)) = &cli.subcommand else {
             panic!("expected remote-control subcommand");
         };
@@ -3678,7 +3694,8 @@ mod tests {
 
     #[test]
     fn remote_control_pair_parses() {
-        let cli = MultitoolCli::try_parse_from(["codewen", "remote-control", "pair"]).expect("parse");
+        let cli =
+            MultitoolCli::try_parse_from(["codewen", "remote-control", "pair"]).expect("parse");
         let Some(Subcommand::RemoteControl(remote_control)) = &cli.subcommand else {
             panic!("expected remote-control subcommand");
         };
@@ -3849,7 +3866,13 @@ mod tests {
     #[test]
     fn app_server_listen_unix_socket_path_parses() {
         let app_server = app_server_from_args(
-            ["codewen", "app-server", "--listen", "unix:///tmp/codewen.sock"].as_ref(),
+            [
+                "codewen",
+                "app-server",
+                "--listen",
+                "unix:///tmp/codewen.sock",
+            ]
+            .as_ref(),
         );
         assert_eq!(
             app_server.listen,
@@ -3862,8 +3885,12 @@ mod tests {
 
     #[test]
     fn app_server_listen_off_parses() {
-        let app_server = app_server_from_args(["codewen", "app-server", "--listen", "off"].as_ref());
-        assert_eq!(app_server.listen, codewen_app_server::AppServerTransport::Off);
+        let app_server =
+            app_server_from_args(["codewen", "app-server", "--listen", "off"].as_ref());
+        assert_eq!(
+            app_server.listen,
+            codewen_app_server::AppServerTransport::Off
+        );
     }
 
     #[test]
@@ -3911,7 +3938,8 @@ mod tests {
             }))
         ));
         assert!(matches!(
-            app_server_from_args(["codewen", "app-server", "daemon", "restart"].as_ref()).subcommand,
+            app_server_from_args(["codewen", "app-server", "daemon", "restart"].as_ref())
+                .subcommand,
             Some(AppServerSubcommand::Daemon(AppServerDaemonCommand {
                 subcommand: AppServerDaemonSubcommand::Restart
             }))
@@ -3941,7 +3969,8 @@ mod tests {
             }))
         ));
         assert!(matches!(
-            app_server_from_args(["codewen", "app-server", "daemon", "version"].as_ref()).subcommand,
+            app_server_from_args(["codewen", "app-server", "daemon", "version"].as_ref())
+                .subcommand,
             Some(AppServerSubcommand::Daemon(AppServerDaemonCommand {
                 subcommand: AppServerDaemonSubcommand::Version
             }))
@@ -3950,8 +3979,9 @@ mod tests {
 
     #[test]
     fn app_server_proxy_sock_path_parses() {
-        let app_server =
-            app_server_from_args(["codewen", "app-server", "proxy", "--sock", "codewen.sock"].as_ref());
+        let app_server = app_server_from_args(
+            ["codewen", "app-server", "proxy", "--sock", "codewen.sock"].as_ref(),
+        );
         let Some(AppServerSubcommand::Proxy(proxy)) = app_server.subcommand else {
             panic!("expected proxy subcommand");
         };

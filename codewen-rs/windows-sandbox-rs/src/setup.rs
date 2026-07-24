@@ -2058,7 +2058,8 @@ mod tests {
 
         let expected_workspace = dunce::canonicalize(&command_cwd).expect("canonical workspace");
         let expected_extra = dunce::canonicalize(&extra_root).expect("canonical extra root");
-        let forbidden_codewen_home = dunce::canonicalize(&codewen_home).expect("canonical codewen home");
+        let forbidden_codewen_home =
+            dunce::canonicalize(&codewen_home).expect("canonical codewen home");
         let forbidden_sandbox = dunce::canonicalize(&sandbox_root).expect("canonical sandbox root");
         assert_eq!(effective_write_roots, payload_write_roots);
         assert!(effective_write_roots.contains(&expected_workspace));

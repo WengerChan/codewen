@@ -447,7 +447,8 @@ async fn skills_list_loads_remote_installed_plugin_skills_from_cache() -> Result
 }
 
 #[tokio::test]
-async fn skills_list_excludes_plugin_skills_when_workspace_codewen_plugins_disabled() -> Result<()> {
+async fn skills_list_excludes_plugin_skills_when_workspace_codewen_plugins_disabled() -> Result<()>
+{
     let codewen_home = TempDir::new()?;
     let repo_root = TempDir::new()?;
     let server = MockServer::start().await;

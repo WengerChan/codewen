@@ -166,7 +166,10 @@ impl StateRuntime {
     /// This opens (and migrates) the SQLite databases under `codewen_home`.
     /// Logs and paginated thread history live in dedicated files to reduce
     /// lock contention with the rest of the state store.
-    pub async fn init(codewen_home: PathBuf, default_provider: String) -> anyhow::Result<Arc<Self>> {
+    pub async fn init(
+        codewen_home: PathBuf,
+        default_provider: String,
+    ) -> anyhow::Result<Arc<Self>> {
         Self::init_inner(
             codewen_home,
             default_provider,
@@ -189,7 +192,8 @@ impl StateRuntime {
         default_provider: String,
         telemetry_override: Option<&dyn DbTelemetry>,
     ) -> anyhow::Result<Arc<Self>> {
-        let sqlite = SqliteConfig::from_sqlite_home(AbsolutePathBuf::try_from(codewen_home.clone())?);
+        let sqlite =
+            SqliteConfig::from_sqlite_home(AbsolutePathBuf::try_from(codewen_home.clone())?);
         tokio::fs::create_dir_all(&codewen_home).await?;
         let state_migrator = runtime_state_migrator();
         let logs_migrator = runtime_logs_migrator();

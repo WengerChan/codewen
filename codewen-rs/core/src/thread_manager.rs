@@ -289,7 +289,9 @@ pub fn thread_store_from_config(
                 .features
                 .enabled(Feature::LocalThreadStoreCompression)
             {
-                codewen_rollout::spawn_rollout_compression_worker(config.codewen_home.to_path_buf());
+                codewen_rollout::spawn_rollout_compression_worker(
+                    config.codewen_home.to_path_buf(),
+                );
             }
             Arc::new(LocalThreadStore::new(
                 LocalThreadStoreConfig::from_config(config),
@@ -1155,7 +1157,10 @@ impl ThreadManagerState {
     }
 
     /// Fetch a thread by ID or return ThreadNotFound.
-    pub(crate) async fn get_thread(&self, thread_id: ThreadId) -> CodewenResult<Arc<CodewenThread>> {
+    pub(crate) async fn get_thread(
+        &self,
+        thread_id: ThreadId,
+    ) -> CodewenResult<Arc<CodewenThread>> {
         let threads = self.threads.read().await;
         match threads.get(&thread_id) {
             Some(thread) if !thread.session_source.is_internal() => Ok(thread.clone()),

@@ -1527,21 +1527,22 @@ async fn reload_user_config_layer_refreshes_hooks() -> anyhow::Result<()> {
         codewen_protocol::protocol::HookTrustStatus::Untrusted
     );
 
-    let trusted_user_config: codewen_config::TomlValue = serde_json::from_value(serde_json::json!({
-        "hooks": {
-            "SessionStart": [{
-                "hooks": [{
-                    "type": "command",
-                    "command": "python3 /tmp/user.py",
+    let trusted_user_config: codewen_config::TomlValue =
+        serde_json::from_value(serde_json::json!({
+            "hooks": {
+                "SessionStart": [{
+                    "hooks": [{
+                        "type": "command",
+                        "command": "python3 /tmp/user.py",
+                    }],
                 }],
-            }],
-            "state": {
-                hook_list.hooks[0].key.clone(): {
-                    "trusted_hash": hook_list.hooks[0].current_hash.clone(),
+                "state": {
+                    hook_list.hooks[0].key.clone(): {
+                        "trusted_hash": hook_list.hooks[0].current_hash.clone(),
+                    },
                 },
             },
-        },
-    }))?;
+        }))?;
     std::fs::write(&config_toml_path, toml::to_string(&trusted_user_config)?)?;
 
     session.reload_user_config_layer().await;
@@ -1590,21 +1591,22 @@ async fn refresh_runtime_config_refreshes_hooks() -> anyhow::Result<()> {
         codewen_config::version_for_toml(&identity)
     };
     let hook_key = format!("{}:session_start:0:0", config_toml_path.display());
-    let trusted_user_config: codewen_config::TomlValue = serde_json::from_value(serde_json::json!({
-        "hooks": {
-            "SessionStart": [{
-                "hooks": [{
-                    "type": "command",
-                    "command": "python3 /tmp/user.py",
+    let trusted_user_config: codewen_config::TomlValue =
+        serde_json::from_value(serde_json::json!({
+            "hooks": {
+                "SessionStart": [{
+                    "hooks": [{
+                        "type": "command",
+                        "command": "python3 /tmp/user.py",
+                    }],
                 }],
-            }],
-            "state": {
-                hook_key: {
-                    "trusted_hash": trusted_hash,
+                "state": {
+                    hook_key: {
+                        "trusted_hash": trusted_hash,
+                    },
                 },
             },
-        },
-    }))?;
+        }))?;
     std::fs::write(&config_toml_path, toml::to_string(&trusted_user_config)?)?;
 
     let request = codewen_hooks::SessionStartRequest {
@@ -2472,7 +2474,8 @@ async fn record_token_usage_info_notifies_extension_contributors() {
 
     let (mut session, turn_context) = make_session_and_context().await;
     let records = Arc::new(std::sync::Mutex::new(Vec::new()));
-    let mut builder = codewen_extension_api::ExtensionRegistryBuilder::<crate::config::Config>::new();
+    let mut builder =
+        codewen_extension_api::ExtensionRegistryBuilder::<crate::config::Config>::new();
     builder.token_usage_contributor(Arc::new(TokenUsageRecorder {
         records: Arc::clone(&records),
     }));
@@ -2600,7 +2603,8 @@ async fn turn_start_lifecycle_exposes_turn_metadata_and_token_baseline() {
 
     let (mut session, turn_context) = make_session_and_context().await;
     let records = Arc::new(std::sync::Mutex::new(Vec::new()));
-    let mut builder = codewen_extension_api::ExtensionRegistryBuilder::<crate::config::Config>::new();
+    let mut builder =
+        codewen_extension_api::ExtensionRegistryBuilder::<crate::config::Config>::new();
     builder.turn_lifecycle_contributor(Arc::new(TurnStartRecorder {
         records: Arc::clone(&records),
     }));
@@ -2705,7 +2709,8 @@ async fn turn_error_lifecycle_exposes_error_and_stores() {
 
     let (mut session, turn_context) = make_session_and_context().await;
     let records = Arc::new(std::sync::Mutex::new(Vec::new()));
-    let mut builder = codewen_extension_api::ExtensionRegistryBuilder::<crate::config::Config>::new();
+    let mut builder =
+        codewen_extension_api::ExtensionRegistryBuilder::<crate::config::Config>::new();
     builder.turn_lifecycle_contributor(Arc::new(TurnErrorRecorder {
         records: Arc::clone(&records),
     }));
@@ -2784,7 +2789,8 @@ async fn config_change_contributor_observes_effective_config_changes() {
 
     let (mut session, _turn_context) = make_session_and_context().await;
     let records = Arc::new(std::sync::Mutex::new(Vec::new()));
-    let mut builder = codewen_extension_api::ExtensionRegistryBuilder::<crate::config::Config>::new();
+    let mut builder =
+        codewen_extension_api::ExtensionRegistryBuilder::<crate::config::Config>::new();
     builder.config_contributor(Arc::new(ConfigRecorder {
         records: Arc::clone(&records),
     }));
@@ -3060,7 +3066,10 @@ async fn fork_startup_context_then_first_turn_diff_snapshot() -> anyhow::Result<
             thread_settings: Default::default(),
         })
         .await?;
-    wait_for_event(&initial.codewen, |ev| matches!(ev, EventMsg::TurnComplete(_))).await;
+    wait_for_event(&initial.codewen, |ev| {
+        matches!(ev, EventMsg::TurnComplete(_))
+    })
+    .await;
     // Forking reads the persisted rollout JSONL, so force the completed source turn to disk
     // before snapshotting from it.
     initial.codewen.ensure_rollout_materialized().await;
@@ -5180,7 +5189,8 @@ async fn session_new_fails_when_zsh_fork_enabled_without_packaged_zsh() {
     config.zsh_path = None;
     let config = Arc::new(config);
 
-    let auth_manager = AuthManager::from_auth_for_testing(CodewenAuth::from_api_key("Test API Key"));
+    let auth_manager =
+        AuthManager::from_auth_for_testing(CodewenAuth::from_api_key("Test API Key"));
     let models_manager = models_manager_with_provider(
         config.codewen_home.to_path_buf(),
         auth_manager.clone(),
@@ -5306,7 +5316,8 @@ pub(crate) async fn make_session_and_context() -> (Session, TurnContext) {
     let config = build_test_config(codewen_home.path()).await;
     let config = Arc::new(config);
     let thread_id = ThreadId::default();
-    let auth_manager = AuthManager::from_auth_for_testing(CodewenAuth::from_api_key("Test API Key"));
+    let auth_manager =
+        AuthManager::from_auth_for_testing(CodewenAuth::from_api_key("Test API Key"));
     let models_manager = models_manager_with_provider(
         config.codewen_home.to_path_buf(),
         auth_manager.clone(),
@@ -5565,7 +5576,8 @@ async fn make_session_with_config_and_rx(
     let mut config = build_test_config(codewen_home.path()).await;
     mutator(&mut config);
     let config = Arc::new(config);
-    let auth_manager = AuthManager::from_auth_for_testing(CodewenAuth::from_api_key("Test API Key"));
+    let auth_manager =
+        AuthManager::from_auth_for_testing(CodewenAuth::from_api_key("Test API Key"));
     let models_manager = models_manager_with_provider(
         config.codewen_home.to_path_buf(),
         auth_manager.clone(),
@@ -5672,7 +5684,8 @@ async fn make_session_with_history_source_and_agent_control_and_rx(
     let mut config = build_test_config(codewen_home.path()).await;
     config.ephemeral = true;
     let config = Arc::new(config);
-    let auth_manager = AuthManager::from_auth_for_testing(CodewenAuth::from_api_key("Test API Key"));
+    let auth_manager =
+        AuthManager::from_auth_for_testing(CodewenAuth::from_api_key("Test API Key"));
     let models_manager = models_manager_with_provider(
         config.codewen_home.to_path_buf(),
         auth_manager.clone(),
@@ -6971,7 +6984,8 @@ async fn spawn_task_turn_span_inherits_dispatch_trace_context() {
         .expect("turn task should capture the current span trace context");
     let submission_context =
         codewen_otel::context_from_w3c_trace_context(&submission_trace).expect("submission");
-    let task_context = codewen_otel::context_from_w3c_trace_context(&task_trace).expect("task trace");
+    let task_context =
+        codewen_otel::context_from_w3c_trace_context(&task_trace).expect("task trace");
 
     assert_eq!(
         task_context.span().span_context().trace_id(),
@@ -7047,7 +7061,9 @@ async fn submission_loop_channel_close_runs_full_thread_teardown() {
         expected_thread_id: ThreadId,
     }
 
-    impl codewen_extension_api::ThreadLifecycleContributor<crate::config::Config> for ThreadStopRecorder {
+    impl codewen_extension_api::ThreadLifecycleContributor<crate::config::Config>
+        for ThreadStopRecorder
+    {
         fn on_thread_stop<'a>(
             &'a self,
             input: codewen_extension_api::ThreadStopInput<'a>,
@@ -7102,7 +7118,8 @@ async fn submission_loop_channel_close_runs_full_thread_teardown() {
     session.services.thread_store = thread_store;
     session.services.live_thread = Some(live_thread);
     let calls = Arc::new(std::sync::atomic::AtomicUsize::new(0));
-    let mut builder = codewen_extension_api::ExtensionRegistryBuilder::<crate::config::Config>::new();
+    let mut builder =
+        codewen_extension_api::ExtensionRegistryBuilder::<crate::config::Config>::new();
     builder.thread_lifecycle_contributor(Arc::new(ThreadStopRecorder {
         calls: Arc::clone(&calls),
         expected_thread_id: session.thread_id,
@@ -7141,7 +7158,9 @@ async fn submission_loop_channel_close_aborts_active_turn_before_thread_stop_lif
         expected_turn_id: String,
     }
 
-    impl codewen_extension_api::ThreadLifecycleContributor<crate::config::Config> for LifecycleRecorder {
+    impl codewen_extension_api::ThreadLifecycleContributor<crate::config::Config>
+        for LifecycleRecorder
+    {
         fn on_thread_stop<'a>(
             &'a self,
             input: codewen_extension_api::ThreadStopInput<'a>,
@@ -7186,7 +7205,8 @@ async fn submission_loop_channel_close_aborts_active_turn_before_thread_stop_lif
         expected_thread_id: session.thread_id,
         expected_turn_id: turn_context.sub_id.clone(),
     });
-    let mut builder = codewen_extension_api::ExtensionRegistryBuilder::<crate::config::Config>::new();
+    let mut builder =
+        codewen_extension_api::ExtensionRegistryBuilder::<crate::config::Config>::new();
     builder.thread_lifecycle_contributor(recorder.clone());
     builder.turn_lifecycle_contributor(recorder);
     session.services.extensions = Arc::new(builder.build());
@@ -7800,7 +7820,10 @@ impl codewen_exec_server::NoiseRendezvousConnectProvider for PendingNoiseConnect
         _: codewen_exec_server::NoiseChannelPublicKey,
     ) -> futures::future::BoxFuture<
         '_,
-        Result<codewen_exec_server::NoiseRendezvousConnectBundle, codewen_exec_server::ExecServerError>,
+        Result<
+            codewen_exec_server::NoiseRendezvousConnectBundle,
+            codewen_exec_server::ExecServerError,
+        >,
     > {
         Box::pin(futures::future::pending())
     }
@@ -7818,8 +7841,10 @@ async fn deferred_environment_roots_refresh_plugin_availability() {
         fn contribute<'a>(
             &'a self,
             context: codewen_extension_api::McpServerContributionContext<'a, Config>,
-        ) -> codewen_extension_api::ExtensionFuture<'a, Vec<codewen_extension_api::McpServerContribution>>
-        {
+        ) -> codewen_extension_api::ExtensionFuture<
+            'a,
+            Vec<codewen_extension_api::McpServerContribution>,
+        > {
             Box::pin(async move {
                 let available = context
                     .ready_selected_capability_roots()
@@ -8367,7 +8392,11 @@ impl codewen_extension_api::ContextContributor for PromptExtensionTestContributo
         thread_store: &'a codewen_extension_api::ExtensionData,
         _step_store: &'a codewen_extension_api::ExtensionData,
     ) -> std::pin::Pin<
-        Box<dyn std::future::Future<Output = Vec<codewen_extension_api::PromptFragment>> + Send + 'a>,
+        Box<
+            dyn std::future::Future<Output = Vec<codewen_extension_api::PromptFragment>>
+                + Send
+                + 'a,
+        >,
     > {
         Box::pin(async move {
             thread_store
@@ -8396,7 +8425,11 @@ impl codewen_extension_api::ContextContributor for TurnContextExtensionTestContr
         &'a self,
         input: codewen_extension_api::TurnContextContributionInput<'a>,
     ) -> std::pin::Pin<
-        Box<dyn std::future::Future<Output = Vec<codewen_extension_api::PromptFragment>> + Send + 'a>,
+        Box<
+            dyn std::future::Future<Output = Vec<codewen_extension_api::PromptFragment>>
+                + Send
+                + 'a,
+        >,
     > {
         Box::pin(async move {
             let Some(state) = input.turn_store.get::<TurnContextExtensionTestState>() else {
@@ -9452,7 +9485,9 @@ impl SessionTask for GuardianDeniedApprovalTask {
 async fn guardian_auto_review_emits_thread_idle_after_interrupt() {
     struct ThreadIdleRecorder(async_channel::Sender<()>);
 
-    impl codewen_extension_api::ThreadLifecycleContributor<crate::config::Config> for ThreadIdleRecorder {
+    impl codewen_extension_api::ThreadLifecycleContributor<crate::config::Config>
+        for ThreadIdleRecorder
+    {
         fn on_thread_idle<'a>(
             &'a self,
             _input: codewen_extension_api::ThreadIdleInput<'a>,
@@ -9465,7 +9500,8 @@ async fn guardian_auto_review_emits_thread_idle_after_interrupt() {
 
     let (mut session, turn_context) = make_session_and_context().await;
     let (idle_tx, idle_rx) = async_channel::bounded(1);
-    let mut builder = codewen_extension_api::ExtensionRegistryBuilder::<crate::config::Config>::new();
+    let mut builder =
+        codewen_extension_api::ExtensionRegistryBuilder::<crate::config::Config>::new();
     builder.thread_lifecycle_contributor(Arc::new(ThreadIdleRecorder(idle_tx)));
     session.services.extensions = Arc::new(builder.build());
 
@@ -9833,7 +9869,9 @@ async fn task_finish_emits_thread_idle_lifecycle_after_active_turn_clears() {
         expected_thread_id: ThreadId,
     }
 
-    impl codewen_extension_api::ThreadLifecycleContributor<crate::config::Config> for ThreadIdleRecorder {
+    impl codewen_extension_api::ThreadLifecycleContributor<crate::config::Config>
+        for ThreadIdleRecorder
+    {
         fn on_thread_idle<'a>(
             &'a self,
             input: codewen_extension_api::ThreadIdleInput<'a>,
@@ -9852,7 +9890,8 @@ async fn task_finish_emits_thread_idle_lifecycle_after_active_turn_clears() {
     let (mut session, turn_context) = make_session_and_context().await;
     let calls = Arc::new(std::sync::atomic::AtomicUsize::new(0));
     let (idle_tx, idle_rx) = async_channel::bounded(1);
-    let mut builder = codewen_extension_api::ExtensionRegistryBuilder::<crate::config::Config>::new();
+    let mut builder =
+        codewen_extension_api::ExtensionRegistryBuilder::<crate::config::Config>::new();
     builder.thread_lifecycle_contributor(Arc::new(ThreadIdleRecorder {
         calls: Arc::clone(&calls),
         idle_tx,
@@ -9879,7 +9918,9 @@ async fn thread_idle_lifecycle_waits_for_trigger_turn_mailbox_work() {
         calls: Arc<std::sync::atomic::AtomicUsize>,
     }
 
-    impl codewen_extension_api::ThreadLifecycleContributor<crate::config::Config> for ThreadIdleRecorder {
+    impl codewen_extension_api::ThreadLifecycleContributor<crate::config::Config>
+        for ThreadIdleRecorder
+    {
         fn on_thread_idle<'a>(
             &'a self,
             _input: codewen_extension_api::ThreadIdleInput<'a>,
@@ -9892,7 +9933,8 @@ async fn thread_idle_lifecycle_waits_for_trigger_turn_mailbox_work() {
 
     let (mut session, _turn_context) = make_session_and_context().await;
     let calls = Arc::new(std::sync::atomic::AtomicUsize::new(0));
-    let mut builder = codewen_extension_api::ExtensionRegistryBuilder::<crate::config::Config>::new();
+    let mut builder =
+        codewen_extension_api::ExtensionRegistryBuilder::<crate::config::Config>::new();
     builder.thread_lifecycle_contributor(Arc::new(ThreadIdleRecorder {
         calls: Arc::clone(&calls),
     }));

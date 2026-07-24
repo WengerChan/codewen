@@ -1561,9 +1561,9 @@ impl From<codewen_protocol::dynamic_tools::DynamicToolCallOutputContentItem>
 {
     fn from(item: codewen_protocol::dynamic_tools::DynamicToolCallOutputContentItem) -> Self {
         match item {
-            codewen_protocol::dynamic_tools::DynamicToolCallOutputContentItem::InputText { text } => {
-                Self::InputText { text }
-            }
+            codewen_protocol::dynamic_tools::DynamicToolCallOutputContentItem::InputText {
+                text,
+            } => Self::InputText { text },
             codewen_protocol::dynamic_tools::DynamicToolCallOutputContentItem::InputImage {
                 image_url,
             } => Self::InputImage { image_url },

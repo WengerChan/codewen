@@ -54,7 +54,10 @@ pub(crate) fn detect_recent_cla_sessions_with_limits(
         }
     }
     detect_recent_sessions(
-        codewen_home, candidates, /*require_existing_cwd*/ true, limits,
+        codewen_home,
+        candidates,
+        /*require_existing_cwd*/ true,
+        limits,
     )
 }
 

@@ -18,8 +18,11 @@ fn codewen_command(codewen_home: &Path) -> Result<assert_cmd::Command> {
 async fn debug_clear_memories_resets_state_and_removes_memory_dir() -> Result<()> {
     let codewen_home = TempDir::new()?;
     let sqlite = codewen_state::SqliteConfig::new_for_testing(codewen_home.path().abs());
-    let runtime =
-        StateRuntime::init(codewen_home.path().to_path_buf(), "test-provider".to_string()).await?;
+    let runtime = StateRuntime::init(
+        codewen_home.path().to_path_buf(),
+        "test-provider".to_string(),
+    )
+    .await?;
     drop(runtime);
 
     let thread_id = "00000000-0000-0000-0000-000000000123";
@@ -141,8 +144,11 @@ INSERT INTO jobs (
 async fn debug_clear_memories_resets_memories_db_without_state_db() -> Result<()> {
     let codewen_home = TempDir::new()?;
     let sqlite = codewen_state::SqliteConfig::new_for_testing(codewen_home.path().abs());
-    let runtime =
-        StateRuntime::init(codewen_home.path().to_path_buf(), "test-provider".to_string()).await?;
+    let runtime = StateRuntime::init(
+        codewen_home.path().to_path_buf(),
+        "test-provider".to_string(),
+    )
+    .await?;
     runtime.close().await;
 
     let db_path = state_db_path(codewen_home.path());

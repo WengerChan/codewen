@@ -317,7 +317,8 @@ async fn websocket_transport_verifies_signed_short_lived_bearer_tokens() -> Resu
     ];
 
     let (mut process, bind_addr) =
-        spawn_websocket_server_with_args(codewen_home.path(), "ws://127.0.0.1:0", &auth_args).await?;
+        spawn_websocket_server_with_args(codewen_home.path(), "ws://127.0.0.1:0", &auth_args)
+            .await?;
     let expired_token = signed_bearer_token(
         shared_secret.as_bytes(),
         json!({

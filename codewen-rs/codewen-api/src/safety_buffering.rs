@@ -1,7 +1,8 @@
 use crate::common::SafetyBufferingTreatment;
 use http::HeaderMap;
 
-pub(crate) const X_CODEX_SAFETY_BUFFERING_ENABLED_HEADER: &str = "x-codewen-safety-buffering-enabled";
+pub(crate) const X_CODEX_SAFETY_BUFFERING_ENABLED_HEADER: &str =
+    "x-codewen-safety-buffering-enabled";
 pub(crate) const X_CODEX_SAFETY_BUFFERING_FASTER_MODEL_HEADER: &str =
     "x-codewen-safety-buffering-faster-model";
 

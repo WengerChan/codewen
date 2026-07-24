@@ -396,8 +396,11 @@ fn remove_stale_remote_plugin_caches(
             if installed_plugin_names.contains(&plugin_name) {
                 continue;
             }
-            if is_remote_plugin_cache_mutation_in_flight(codewen_home, marketplace_name, &plugin_name)
-            {
+            if is_remote_plugin_cache_mutation_in_flight(
+                codewen_home,
+                marketplace_name,
+                &plugin_name,
+            ) {
                 continue;
             }
 

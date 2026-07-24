@@ -75,8 +75,9 @@ async fn init_backend(user_agent_suffix: &str) -> anyhow::Result<BackendContext>
         http_client_factory.clone(),
         ClientRouteClass::Api,
     );
-    let mut http = codewen_cloud_tasks_client::HttpClient::new(base_url.clone(), http_client_factory)
-        .with_user_agent(ua);
+    let mut http =
+        codewen_cloud_tasks_client::HttpClient::new(base_url.clone(), http_client_factory)
+            .with_user_agent(ua);
     let style = if base_url.contains("/backend-api") {
         "wham"
     } else {
@@ -2366,8 +2367,8 @@ mod tests {
     fn parse_task_id_from_url_and_raw() {
         let raw = parse_task_id("task_i_abc123").expect("raw id");
         assert_eq!(raw.0, "task_i_abc123");
-        let url =
-            parse_task_id("https://chatgpt.com/codewen/tasks/task_i_123456?foo=bar").expect("url id");
+        let url = parse_task_id("https://chatgpt.com/codewen/tasks/task_i_123456?foo=bar")
+            .expect("url id");
         assert_eq!(url.0, "task_i_123456");
         assert!(parse_task_id("   ").is_err());
     }

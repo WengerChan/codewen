@@ -2408,7 +2408,9 @@ mod tests {
                 completed_at_ms: Some(1_042),
                 status: codewen_protocol::protocol::GuardianAssessmentStatus::Denied,
                 risk_level: Some(codewen_protocol::protocol::GuardianRiskLevel::High),
-                user_authorization: Some(codewen_protocol::protocol::GuardianUserAuthorization::Low),
+                user_authorization: Some(
+                    codewen_protocol::protocol::GuardianUserAuthorization::Low,
+                ),
                 rationale: Some("too risky".to_string()),
                 decision_source: Some(
                     codewen_protocol::protocol::GuardianAssessmentDecisionSource::Agent,

@@ -464,7 +464,10 @@ direct_only_tool_namespaces = ["mcp__history", "mcp__notes"]
 
     assert_eq!(
         config.code_mode.excluded_tool_namespaces,
-        vec!["mcp__codewen_apps".to_string(), "multi_agent_v1".to_string()]
+        vec![
+            "mcp__codewen_apps".to_string(),
+            "multi_agent_v1".to_string()
+        ]
     );
     assert_eq!(
         config.code_mode.direct_only_tool_namespaces,
@@ -4729,7 +4732,8 @@ fn filter_plugin_mcp_servers_by_matchers_enforces_name_and_invocation() {
 #[tokio::test]
 async fn rebuild_preserving_session_layers_refreshes_requirements() -> std::io::Result<()> {
     let codewen_home = TempDir::new()?;
-    let user_file = AbsolutePathBuf::resolve_path_against_base(CONFIG_TOML_FILE, codewen_home.path());
+    let user_file =
+        AbsolutePathBuf::resolve_path_against_base(CONFIG_TOML_FILE, codewen_home.path());
     let project_dot_codex =
         AbsolutePathBuf::resolve_path_against_base("project/.codewen", codewen_home.path());
     let mcp_requirements = BTreeMap::from([
@@ -4960,7 +4964,8 @@ async fn rebuild_preserving_session_layers_refreshes_plugin_derived_mcp_config()
 }"#,
     )?;
 
-    let user_file = AbsolutePathBuf::resolve_path_against_base(CONFIG_TOML_FILE, codewen_home.path());
+    let user_file =
+        AbsolutePathBuf::resolve_path_against_base(CONFIG_TOML_FILE, codewen_home.path());
     let refreshed_layer_stack = ConfigLayerStack::new(
         vec![ConfigLayerEntry::new(
             ConfigLayerSource::User {
@@ -5890,12 +5895,14 @@ async fn managed_config_overrides_oauth_store_mode() -> anyhow::Result<()> {
         &codewen_config::NoopThreadConfigLoader,
     )
     .await?;
-    let cfg =
-        deserialize_config_toml_with_base(config_layer_stack.effective_config(), codewen_home.path())
-            .map_err(|e| {
-                tracing::error!("Failed to deserialize overridden config: {e}");
-                e
-            })?;
+    let cfg = deserialize_config_toml_with_base(
+        config_layer_stack.effective_config(),
+        codewen_home.path(),
+    )
+    .map_err(|e| {
+        tracing::error!("Failed to deserialize overridden config: {e}");
+        e
+    })?;
     assert_eq!(
         cfg.mcp_oauth_credentials_store,
         Some(OAuthCredentialsStoreMode::Keyring),
@@ -6026,12 +6033,14 @@ async fn managed_config_wins_over_cli_overrides() -> anyhow::Result<()> {
     )
     .await?;
 
-    let cfg =
-        deserialize_config_toml_with_base(config_layer_stack.effective_config(), codewen_home.path())
-            .map_err(|e| {
-                tracing::error!("Failed to deserialize overridden config: {e}");
-                e
-            })?;
+    let cfg = deserialize_config_toml_with_base(
+        config_layer_stack.effective_config(),
+        codewen_home.path(),
+    )
+    .map_err(|e| {
+        tracing::error!("Failed to deserialize overridden config: {e}");
+        e
+    })?;
 
     assert_eq!(cfg.model.as_deref(), Some("managed_config"));
     Ok(())
@@ -11831,7 +11840,8 @@ sandbox_private_desktop = false
 #[tokio::test]
 async fn absent_allow_login_shell_does_not_report_an_override() -> std::io::Result<()> {
     let codewen_home = TempDir::new()?;
-    let config = load_with_enterprise_requirement(&codewen_home, "allow_login_shell = false").await?;
+    let config =
+        load_with_enterprise_requirement(&codewen_home, "allow_login_shell = false").await?;
 
     assert!(!config.permissions.allow_login_shell);
     assert!(

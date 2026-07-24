@@ -321,7 +321,10 @@ impl ChatWidget {
             }),
         );
 
-        if self.rate_limit_snapshots_by_limit_id.contains_key("codewen") {
+        if self
+            .rate_limit_snapshots_by_limit_id
+            .contains_key("codewen")
+        {
             for item in [
                 StatusSurfacePreviewItem::FiveHourLimit,
                 StatusSurfacePreviewItem::WeeklyLimit,

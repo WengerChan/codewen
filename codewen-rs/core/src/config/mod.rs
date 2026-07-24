@@ -1824,8 +1824,13 @@ pub async fn load_config_as_toml_with_cli_and_loader_overrides(
     cli_overrides: Vec<(String, TomlValue)>,
     loader_overrides: LoaderOverrides,
 ) -> std::io::Result<ConfigToml> {
-    load_config_as_toml_with_cli_and_load_options(codewen_home, cwd, cli_overrides, loader_overrides)
-        .await
+    load_config_as_toml_with_cli_and_load_options(
+        codewen_home,
+        cwd,
+        cli_overrides,
+        loader_overrides,
+    )
+    .await
 }
 
 /// DEPRECATED for most callers: prefer [Config::load_with_cli_overrides()] or

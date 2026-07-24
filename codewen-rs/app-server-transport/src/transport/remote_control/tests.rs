@@ -126,9 +126,12 @@ fn remote_control_auth_dot_json(account_id: Option<&str>) -> AuthDotJson {
 }
 
 async fn remote_control_state_runtime(codewen_home: &TempDir) -> Arc<StateRuntime> {
-    StateRuntime::init(codewen_home.path().to_path_buf(), "test-provider".to_string())
-        .await
-        .expect("state runtime should initialize")
+    StateRuntime::init(
+        codewen_home.path().to_path_buf(),
+        "test-provider".to_string(),
+    )
+    .await
+    .expect("state runtime should initialize")
 }
 
 #[tokio::test]

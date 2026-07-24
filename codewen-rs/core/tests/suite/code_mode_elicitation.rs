@@ -47,13 +47,12 @@ impl CodeModeElicitationHarness {
         configure: impl FnOnce(&mut Config) + Send + 'static,
     ) -> Result<Self> {
         let server = responses::start_mock_server().await;
-        let mut builder =
-            test_codewen()
-                .with_model("test-gpt-5.1-codewen")
-                .with_config(move |config| {
-                    let _ = config.features.enable(Feature::CodeMode);
-                    configure(config);
-                });
+        let mut builder = test_codewen()
+            .with_model("test-gpt-5.1-codewen")
+            .with_config(move |config| {
+                let _ = config.features.enable(Feature::CodeMode);
+                configure(config);
+            });
         let test = builder.build_with_auto_env(&server).await?;
         let follow_up = mount_code_mode_responses(&server, code).await;
         let turn_id = submit_turn(&test, permission_profile).await?;

@@ -437,8 +437,14 @@ async fn any_new_input_interrupts_sleep() {
     let third: Value = from_slice(&requests[2]).expect("parse third request");
     assert_interrupted_sleep_output(function_call_output_text(&third, SECOND_SLEEP_CALL_ID));
 
-    codewen.submit(Op::Shutdown).await.expect("shutdown session");
-    wait_for_event(&codewen, |event| matches!(event, EventMsg::ShutdownComplete)).await;
+    codewen
+        .submit(Op::Shutdown)
+        .await
+        .expect("shutdown session");
+    wait_for_event(&codewen, |event| {
+        matches!(event, EventMsg::ShutdownComplete)
+    })
+    .await;
 
     let rollout_path = codewen.rollout_path().expect("rollout path");
     let rollout = tokio::fs::read_to_string(rollout_path)

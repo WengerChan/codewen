@@ -111,8 +111,12 @@ impl App {
         };
 
         let codewen_home = app_server.codewen_home_path(&self.config.codewen_home);
-        match goal_files::objective_text_for_edit(app_server, codewen_home.as_ref(), &goal.objective)
-            .await
+        match goal_files::objective_text_for_edit(
+            app_server,
+            codewen_home.as_ref(),
+            &goal.objective,
+        )
+        .await
         {
             Ok(objective) => goal.objective = objective,
             Err(err) => {

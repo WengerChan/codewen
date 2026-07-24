@@ -1813,9 +1813,8 @@ impl TestAppServerBuilder {
                             !is_remote_test_environment(),
                             "TestAppServer exec-server delay only supports the local test environment"
                         );
-                        let exec_server_program =
-                            codewen_utils_cargo_bin::cargo_bin("exec-server")
-                                .context("should find binary for delayed exec-server fixture")?;
+                        let exec_server_program = codewen_utils_cargo_bin::cargo_bin("exec-server")
+                            .context("should find binary for delayed exec-server fixture")?;
                         // Local auto environments normally use stdio. Start a
                         // host-local WebSocket fixture so the delay interposer has a
                         // socket stream to wrap.

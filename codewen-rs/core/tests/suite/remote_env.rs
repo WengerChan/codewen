@@ -2037,7 +2037,10 @@ async fn remote_test_env_sandboxed_read_allows_readable_root() -> Result<()> {
     let test_env = test_env().await?;
     let file_system = test_env.environment().get_filesystem();
 
-    let allowed_dir = PathBuf::from(format!("/tmp/codewen-remote-readable-{}", std::process::id()));
+    let allowed_dir = PathBuf::from(format!(
+        "/tmp/codewen-remote-readable-{}",
+        std::process::id()
+    ));
     let file_path = allowed_dir.join("note.txt");
     let allowed_dir_uri = PathUri::from_host_native_path(&allowed_dir)?;
     let file_path_uri = PathUri::from_host_native_path(&file_path)?;

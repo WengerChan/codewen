@@ -645,7 +645,10 @@ async fn resume_replays_permissions_messages() -> Result<()> {
             thread_settings: Default::default(),
         })
         .await?;
-    wait_for_event(&initial.codewen, |ev| matches!(ev, EventMsg::TurnComplete(_))).await;
+    wait_for_event(&initial.codewen, |ev| {
+        matches!(ev, EventMsg::TurnComplete(_))
+    })
+    .await;
 
     core_test_support::submit_thread_settings(
         &initial.codewen,
@@ -669,7 +672,10 @@ async fn resume_replays_permissions_messages() -> Result<()> {
             thread_settings: Default::default(),
         })
         .await?;
-    wait_for_event(&initial.codewen, |ev| matches!(ev, EventMsg::TurnComplete(_))).await;
+    wait_for_event(&initial.codewen, |ev| {
+        matches!(ev, EventMsg::TurnComplete(_))
+    })
+    .await;
 
     let resumed = builder.resume(&server, home, rollout_path).await?;
     resumed
@@ -685,7 +691,10 @@ async fn resume_replays_permissions_messages() -> Result<()> {
             thread_settings: Default::default(),
         })
         .await?;
-    wait_for_event(&resumed.codewen, |ev| matches!(ev, EventMsg::TurnComplete(_))).await;
+    wait_for_event(&resumed.codewen, |ev| {
+        matches!(ev, EventMsg::TurnComplete(_))
+    })
+    .await;
 
     let permissions = permissions_texts(&req3.single_request());
     assert_eq!(permissions.len(), 3);
@@ -745,7 +754,10 @@ async fn resume_and_fork_append_permissions_messages() -> Result<()> {
             thread_settings: Default::default(),
         })
         .await?;
-    wait_for_event(&initial.codewen, |ev| matches!(ev, EventMsg::TurnComplete(_))).await;
+    wait_for_event(&initial.codewen, |ev| {
+        matches!(ev, EventMsg::TurnComplete(_))
+    })
+    .await;
 
     core_test_support::submit_thread_settings(
         &initial.codewen,
@@ -769,7 +781,10 @@ async fn resume_and_fork_append_permissions_messages() -> Result<()> {
             thread_settings: Default::default(),
         })
         .await?;
-    wait_for_event(&initial.codewen, |ev| matches!(ev, EventMsg::TurnComplete(_))).await;
+    wait_for_event(&initial.codewen, |ev| {
+        matches!(ev, EventMsg::TurnComplete(_))
+    })
+    .await;
 
     let permissions_base = permissions_texts(&req2.single_request());
     assert_eq!(permissions_base.len(), 2);
@@ -791,7 +806,10 @@ async fn resume_and_fork_append_permissions_messages() -> Result<()> {
             thread_settings: Default::default(),
         })
         .await?;
-    wait_for_event(&resumed.codewen, |ev| matches!(ev, EventMsg::TurnComplete(_))).await;
+    wait_for_event(&resumed.codewen, |ev| {
+        matches!(ev, EventMsg::TurnComplete(_))
+    })
+    .await;
 
     let permissions_resume = permissions_texts(&req3.single_request());
     assert_eq!(permissions_resume.len(), permissions_base.len() + 1);

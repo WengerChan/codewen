@@ -679,9 +679,9 @@ async fn refresh_available_models_keeps_merging_for_api_auth() {
     let manager = openai_manager_for_tests_with_auth(
         codewen_home.path().to_path_buf(),
         endpoint.clone(),
-        Some(AuthManager::from_auth_for_testing(CodewenAuth::from_api_key(
-            "test-api-key",
-        ))),
+        Some(AuthManager::from_auth_for_testing(
+            CodewenAuth::from_api_key("test-api-key"),
+        )),
     );
     let mut expected = load_remote_models_from_file().expect("bundled models should parse");
     expected.extend(remote_models);

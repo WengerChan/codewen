@@ -318,7 +318,8 @@ enabled = false
                         event_sink: Arc::new(NoopExtensionEventSink),
                         auth_manager: auth_manager.clone(),
                         state_db: Some(state_db.clone()),
-                        analytics_events_client: codewen_analytics::AnalyticsEventsClient::disabled(),
+                        analytics_events_client: codewen_analytics::AnalyticsEventsClient::disabled(
+                        ),
                         thread_manager: thread_manager.clone(),
                         goal_service: Arc::new(codewen_goal_extension::GoalService::new()),
                         environment_manager: Arc::clone(&environment_manager),

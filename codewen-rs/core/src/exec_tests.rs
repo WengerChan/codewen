@@ -843,9 +843,9 @@ fn windows_workspace_defaults_do_not_hide_explicit_metadata_carveouts() {
             .entries
             .push(codewen_protocol::permissions::FileSystemSandboxEntry {
                 path: codewen_protocol::permissions::FileSystemPath::Special {
-                    value: codewen_protocol::permissions::FileSystemSpecialPath::project_roots(Some(
-                        (*name).into(),
-                    )),
+                    value: codewen_protocol::permissions::FileSystemSpecialPath::project_roots(
+                        Some((*name).into()),
+                    ),
                 },
                 access: codewen_protocol::permissions::FileSystemAccessMode::Read,
                 missing_path_behavior: None,

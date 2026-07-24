@@ -152,7 +152,8 @@ pub struct SandboxTransformRequest<'a> {
 pub struct SandboxDirectSpawnTransformRequest<'a> {
     pub transform: SandboxTransformRequest<'a>,
     pub workspace_roots: &'a [AbsolutePathBuf],
-    pub windows_sandbox_proxy_settings_mode: codewen_windows_sandbox::WindowsSandboxProxySettingsMode,
+    pub windows_sandbox_proxy_settings_mode:
+        codewen_windows_sandbox::WindowsSandboxProxySettingsMode,
 }
 
 // TODO(anp): Revisit this preparation type once this module's PathUri migration is complete.

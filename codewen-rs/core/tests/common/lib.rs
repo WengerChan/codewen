@@ -312,7 +312,9 @@ pub async fn submit_thread_settings(
     use tokio::time::Duration;
     use tokio::time::timeout;
 
-    let submission_id = codewen.submit(Op::ThreadSettings { thread_settings }).await?;
+    let submission_id = codewen
+        .submit(Op::ThreadSettings { thread_settings })
+        .await?;
     loop {
         let ev = timeout(Duration::from_secs(10), codewen.next_event())
             .await
@@ -367,7 +369,8 @@ pub fn sandbox_network_env_var() -> &'static str {
 }
 
 pub fn format_with_current_shell(command: &str) -> Vec<String> {
-    codewen_core::shell::default_user_shell().derive_exec_args(command, /*use_login_shell*/ true)
+    codewen_core::shell::default_user_shell()
+        .derive_exec_args(command, /*use_login_shell*/ true)
 }
 
 pub fn format_with_current_shell_display(command: &str) -> String {

@@ -540,7 +540,10 @@ fn legacy_capture_emits_output_and_preserves_descendant_after_normal_exit() {
     let _guard = legacy_process_test_guard();
     let cwd = sandbox_cwd();
     let codewen_home = sandbox_home("legacy-capture-pwsh");
-    println!("capture pwsh codewen_home={}", codewen_home.path().display());
+    println!(
+        "capture pwsh codewen_home={}",
+        codewen_home.path().display()
+    );
     let ready_marker = codewen_home.path().join("descendant-started");
     let release_marker = codewen_home.path().join("release-descendant");
     let survival_marker = codewen_home.path().join("descendant-survived");
@@ -556,7 +559,12 @@ fn legacy_capture_emits_output_and_preserves_descendant_after_normal_exit() {
     );
     let parent_command = format!(
         "Write-Output LEGACY-CAPTURE-DIRECT; {}",
-        start_powershell_child(&pwsh, codewen_home.path(), &descendant_command, &parent_tail,),
+        start_powershell_child(
+            &pwsh,
+            codewen_home.path(),
+            &descendant_command,
+            &parent_tail,
+        ),
     );
     let permission_profile = PermissionProfile::workspace_write();
     let result = run_windows_sandbox_capture(
@@ -692,9 +700,12 @@ fn legacy_workspace_write_delete_is_limited_to_writable_roots() {
         )
         .await
         .expect("spawn legacy delete session");
-        let (stdout, exit_code) =
-            collect_stdout_and_exit(spawned, codewen_home.path(), Duration::from_secs(/*secs*/ 10))
-                .await;
+        let (stdout, exit_code) = collect_stdout_and_exit(
+            spawned,
+            codewen_home.path(),
+            Duration::from_secs(/*secs*/ 10),
+        )
+        .await;
         let stdout = String::from_utf8_lossy(&stdout);
 
         assert_eq!(

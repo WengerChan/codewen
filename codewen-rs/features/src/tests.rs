@@ -188,7 +188,10 @@ fn collab_is_legacy_alias_for_multi_agent() {
 #[test]
 fn codewen_hooks_is_legacy_alias_for_hooks() {
     assert_eq!(feature_for_key("hooks"), Some(Feature::CodewenHooks));
-    assert_eq!(feature_for_key("codewen_hooks"), Some(Feature::CodewenHooks));
+    assert_eq!(
+        feature_for_key("codewen_hooks"),
+        Some(Feature::CodewenHooks)
+    );
 }
 
 #[test]

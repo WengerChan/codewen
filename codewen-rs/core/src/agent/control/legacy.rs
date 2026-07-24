@@ -63,7 +63,9 @@ impl AgentControl {
             }
         }
         match Box::pin(self.shutdown_agent_tree(agent_id)).await {
-            Err(CodewenErr::ThreadNotFound(_)) | Err(CodewenErr::InternalAgentDied) if known_agent => {
+            Err(CodewenErr::ThreadNotFound(_)) | Err(CodewenErr::InternalAgentDied)
+                if known_agent =>
+            {
                 Ok(String::new())
             }
             result => result,
@@ -76,7 +78,8 @@ impl AgentControl {
         let result = self.shutdown_live_agent(agent_id).await;
         for descendant_id in descendant_ids {
             match self.shutdown_live_agent(descendant_id).await {
-                Ok(_) | Err(CodewenErr::ThreadNotFound(_)) | Err(CodewenErr::InternalAgentDied) => {}
+                Ok(_) | Err(CodewenErr::ThreadNotFound(_)) | Err(CodewenErr::InternalAgentDied) => {
+                }
                 Err(err) => return Err(err),
             }
         }

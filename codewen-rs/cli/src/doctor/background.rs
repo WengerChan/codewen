@@ -40,7 +40,8 @@ pub(super) async fn background_server_check(config: &Config) -> DoctorCheck {
         &state_dir.join(UPDATE_PID_FILE_NAME),
     );
 
-    let socket_path = match codewen_app_server::app_server_control_socket_path(&config.codewen_home) {
+    let socket_path = match codewen_app_server::app_server_control_socket_path(&config.codewen_home)
+    {
         Ok(socket_path) => socket_path,
         Err(err) => {
             return DoctorCheck::new(

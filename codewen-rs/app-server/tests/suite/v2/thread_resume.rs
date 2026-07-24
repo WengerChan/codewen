@@ -1270,7 +1270,10 @@ async fn thread_resume_returns_rollout_history() -> Result<()> {
 
 #[tokio::test]
 async fn thread_resume_redacts_payloads_for_chatgpt_remote_clients() -> Result<()> {
-    for client_name in ["codewen_chatgpt_android_remote", "codewen_chatgpt_ios_remote"] {
+    for client_name in [
+        "codewen_chatgpt_android_remote",
+        "codewen_chatgpt_ios_remote",
+    ] {
         let remote_resume = resume_redaction_fixture(Some(client_name)).await?;
         let remote_turn = remote_resume
             .thread
@@ -2968,7 +2971,10 @@ async fn thread_resume_defers_updated_at_until_turn_start() -> Result<()> {
     )
     .await??;
     let ThreadResumeResponse { cwd, .. } = to_response::<ThreadResumeResponse>(resume_resp)?;
-    assert_eq!(cwd, AbsolutePathBuf::from_absolute_path(codewen_home.path())?);
+    assert_eq!(
+        cwd,
+        AbsolutePathBuf::from_absolute_path(codewen_home.path())?
+    );
 
     let turn_id = mcp
         .send_turn_start_request(TurnStartParams {

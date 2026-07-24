@@ -247,7 +247,8 @@ impl MessageProcessor {
         // The thread store is intentionally process-scoped. Config reloads can
         // affect per-thread behavior, but they must not move newly started,
         // resumed, or forked threads to a different persistence backend/root.
-        let thread_store = codewen_core::thread_store_from_config(config.as_ref(), state_db.clone());
+        let thread_store =
+            codewen_core::thread_store_from_config(config.as_ref(), state_db.clone());
         let environment_manager_for_requests = Arc::clone(&environment_manager);
         let environment_manager_for_extensions = Arc::clone(&environment_manager);
         let restriction_product = session_source.restriction_product();
@@ -876,7 +877,8 @@ impl MessageProcessor {
             request_id: codewen_request.id().clone(),
         };
 
-        let result: Result<Option<ClientResponsePayload>, JSONRPCErrorError> = match codewen_request {
+        let result: Result<Option<ClientResponsePayload>, JSONRPCErrorError> = match codewen_request
+        {
             ClientRequest::Initialize { .. } => {
                 panic!("Initialize should be handled before initialized request dispatch");
             }

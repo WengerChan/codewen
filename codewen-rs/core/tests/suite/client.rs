@@ -1481,9 +1481,9 @@ async fn send_request_with_provider(provider: ModelProviderInfo) {
         SessionSource::Exec,
     );
     let client = ModelClient::new(
-        Some(AuthManager::from_auth_for_testing(CodewenAuth::from_api_key(
-            "unused-api-key",
-        ))),
+        Some(AuthManager::from_auth_for_testing(
+            CodewenAuth::from_api_key("unused-api-key"),
+        )),
         AgentIdentityAuthPolicy::JwtOnly,
         thread_id,
         provider,
@@ -1740,7 +1740,9 @@ async fn prefers_apikey_when_config_prefers_apikey_even_with_chatgpt_tokens() {
         /*attestation_provider*/ None,
         /*external_time_provider*/ None,
     );
-    let NewThread { thread: codewen, .. } = thread_manager
+    let NewThread {
+        thread: codewen, ..
+    } = thread_manager
         .start_thread(config.clone())
         .await
         .expect("create new conversation");
@@ -2487,7 +2489,9 @@ async fn user_turn_collaboration_mode_overrides_model_and_effort() -> anyhow::Re
         sse(vec![ev_response_created("resp1"), ev_completed("resp1")]),
     )
     .await;
-    let TestCodex { codewen, config, .. } = test_codewen().with_model("gpt-5.4").build(&server).await?;
+    let TestCodex {
+        codewen, config, ..
+    } = test_codewen().with_model("gpt-5.4").build(&server).await?;
 
     let collaboration_mode = CollaborationMode {
         mode: ModeKind::Default,
@@ -3199,8 +3203,9 @@ async fn azure_responses_request_includes_store_and_prefixed_item_ids() {
     let model_info =
         codewen_core::test_support::construct_model_info_offline(model.as_str(), &config);
     let thread_id = ThreadId::new();
-    let auth_manager =
-        codewen_core::test_support::auth_manager_from_auth(CodewenAuth::from_api_key("Test API Key"));
+    let auth_manager = codewen_core::test_support::auth_manager_from_auth(
+        CodewenAuth::from_api_key("Test API Key"),
+    );
     let session_telemetry = SessionTelemetry::new(
         thread_id,
         model.as_str(),

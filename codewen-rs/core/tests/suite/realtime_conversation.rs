@@ -1349,7 +1349,8 @@ async fn conversation_start_uses_openai_env_key_fallback_with_chatgpt_auth() -> 
     ])
     .await;
 
-    let mut builder = test_codewen().with_auth(CodewenAuth::create_dummy_chatgpt_auth_for_testing());
+    let mut builder =
+        test_codewen().with_auth(CodewenAuth::create_dummy_chatgpt_auth_for_testing());
     let test = builder.build_with_websocket_server(&server).await?;
     assert!(
         server
@@ -1567,7 +1568,8 @@ async fn conversation_start_preflight_failure_emits_realtime_error_only() -> Res
     skip_if_no_network!(Ok(()));
 
     let server = start_websocket_server(vec![]).await;
-    let mut builder = test_codewen().with_auth(CodewenAuth::create_dummy_chatgpt_auth_for_testing());
+    let mut builder =
+        test_codewen().with_auth(CodewenAuth::create_dummy_chatgpt_auth_for_testing());
     let test = builder.build_with_websocket_server(&server).await?;
 
     test.codewen

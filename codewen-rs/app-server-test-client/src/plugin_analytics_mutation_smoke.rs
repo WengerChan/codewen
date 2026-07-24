@@ -97,7 +97,12 @@ pub(super) fn run(
             if let Err(err) = sequence_result {
                 eprintln!("mutation smoke failed before cleanup: {err:#}");
             }
-            print_dirty_recovery(codewen_bin, config_overrides, remote_plugin_id, &cleanup_err);
+            print_dirty_recovery(
+                codewen_bin,
+                config_overrides,
+                remote_plugin_id,
+                &cleanup_err,
+            );
             Err(cleanup_err)
         }
         (sequence_result, RestorationStatus::Unknown(cleanup_err)) => {
@@ -341,7 +346,10 @@ fn run_mutation_sequence(
     }
 }
 
-fn install_remote_plugin(client: &mut CodewenClient, plugin: &RemotePluginExpectation) -> Result<()> {
+fn install_remote_plugin(
+    client: &mut CodewenClient,
+    plugin: &RemotePluginExpectation,
+) -> Result<()> {
     let request_id = client.request_id();
     let _: PluginInstallResponse = client.send_request(
         ClientRequest::PluginInstall {

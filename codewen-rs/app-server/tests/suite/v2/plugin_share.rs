@@ -55,7 +55,10 @@ async fn plugin_share_save_uploads_local_plugin() -> Result<()> {
     let plugin_root = TempDir::new()?;
     let plugin_path = write_test_plugin(plugin_root.path(), "demo-plugin")?;
     let server = MockServer::start().await;
-    write_remote_plugin_config(codewen_home.path(), &format!("{}/backend-api", server.uri()))?;
+    write_remote_plugin_config(
+        codewen_home.path(),
+        &format!("{}/backend-api", server.uri()),
+    )?;
     write_chatgpt_auth(
         codewen_home.path(),
         ChatGptAuthFixture::new("chatgpt-token")
@@ -203,7 +206,10 @@ async fn plugin_share_save_forwards_access_policy() -> Result<()> {
     let plugin_root = TempDir::new()?;
     let plugin_path = write_test_plugin(plugin_root.path(), "demo-plugin")?;
     let server = MockServer::start().await;
-    write_remote_plugin_config(codewen_home.path(), &format!("{}/backend-api", server.uri()))?;
+    write_remote_plugin_config(
+        codewen_home.path(),
+        &format!("{}/backend-api", server.uri()),
+    )?;
     write_chatgpt_auth(
         codewen_home.path(),
         ChatGptAuthFixture::new("chatgpt-token")
@@ -305,7 +311,10 @@ async fn plugin_share_save_rejects_listed_discoverability() -> Result<()> {
     let plugin_root = TempDir::new()?;
     let plugin_path = write_test_plugin(plugin_root.path(), "demo-plugin")?;
     let server = MockServer::start().await;
-    write_remote_plugin_config(codewen_home.path(), &format!("{}/backend-api", server.uri()))?;
+    write_remote_plugin_config(
+        codewen_home.path(),
+        &format!("{}/backend-api", server.uri()),
+    )?;
     write_chatgpt_auth(
         codewen_home.path(),
         ChatGptAuthFixture::new("chatgpt-token")
@@ -412,7 +421,10 @@ async fn plugin_share_rejects_workspace_targets_from_client() -> Result<()> {
     let plugin_root = TempDir::new()?;
     let plugin_path = write_test_plugin(plugin_root.path(), "demo-plugin")?;
     let server = MockServer::start().await;
-    write_remote_plugin_config(codewen_home.path(), &format!("{}/backend-api", server.uri()))?;
+    write_remote_plugin_config(
+        codewen_home.path(),
+        &format!("{}/backend-api", server.uri()),
+    )?;
     write_chatgpt_auth(
         codewen_home.path(),
         ChatGptAuthFixture::new("chatgpt-token")
@@ -494,7 +506,10 @@ async fn plugin_share_save_rejects_access_policy_for_existing_plugin() -> Result
     let plugin_root = TempDir::new()?;
     let plugin_path = write_test_plugin(plugin_root.path(), "demo-plugin")?;
     let server = MockServer::start().await;
-    write_remote_plugin_config(codewen_home.path(), &format!("{}/backend-api", server.uri()))?;
+    write_remote_plugin_config(
+        codewen_home.path(),
+        &format!("{}/backend-api", server.uri()),
+    )?;
     write_chatgpt_auth(
         codewen_home.path(),
         ChatGptAuthFixture::new("chatgpt-token")
@@ -546,7 +561,10 @@ async fn plugin_share_save_rejects_access_policy_for_existing_plugin() -> Result
 async fn plugin_share_list_returns_created_workspace_plugins() -> Result<()> {
     let codewen_home = TempDir::new()?;
     let server = MockServer::start().await;
-    write_remote_plugin_config(codewen_home.path(), &format!("{}/backend-api", server.uri()))?;
+    write_remote_plugin_config(
+        codewen_home.path(),
+        &format!("{}/backend-api", server.uri()),
+    )?;
     write_chatgpt_auth(
         codewen_home.path(),
         ChatGptAuthFixture::new("chatgpt-token")
@@ -632,7 +650,10 @@ async fn plugin_share_checkout_adds_personal_marketplace_entry() -> Result<()> {
     let codewen_home = TempDir::new()?;
     let home = TempDir::new()?;
     let server = MockServer::start().await;
-    write_remote_plugin_config(codewen_home.path(), &format!("{}/backend-api", server.uri()))?;
+    write_remote_plugin_config(
+        codewen_home.path(),
+        &format!("{}/backend-api", server.uri()),
+    )?;
     write_chatgpt_auth(
         codewen_home.path(),
         ChatGptAuthFixture::new("chatgpt-token")
@@ -802,7 +823,10 @@ async fn plugin_share_checkout_rejects_non_share_remote_plugin() -> Result<()> {
     let codewen_home = TempDir::new()?;
     let home = TempDir::new()?;
     let server = MockServer::start().await;
-    write_remote_plugin_config(codewen_home.path(), &format!("{}/backend-api", server.uri()))?;
+    write_remote_plugin_config(
+        codewen_home.path(),
+        &format!("{}/backend-api", server.uri()),
+    )?;
     write_chatgpt_auth(
         codewen_home.path(),
         ChatGptAuthFixture::new("chatgpt-token")
@@ -867,7 +891,10 @@ async fn plugin_share_checkout_cleans_up_path_when_marketplace_update_fails() ->
     let codewen_home = TempDir::new()?;
     let home = TempDir::new()?;
     let server = MockServer::start().await;
-    write_remote_plugin_config(codewen_home.path(), &format!("{}/backend-api", server.uri()))?;
+    write_remote_plugin_config(
+        codewen_home.path(),
+        &format!("{}/backend-api", server.uri()),
+    )?;
     write_chatgpt_auth(
         codewen_home.path(),
         ChatGptAuthFixture::new("chatgpt-token")
@@ -964,7 +991,10 @@ async fn plugin_share_checkout_cleans_up_path_when_marketplace_update_fails() ->
 async fn plugin_share_update_targets_updates_share_targets() -> Result<()> {
     let codewen_home = TempDir::new()?;
     let server = MockServer::start().await;
-    write_remote_plugin_config(codewen_home.path(), &format!("{}/backend-api", server.uri()))?;
+    write_remote_plugin_config(
+        codewen_home.path(),
+        &format!("{}/backend-api", server.uri()),
+    )?;
     write_chatgpt_auth(
         codewen_home.path(),
         ChatGptAuthFixture::new("chatgpt-token")
@@ -1083,7 +1113,10 @@ async fn plugin_share_update_targets_updates_share_targets() -> Result<()> {
 async fn plugin_share_update_targets_publishes_workspace_plugin() -> Result<()> {
     let codewen_home = TempDir::new()?;
     let server = MockServer::start().await;
-    write_remote_plugin_config(codewen_home.path(), &format!("{}/backend-api", server.uri()))?;
+    write_remote_plugin_config(
+        codewen_home.path(),
+        &format!("{}/backend-api", server.uri()),
+    )?;
     write_chatgpt_auth(
         codewen_home.path(),
         ChatGptAuthFixture::new("chatgpt-token")
@@ -1213,7 +1246,10 @@ plugin_sharing = false
 async fn plugin_share_delete_removes_created_workspace_plugin() -> Result<()> {
     let codewen_home = TempDir::new()?;
     let server = MockServer::start().await;
-    write_remote_plugin_config(codewen_home.path(), &format!("{}/backend-api", server.uri()))?;
+    write_remote_plugin_config(
+        codewen_home.path(),
+        &format!("{}/backend-api", server.uri()),
+    )?;
     write_chatgpt_auth(
         codewen_home.path(),
         ChatGptAuthFixture::new("chatgpt-token")

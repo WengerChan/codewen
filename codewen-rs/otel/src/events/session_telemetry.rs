@@ -464,7 +464,8 @@ impl SessionTelemetry {
                     "codewen.usage.reasoning_output_tokens",
                     token_usage.reasoning_output_tokens,
                 );
-                handle_responses_span.record("codewen.usage.total_tokens", token_usage.total_tokens);
+                handle_responses_span
+                    .record("codewen.usage.total_tokens", token_usage.total_tokens);
             }
             _ => {}
         }

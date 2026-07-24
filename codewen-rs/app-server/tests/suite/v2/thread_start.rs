@@ -1683,7 +1683,9 @@ fn create_config_toml_without_approval_policy(
     server_uri: &str,
 ) -> std::io::Result<()> {
     create_config_toml_with_optional_approval_policy(
-        codewen_home, server_uri, /*approval_policy*/ None,
+        codewen_home,
+        server_uri,
+        /*approval_policy*/ None,
     )
 }
 

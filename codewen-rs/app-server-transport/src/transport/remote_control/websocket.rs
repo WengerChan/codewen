@@ -1994,9 +1994,12 @@ mod tests {
     }
 
     pub(super) async fn remote_control_state_runtime(codewen_home: &TempDir) -> Arc<StateRuntime> {
-        StateRuntime::init(codewen_home.path().to_path_buf(), "test-provider".to_string())
-            .await
-            .expect("state runtime should initialize")
+        StateRuntime::init(
+            codewen_home.path().to_path_buf(),
+            "test-provider".to_string(),
+        )
+        .await
+        .expect("state runtime should initialize")
     }
 
     pub(super) fn remote_control_auth_manager() -> Arc<AuthManager> {

@@ -95,7 +95,9 @@ pub(crate) fn host_skills_world_state_section(
 ) -> WorldStateSectionContribution {
     let outcome = host_snapshot.outcome();
     let metadata_budget = match metadata_budget {
-        SkillMetadataBudget::Tokens(limit) => codewen_core_skills::SkillMetadataBudget::Tokens(limit),
+        SkillMetadataBudget::Tokens(limit) => {
+            codewen_core_skills::SkillMetadataBudget::Tokens(limit)
+        }
         SkillMetadataBudget::Characters(limit) => {
             codewen_core_skills::SkillMetadataBudget::Characters(limit)
         }

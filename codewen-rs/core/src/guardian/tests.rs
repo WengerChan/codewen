@@ -115,7 +115,8 @@ impl codewen_extension_api::ContextContributor for GuardianMemoryContextProbe {
         _session_store: &'a codewen_extension_api::ExtensionData,
         thread_store: &'a codewen_extension_api::ExtensionData,
         _step_store: &'a codewen_extension_api::ExtensionData,
-    ) -> codewen_extension_api::ExtensionFuture<'a, Vec<codewen_extension_api::PromptFragment>> {
+    ) -> codewen_extension_api::ExtensionFuture<'a, Vec<codewen_extension_api::PromptFragment>>
+    {
         Box::pin(async move {
             if thread_store
                 .get::<GuardianMemoryContextEnabled>()

@@ -290,7 +290,8 @@ source = "https://github.com/example/blocked.git"
         )),
     );
     let marketplace_path = AbsolutePathBuf::try_from(
-        marketplace_install_root(codewen_home.path()).join("debug/.agents/plugins/marketplace.json"),
+        marketplace_install_root(codewen_home.path())
+            .join("debug/.agents/plugins/marketplace.json"),
     )
     .expect("absolute marketplace path");
 

@@ -388,7 +388,8 @@ async fn review_op_with_plain_text_emits_review_fallback() {
         .await
         .unwrap();
 
-    let _entered = wait_for_event(&codewen, |ev| matches!(ev, EventMsg::EnteredReviewMode(_))).await;
+    let _entered =
+        wait_for_event(&codewen, |ev| matches!(ev, EventMsg::EnteredReviewMode(_))).await;
     let closed = wait_for_event(&codewen, |ev| matches!(ev, EventMsg::ExitedReviewMode(_))).await;
     let review = match closed {
         EventMsg::ExitedReviewMode(ev) => ev
@@ -576,7 +577,8 @@ async fn review_uses_custom_review_model_from_config() {
         .unwrap();
 
     // Wait for completion
-    let _entered = wait_for_event(&codewen, |ev| matches!(ev, EventMsg::EnteredReviewMode(_))).await;
+    let _entered =
+        wait_for_event(&codewen, |ev| matches!(ev, EventMsg::EnteredReviewMode(_))).await;
     let _closed = wait_for_event(&codewen, |ev| {
         matches!(
             ev,
@@ -626,7 +628,8 @@ async fn review_uses_session_model_when_review_model_unset() {
         .await
         .unwrap();
 
-    let _entered = wait_for_event(&codewen, |ev| matches!(ev, EventMsg::EnteredReviewMode(_))).await;
+    let _entered =
+        wait_for_event(&codewen, |ev| matches!(ev, EventMsg::EnteredReviewMode(_))).await;
     let _closed = wait_for_event(&codewen, |ev| {
         matches!(
             ev,
@@ -743,7 +746,8 @@ async fn review_input_isolated_from_parent_history() {
         .await
         .unwrap();
 
-    let _entered = wait_for_event(&codewen, |ev| matches!(ev, EventMsg::EnteredReviewMode(_))).await;
+    let _entered =
+        wait_for_event(&codewen, |ev| matches!(ev, EventMsg::EnteredReviewMode(_))).await;
     let _closed = wait_for_event(&codewen, |ev| {
         matches!(
             ev,
@@ -855,7 +859,8 @@ async fn review_history_surfaces_in_parent_session() {
         })
         .await
         .unwrap();
-    let _entered = wait_for_event(&codewen, |ev| matches!(ev, EventMsg::EnteredReviewMode(_))).await;
+    let _entered =
+        wait_for_event(&codewen, |ev| matches!(ev, EventMsg::EnteredReviewMode(_))).await;
     let _closed = wait_for_event(&codewen, |ev| {
         matches!(
             ev,
@@ -1006,7 +1011,8 @@ async fn review_uses_overridden_cwd_for_base_branch_merge_base() {
         .await
         .unwrap();
 
-    let _entered = wait_for_event(&codewen, |ev| matches!(ev, EventMsg::EnteredReviewMode(_))).await;
+    let _entered =
+        wait_for_event(&codewen, |ev| matches!(ev, EventMsg::EnteredReviewMode(_))).await;
     let _complete = wait_for_event(&codewen, |ev| matches!(ev, EventMsg::TurnComplete(_))).await;
 
     let requests = request_log.requests();

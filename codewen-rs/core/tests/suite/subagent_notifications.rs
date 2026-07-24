@@ -852,7 +852,8 @@ async fn subagent_stop_replaces_stop_and_skips_internal_subagents() -> Result<()
         read_hook_log(test.codewen_home_path(), "subagent_stop_hook_log.jsonl")?;
     assert_eq!(subagent_stop_inputs_after_internal, subagent_stop_inputs);
 
-    let stop_inputs_after_internal = read_hook_log(test.codewen_home_path(), "stop_hook_log.jsonl")?;
+    let stop_inputs_after_internal =
+        read_hook_log(test.codewen_home_path(), "stop_hook_log.jsonl")?;
     assert_eq!(stop_inputs_after_internal.len(), stop_input_count);
 
     Ok(())

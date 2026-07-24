@@ -88,8 +88,9 @@ fn init_login_file_logging(config: &Config) -> Option<WorkerGuard> {
     };
 
     let (non_blocking, guard) = non_blocking(log_file);
-    let env_filter = EnvFilter::try_from_default_env()
-        .unwrap_or_else(|_| EnvFilter::new("codewen_cli=info,codewen_core=info,codewen_login=info"));
+    let env_filter = EnvFilter::try_from_default_env().unwrap_or_else(|_| {
+        EnvFilter::new("codewen_cli=info,codewen_core=info,codewen_login=info")
+    });
     let file_layer = tracing_subscriber::fmt::layer()
         .with_writer(non_blocking)
         .with_target(true)

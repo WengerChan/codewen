@@ -2848,8 +2848,10 @@ mod tests {
         let config = build_config(&temp_dir).await;
         let thread_id = ThreadId::new();
 
-        let history_config =
-            codewen_message_history::HistoryConfig::new(config.codewen_home.clone(), &config.history);
+        let history_config = codewen_message_history::HistoryConfig::new(
+            config.codewen_home.clone(),
+            &config.history,
+        );
 
         codewen_message_history::append_entry("older", &thread_id, &history_config)
             .await

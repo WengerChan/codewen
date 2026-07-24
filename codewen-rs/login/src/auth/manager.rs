@@ -1814,7 +1814,10 @@ impl Debug for AuthManager {
         f.debug_struct("AuthManager")
             .field("codewen_home", &self.codewen_home)
             .field("inner", &self.inner)
-            .field("enable_codewen_api_key_env", &self.enable_codewen_api_key_env)
+            .field(
+                "enable_codewen_api_key_env",
+                &self.enable_codewen_api_key_env,
+            )
             .field(
                 "auth_credentials_store_mode",
                 &self.auth_credentials_store_mode,
@@ -2050,7 +2053,8 @@ impl AuthManager {
         let Some(auth) = self.auth().await else {
             return Ok(None);
         };
-        if policy == AgentIdentityAuthPolicy::ChatGptAuth && matches!(auth, CodewenAuth::Chatgpt(_)) {
+        if policy == AgentIdentityAuthPolicy::ChatGptAuth && matches!(auth, CodewenAuth::Chatgpt(_))
+        {
             let _bootstrap_permit = self
                 .agent_identity_lock
                 .acquire()

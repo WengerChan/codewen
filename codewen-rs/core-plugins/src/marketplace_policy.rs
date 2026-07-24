@@ -112,7 +112,8 @@ impl MarketplacePolicy {
         }
 
         let root = marketplace_root_dir(marketplace_path).map_err(|err| err.to_string())?;
-        if let Some(expected_name) = managed_marketplace_name(codewen_home, marketplace_path, &root) {
+        if let Some(expected_name) = managed_marketplace_name(codewen_home, marketplace_path, &root)
+        {
             return validate_expected_marketplace_name(expected_name, marketplace_name);
         }
 

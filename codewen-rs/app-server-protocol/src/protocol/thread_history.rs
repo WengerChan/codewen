@@ -1053,7 +1053,10 @@ impl ThreadHistoryBuilder {
         self.upsert_item_in_current_turn(item);
     }
 
-    fn handle_collab_close_end(&mut self, payload: &codewen_protocol::protocol::CollabCloseEndEvent) {
+    fn handle_collab_close_end(
+        &mut self,
+        payload: &codewen_protocol::protocol::CollabCloseEndEvent,
+    ) {
         let status = match &payload.status {
             AgentStatus::Errored(_) | AgentStatus::NotFound => CollabAgentToolCallStatus::Failed,
             _ => CollabAgentToolCallStatus::Completed,
@@ -1510,9 +1513,9 @@ fn convert_dynamic_tool_content_items(
         .iter()
         .cloned()
         .map(|item| match item {
-            codewen_protocol::dynamic_tools::DynamicToolCallOutputContentItem::InputText { text } => {
-                DynamicToolCallOutputContentItem::InputText { text }
-            }
+            codewen_protocol::dynamic_tools::DynamicToolCallOutputContentItem::InputText {
+                text,
+            } => DynamicToolCallOutputContentItem::InputText { text },
             codewen_protocol::dynamic_tools::DynamicToolCallOutputContentItem::InputImage {
                 image_url,
             } => DynamicToolCallOutputContentItem::InputImage { image_url },
@@ -3095,7 +3098,9 @@ mod tests {
                 completed_at_ms: Some(1_042),
                 status: GuardianAssessmentStatus::Denied,
                 risk_level: Some(codewen_protocol::protocol::GuardianRiskLevel::High),
-                user_authorization: Some(codewen_protocol::protocol::GuardianUserAuthorization::Low),
+                user_authorization: Some(
+                    codewen_protocol::protocol::GuardianUserAuthorization::Low,
+                ),
                 rationale: Some("Would delete user data.".into()),
                 decision_source: Some(
                     codewen_protocol::protocol::GuardianAssessmentDecisionSource::Agent,

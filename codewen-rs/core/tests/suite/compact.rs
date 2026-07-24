@@ -430,7 +430,9 @@ fn assert_pre_sampling_switch_compaction_requests(
     );
 }
 
-async fn assert_compaction_uses_turn_lifecycle_id(codewen: &std::sync::Arc<codewen_core::CodewenThread>) {
+async fn assert_compaction_uses_turn_lifecycle_id(
+    codewen: &std::sync::Arc<codewen_core::CodewenThread>,
+) {
     let mut turn_started_id = None;
     let mut turn_completed_id = None;
     let mut compact_started_id = None;
@@ -759,7 +761,8 @@ async fn manual_pre_compact_block_decision_does_not_block_compaction() {
         "unsupported PreCompact block output should not prevent the compact request"
     );
 
-    let hook_inputs = read_hook_inputs(&test.codewen_home_path().join("pre_compact_block_log.jsonl"));
+    let hook_inputs =
+        read_hook_inputs(&test.codewen_home_path().join("pre_compact_block_log.jsonl"));
     assert_eq!(hook_inputs.len(), 1);
     let input = &hook_inputs[0];
     assert_eq!(input["hook_event_name"], "PreCompact");
@@ -823,8 +826,11 @@ async fn compact_hooks_respect_matchers_and_post_runs_after_compaction() {
         "auto matcher should not run for manual compaction"
     );
 
-    let hook_inputs =
-        read_hook_inputs(&test.codewen_home_path().join("post_compact_manual_log.jsonl"));
+    let hook_inputs = read_hook_inputs(
+        &test
+            .codewen_home_path()
+            .join("post_compact_manual_log.jsonl"),
+    );
     assert_eq!(hook_inputs.len(), 1);
     let input = &hook_inputs[0];
     assert_eq!(input["hook_event_name"], "PostCompact");

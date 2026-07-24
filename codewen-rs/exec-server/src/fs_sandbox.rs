@@ -141,7 +141,10 @@ impl FileSystemSandboxRunner {
                     environment_id: None,
                     network: None,
                     sandbox_policy_cwd: &cwd.uri,
-                    codewen_linux_sandbox_exe: self.runtime_paths.codewen_linux_sandbox_exe.as_deref(),
+                    codewen_linux_sandbox_exe: self
+                        .runtime_paths
+                        .codewen_linux_sandbox_exe
+                        .as_deref(),
                     use_legacy_landlock: sandbox_context.use_legacy_landlock,
                     windows_sandbox_level: sandbox_context.windows_sandbox_level,
                     windows_sandbox_private_desktop: sandbox_context
@@ -620,9 +623,13 @@ mod tests {
             access: FileSystemAccessMode::Write,
             missing_path_behavior: None,
         }]);
-        let sandbox_context = codewen_file_system::FileSystemSandboxContext::from_permission_profile(
-            PermissionProfile::from_runtime_permissions(&policy, NetworkSandboxPolicy::Restricted),
-        );
+        let sandbox_context =
+            codewen_file_system::FileSystemSandboxContext::from_permission_profile(
+                PermissionProfile::from_runtime_permissions(
+                    &policy,
+                    NetworkSandboxPolicy::Restricted,
+                ),
+            );
 
         let err = sandbox_cwd(&sandbox_context).expect_err("missing cwd should be rejected");
 

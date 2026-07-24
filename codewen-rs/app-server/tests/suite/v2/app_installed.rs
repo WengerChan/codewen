@@ -384,7 +384,10 @@ impl InstalledAppsFixture {
             .as_mut()
             .expect("connector tool should have metadata")
             .0
-            .insert("_codewen_apps".to_string(), json!({ "synthetic_link": true }));
+            .insert(
+                "_codewen_apps".to_string(),
+                json!({ "synthetic_link": true }),
+            );
         let state = Arc::new(InstalledAppsServerState {
             tools: Mutex::new(vec![
                 connector_tool("alpha", "Alpha Tool Name")?,

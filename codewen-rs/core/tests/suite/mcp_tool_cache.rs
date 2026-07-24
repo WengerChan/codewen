@@ -148,7 +148,10 @@ async fn regular_mcp_definition_cache_preserves_live_session_state() -> anyhow::
         ]),
     )
     .await;
-    fixture.codewen.submit(user_turn("use the echo tool")).await?;
+    fixture
+        .codewen
+        .submit(user_turn("use the echo tool"))
+        .await?;
     let first_pid = wait_for_new_pid(fs.as_ref(), &pid_file, /*previous_pid*/ None).await?;
     fs.write_file(&barrier_file, b"ready".to_vec(), /*sandbox*/ None)
         .await?;

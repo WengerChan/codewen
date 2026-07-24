@@ -335,7 +335,9 @@ fn create_test_manager_with_failed_apps_startup(
             tool_catalog_cache_context: None,
             tool_filter: ToolFilter::default(),
             startup_complete: Arc::new(std::sync::atomic::AtomicBool::new(true)),
-            startup_reconnect: Some(Arc::new(CodewenAppsStartupReconnect::new(reconnect_factory))),
+            startup_reconnect: Some(Arc::new(CodewenAppsStartupReconnect::new(
+                reconnect_factory,
+            ))),
             tool_plugin_provenance: Arc::new(ToolPluginProvenance::default()),
             cancel_token: CancellationToken::new(),
         },
@@ -996,7 +998,8 @@ async fn hard_refresh_keeps_binding_override_local_when_shared_cache_loses_race(
         Some("shared-account".to_string()),
         Some("shared-user".to_string()),
     );
-    let cache_context_a = shared_cache.context(codewen_home.path().to_path_buf(), cache_key.clone());
+    let cache_context_a =
+        shared_cache.context(codewen_home.path().to_path_buf(), cache_key.clone());
     let cache_context_b = shared_cache.context(codewen_home.path().to_path_buf(), cache_key);
     let list_started = Arc::new(Notify::new());
     let release_list = Arc::new(Notify::new());

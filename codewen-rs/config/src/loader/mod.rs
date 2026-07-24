@@ -1220,8 +1220,8 @@ async fn load_project_layers(
     strict_config: bool,
 ) -> io::Result<LoadedProjectLayers> {
     let codewen_home_abs = AbsolutePathBuf::from_absolute_path(codewen_home)?;
-    let codewen_home_normalized =
-        normalize_path(codewen_home_abs.as_path()).unwrap_or_else(|_| codewen_home_abs.to_path_buf());
+    let codewen_home_normalized = normalize_path(codewen_home_abs.as_path())
+        .unwrap_or_else(|_| codewen_home_abs.to_path_buf());
     let mut dirs = cwd
         .ancestors()
         .scan(false, |done, a| {
@@ -1254,9 +1254,10 @@ async fn load_project_layers(
         let decision = trust_context.decision_for_dir(&dir);
         let disabled_reason = trust_context.disabled_reason_for_decision(&decision);
         let hooks_config_folder_override = trust_context.root_checkout_hooks_folder_for_dir(&dir);
-        let dot_codewen_normalized =
-            normalize_path(dot_codewen_abs.as_path()).unwrap_or_else(|_| dot_codewen_abs.to_path_buf());
-        if dot_codewen_abs == codewen_home_abs || dot_codewen_normalized == codewen_home_normalized {
+        let dot_codewen_normalized = normalize_path(dot_codewen_abs.as_path())
+            .unwrap_or_else(|_| dot_codewen_abs.to_path_buf());
+        if dot_codewen_abs == codewen_home_abs || dot_codewen_normalized == codewen_home_normalized
+        {
             continue;
         }
         let config_file = dot_codewen_abs.join(CONFIG_TOML_FILE);
@@ -1549,7 +1550,11 @@ foo = "xyzzy"
             windows_system_requirements_toml_file()
                 .expect("requirements.toml path")
                 .as_path()
-                .ends_with(Path::new("OpenAI").join("Codewen").join("requirements.toml"))
+                .ends_with(
+                    Path::new("OpenAI")
+                        .join("Codewen")
+                        .join("requirements.toml")
+                )
         );
     }
 

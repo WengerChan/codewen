@@ -135,7 +135,10 @@ fn resolve_db_path(args: &Args) -> anyhow::Result<PathBuf> {
         return Ok(db.clone());
     }
 
-    let codewen_home = args.codewen_home.clone().unwrap_or_else(default_codewen_home);
+    let codewen_home = args
+        .codewen_home
+        .clone()
+        .unwrap_or_else(default_codewen_home);
     Ok(codewen_state::logs_db_path(codewen_home.as_path()))
 }
 

@@ -581,9 +581,12 @@ fn spawn_app_server_page_loader(
                     });
                 }
                 PickerLoadRequest::Preview { thread_id } => {
-                    let preview =
-                        load_transcript_preview(&mut app_server, thread_id, codewen_home.as_deref())
-                            .await;
+                    let preview = load_transcript_preview(
+                        &mut app_server,
+                        thread_id,
+                        codewen_home.as_deref(),
+                    )
+                    .await;
                     let _ = bg_tx.send(BackgroundEvent::Preview { thread_id, preview });
                 }
                 PickerLoadRequest::Transcript { thread_id } => {
@@ -3513,7 +3516,8 @@ mod tests {
 
     #[test]
     fn footer_cwd_truncates_to_responsive_column() {
-        let cwd = "~/code/codewen.owner-extremely-long-worktree-name-that-needs-truncating/codewen-rs";
+        let cwd =
+            "~/code/codewen.owner-extremely-long-worktree-name-that-needs-truncating/codewen-rs";
         let branch = "owner/branch";
         let footer = render_footer_lines(
             ThreadSortKey::UpdatedAt,

@@ -236,9 +236,11 @@ impl CodewenErr {
             CodewenErr::ConnectionFailed(_) => CodewenErrorInfo::HttpConnectionFailed {
                 http_status_code: self.http_status_code_value(),
             },
-            CodewenErr::ResponseStreamFailed(_) => CodewenErrorInfo::ResponseStreamConnectionFailed {
-                http_status_code: self.http_status_code_value(),
-            },
+            CodewenErr::ResponseStreamFailed(_) => {
+                CodewenErrorInfo::ResponseStreamConnectionFailed {
+                    http_status_code: self.http_status_code_value(),
+                }
+            }
             CodewenErr::RefreshTokenFailed(_) => CodewenErrorInfo::Unauthorized,
             CodewenErr::SessionConfiguredNotFirstEvent
             | CodewenErr::InternalServerError

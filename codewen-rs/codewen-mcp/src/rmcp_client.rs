@@ -236,7 +236,8 @@ impl CodewenAppsStartupReconnect {
                     }
                     Err(error) => {
                         state.consecutive_failures = state.consecutive_failures.saturating_add(1);
-                        let retry_after = codewen_apps_reconnect_backoff(state.consecutive_failures);
+                        let retry_after =
+                            codewen_apps_reconnect_backoff(state.consecutive_failures);
                         state.retry_not_before = Some(TokioInstant::now() + retry_after);
                         warn!(
                             error = %error,
@@ -979,7 +980,8 @@ async fn start_server_task(
         (None, None) => client_tools.clone(),
         _ => unreachable!("Codex Apps fetch ticket requires cache context"),
     };
-    let has_shared_tool_catalog = is_codewen_apps_mcp_server || tool_catalog_cache_context.is_some();
+    let has_shared_tool_catalog =
+        is_codewen_apps_mcp_server || tool_catalog_cache_context.is_some();
     if let (Some(cache_context), Some(fetch_ticket)) = (
         tool_catalog_cache_context.as_ref(),
         tool_catalog_fetch_ticket,

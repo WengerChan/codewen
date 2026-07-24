@@ -257,7 +257,8 @@ async fn windows_elevated_does_not_create_missing_workspace_metadata() -> anyhow
 #[tokio::test]
 #[serial(codewen_home)]
 async fn windows_elevated_enforces_deny_read_and_protects_setup_marker() -> anyhow::Result<()> {
-    let codewen_home = codewen_home_for_windows_sandbox_test("windows-elevated-deny-read-codewen-home")?;
+    let codewen_home =
+        codewen_home_for_windows_sandbox_test("windows-elevated-deny-read-codewen-home")?;
     let _codewen_home_guard = EnvVarGuard::set("CODEWEN_HOME", codewen_home.path().as_os_str());
     stage_windows_sandbox_helpers()?;
     let workspace = TempDir::new()?;
@@ -265,7 +266,10 @@ async fn windows_elevated_enforces_deny_read_and_protects_setup_marker() -> anyh
     let glob_secret = cwd.join("secret.env");
     let exact_secret = cwd.join("exact-secret.txt");
     let public = cwd.join("public.txt");
-    let setup_marker = codewen_home.path().join(".sandbox").join("setup_marker.json");
+    let setup_marker = codewen_home
+        .path()
+        .join(".sandbox")
+        .join("setup_marker.json");
     std::fs::write(&glob_secret, "glob secret\n")?;
     std::fs::write(&exact_secret, "exact secret\n")?;
     std::fs::write(&public, "public ok\n")?;
