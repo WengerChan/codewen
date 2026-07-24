@@ -2093,7 +2093,7 @@ async fn wait_for_plugin_analytics_payload(server: &MockServer) -> Result<serde_
                     && request
                         .url
                         .path()
-                        .ends_with(/codewen/analytics-events/events")
+                        .ends_with("/codewen/analytics-events/events")
             }) {
                 return serde_json::from_slice(&request.body)
                     .map_err(|err| anyhow::anyhow!("invalid analytics payload: {err}"));

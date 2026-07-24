@@ -42,8 +42,8 @@ struct SnapshotRun {
     codewen_home: PathBuf,
 }
 
-const POLICY_PATH_FOR_TEST: &str = /codewen/policy/path";
-const SNAPSHOT_PATH_FOR_TEST: &str = /codewen/snapshot/path";
+const POLICY_PATH_FOR_TEST: &str = "/codewen/policy/path";
+const SNAPSHOT_PATH_FOR_TEST: &str = "/codewen/snapshot/path";
 const SNAPSHOT_MARKER_VAR: &str = "CODEWEN_SNAPSHOT_POLICY_MARKER";
 const SNAPSHOT_MARKER_VALUE: &str = "from_snapshot";
 const POLICY_SUCCESS_OUTPUT: &str = "policy-after-snapshot";
